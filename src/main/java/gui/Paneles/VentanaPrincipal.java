@@ -5,6 +5,9 @@ import gui.Paneles.PanelTienda.PanelTienda;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Esta es la ventana principal desde la que se mostrarán los paneles
+ */
 public class VentanaPrincipal extends JFrame {
     static private final int ANCHO = 950;
     static private final int ALTO = 950;
@@ -21,6 +24,10 @@ public class VentanaPrincipal extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Quita y elimina el panel que se muestra y lo reemplaza por el indicado en el argumento
+     * @param panel: Panel que se mostrará como el panel principal
+     */
     public void setPanelPrincipal(JPanel panel) {
         if (panelPrincipal != null) {
             panelPrincipal.removeAll();

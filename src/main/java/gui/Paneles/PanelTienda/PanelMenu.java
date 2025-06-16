@@ -19,13 +19,26 @@ public class PanelMenu extends JPanel {
         private static final int ANCHO = 150;
         private static final int ALTO = 100;
 
-        public BotonOpcion(String texto, VentanaPrincipal ventanaPrincipal) {
+        public enum PanelAAbrir {
+            PANEL_TIENDA, PANEL_MASCOTAS, PANEL_EMPLEADOS, PANEL_COMPRAS
+        }
+
+        public BotonOpcion(String texto, VentanaPrincipal ventanaPrincipal, PanelAAbrir panelAAbrir) {
             setPreferredSize(new Dimension(ANCHO, ALTO));
             setMinimumSize(new Dimension(ANCHO, ALTO));
             setMaximumSize(new Dimension(ANCHO, ALTO));
 
             addActionListener((ActionEvent e) -> {
-                ventanaPrincipal.setPanelPrincipal(new PanelMascotas());
+                switch (panelAAbrir) {
+                    case PANEL_TIENDA: {
+                        ventanaPrincipal.setPanelPrincipal(new PanelTienda(ventanaPrincipal));
+                        break;
+                    } case PANEL_MASCOTAS: {
+                        ventanaPrincipal.setPanelPrincipal(new PanelMascotas(ventanaPrincipal));
+                        break;
+                    }
+                    // TODO: Añadir los demas paneles
+                }
             });
 
             setText(texto);
@@ -40,11 +53,11 @@ public class PanelMenu extends JPanel {
         Box box = Box.createHorizontalBox();
 
         box.add(Box.createHorizontalGlue());
-        box.add(new BotonOpcion("Mascotas", ventanaPrincipal));
+        box.add(new BotonOpcion("Mascotas", ventanaPrincipal, BotonOpcion.PanelAAbrir.PANEL_MASCOTAS));
         box.add(Box.createHorizontalGlue());
-        box.add(new BotonOpcion("Empleados", ventanaPrincipal));
+        box.add(new BotonOpcion("Empleados", ventanaPrincipal, BotonOpcion.PanelAAbrir.PANEL_EMPLEADOS));
         box.add(Box.createHorizontalGlue());
-        box.add(new BotonOpcion("Comprar", ventanaPrincipal));
+        box.add(new BotonOpcion("Comprar", ventanaPrincipal, BotonOpcion.PanelAAbrir.PANEL_COMPRAS));
         box.add(Box.createHorizontalGlue());
 
         add(box, BorderLayout.CENTER);
