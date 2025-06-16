@@ -15,9 +15,24 @@ public class Mascota {
         felicidad = new Indicador();
     }
 
-    public boolean alimentar(Alimento alimento) {
-        hambre.incrementar(alimento.getPuntosAlimento());
-        return true;
+    public boolean alimentar(Alimentos alimento) {
+        if (puedeComer(alimento)) {
+            hambre.incrementar(alimento.precio);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean puedeComer(Alimentos alimento) {
+        return alimento.esComiblePor(especie);
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Especies getEspecie() {
+        return especie;
     }
 
 }
