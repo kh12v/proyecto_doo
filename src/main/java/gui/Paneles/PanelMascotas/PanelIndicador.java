@@ -21,10 +21,6 @@ public class PanelIndicador extends JPanel {
     public PanelIndicador(int ancho, Color colorDeFondo) {
         setBorder(new EmptyBorder(0, 0, 0, 0));
         setBackground(colorDeFondo);
-        // hambre
-        // salud
-        // higiene
-        // felicidad
 
         Box box = Box.createVerticalBox();
 

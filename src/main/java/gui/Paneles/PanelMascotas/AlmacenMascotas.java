@@ -14,8 +14,7 @@ public class AlmacenMascotas extends JPanel {
         setLayout(new GridLayout(3, 3));
 
         for (int i = 0; i < 9; i++) {
-            add(new PanelMascota(ventanaPrincipal, Color.GRAY, i));
-            // add(new Jaula(true, Jaula.Animal.NINGUNO));
+            add(new PanelMascota(ventanaPrincipal, Color.GRAY));
         }
     }
 }

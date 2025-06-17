@@ -1,5 +1,6 @@
 package gui.Paneles.PanelTienda;
 
+import gui.Paneles.PanelEmpleados.PanelEmpleados;
 import gui.Paneles.PanelMascotas.PanelMascotas;
 import gui.Paneles.VentanaPrincipal;
 
@@ -36,8 +37,14 @@ public class PanelMenu extends JPanel {
                     } case PANEL_MASCOTAS: {
                         ventanaPrincipal.setPanelPrincipal(new PanelMascotas(ventanaPrincipal));
                         break;
+                    } case PANEL_EMPLEADOS: {
+                        ventanaPrincipal.setPanelPrincipal(new PanelEmpleados(ventanaPrincipal));
+                        break;
+                    } case PANEL_COMPRAS: {
+                        // TODO: Implementar PanelCompras
+                        // ventanaPrincipal.setPanelPrincipal(new PanelCompras(ventanaPrincipal));
+                        break;
                     }
-                    // TODO: Añadir los demas paneles
                 }
             });
 
