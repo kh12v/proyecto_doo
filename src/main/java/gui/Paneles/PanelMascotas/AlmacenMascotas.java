@@ -11,12 +11,11 @@ public class AlmacenMascotas extends JPanel {
     public AlmacenMascotas(VentanaPrincipal ventanaPrincipal) {
         this.ventanaPrincipal = ventanaPrincipal;
         setBackground(Color.GRAY);
+        setLayout(new GridLayout(3, 3));
 
-        add(new Jaula(true, Jaula.Animal.GATO));
-        add(new Jaula(false, Jaula.Animal.NINGUNO));
-        add(new Jaula(false, Jaula.Animal.PERRO));
-        add(new Jaula(false, Jaula.Animal.GATO));
-        add(new Jaula(false, Jaula.Animal.LORO));
-        add(new Jaula(false, Jaula.Animal.HAMSTER));
+        for (int i = 0; i < 9; i++) {
+            add(new PanelMascota(ventanaPrincipal, Color.GRAY, i));
+            // add(new Jaula(true, Jaula.Animal.NINGUNO));
+        }
     }
 }
