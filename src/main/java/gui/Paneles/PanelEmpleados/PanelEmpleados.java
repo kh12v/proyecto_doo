@@ -22,7 +22,7 @@ public class PanelEmpleados extends JPanel {
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    ventanaPrincipal.setPanelPrincipal(new PanelTienda(ventanaPrincipal));
+                    ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_TIENDA);
                 }
             });
         }

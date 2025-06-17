@@ -20,11 +20,7 @@ public class PanelMenu extends JPanel {
         private static final int ANCHO = 150;
         private static final int ALTO = 100;
 
-        public enum PanelAAbrir {
-            PANEL_TIENDA, PANEL_MASCOTAS, PANEL_EMPLEADOS, PANEL_COMPRAS
-        }
-
-        public BotonOpcion(String texto, VentanaPrincipal ventanaPrincipal, PanelAAbrir panelAAbrir) {
+        public BotonOpcion(String texto, VentanaPrincipal ventanaPrincipal, VentanaPrincipal.PANELES panelAAbrir) {
             setPreferredSize(new Dimension(ANCHO, ALTO));
             setMinimumSize(new Dimension(ANCHO, ALTO));
             setMaximumSize(new Dimension(ANCHO, ALTO));
@@ -32,17 +28,17 @@ public class PanelMenu extends JPanel {
             addActionListener((ActionEvent e) -> {
                 switch (panelAAbrir) {
                     case PANEL_TIENDA: {
-                        ventanaPrincipal.setPanelPrincipal(new PanelTienda(ventanaPrincipal));
+                        ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_TIENDA);
                         break;
                     } case PANEL_MASCOTAS: {
-                        ventanaPrincipal.setPanelPrincipal(new PanelMascotas(ventanaPrincipal));
+                        ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_MASCOTAS);
                         break;
                     } case PANEL_EMPLEADOS: {
-                        ventanaPrincipal.setPanelPrincipal(new PanelEmpleados(ventanaPrincipal));
+                        ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_EMPLEADOS);
                         break;
                     } case PANEL_COMPRAS: {
                         // TODO: Implementar PanelCompras
-                        // ventanaPrincipal.setPanelPrincipal(new PanelCompras(ventanaPrincipal));
+                        // ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_COMPRAS);
                         break;
                     }
                 }
@@ -60,11 +56,11 @@ public class PanelMenu extends JPanel {
         Box box = Box.createHorizontalBox();
 
         box.add(Box.createHorizontalGlue());
-        box.add(new BotonOpcion("Mascotas", ventanaPrincipal, BotonOpcion.PanelAAbrir.PANEL_MASCOTAS));
+        box.add(new BotonOpcion("Mascotas", ventanaPrincipal, VentanaPrincipal.PANELES.PANEL_MASCOTAS));
         box.add(Box.createHorizontalGlue());
-        box.add(new BotonOpcion("Empleados", ventanaPrincipal, BotonOpcion.PanelAAbrir.PANEL_EMPLEADOS));
+        box.add(new BotonOpcion("Empleados", ventanaPrincipal, VentanaPrincipal.PANELES.PANEL_EMPLEADOS));
         box.add(Box.createHorizontalGlue());
-        box.add(new BotonOpcion("Comprar", ventanaPrincipal, BotonOpcion.PanelAAbrir.PANEL_COMPRAS));
+        box.add(new BotonOpcion("Comprar", ventanaPrincipal, VentanaPrincipal.PANELES.PANEL_COMPRAS));
         box.add(Box.createHorizontalGlue());
 
         add(box, BorderLayout.CENTER);
