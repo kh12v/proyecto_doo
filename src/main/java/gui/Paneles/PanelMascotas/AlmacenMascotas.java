@@ -1,20 +1,30 @@
 package gui.Paneles.PanelMascotas;
 
-import gui.Paneles.VentanaPrincipal;
+import Controladores.Eventos.EventHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class AlmacenMascotas extends JPanel {
-    private VentanaPrincipal ventanaPrincipal;
+    private EventHandler handler;
+    private final ArrayList<PanelMascota> mascotas;
 
-    public AlmacenMascotas(VentanaPrincipal ventanaPrincipal) {
-        this.ventanaPrincipal = ventanaPrincipal;
+    public AlmacenMascotas() {
+        mascotas = new ArrayList<>();
         setBackground(Color.GRAY);
         setLayout(new GridLayout(3, 3));
 
         for (int i = 0; i < 9; i++) {
-            add(new PanelMascota(ventanaPrincipal, Color.GRAY));
+            PanelMascota mascota = new PanelMascota(Color.GRAY);
+            mascotas.add(mascota);
+            add(mascota);
         }
+    }
+
+    public void enviarHandler(EventHandler handler) {
+        this.handler = handler;
+        mascotas.forEach(m -> m.enviarHandler(handler));
+
     }
 }

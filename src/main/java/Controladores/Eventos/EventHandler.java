@@ -4,13 +4,19 @@ import java.util.ArrayList;
 
 public class EventHandler {
     public ArrayList<Suscriptor> eventos;
-    public void enviar(Evento evento){
-        for(Suscriptor suscriptor : eventos)
+
+    public EventHandler() {
+        eventos = new ArrayList<>();
+    }
+
+    public void enviar(Evento evento) {
+        for (Suscriptor suscriptor : eventos)
             if (suscriptor.getEventosEscuchados().contains(evento.getDestino())) {
                 suscriptor.recibir(evento);
             }
     }
-    public void suscribir(Suscriptor suscriptor){
+
+    public void suscribir(Suscriptor suscriptor) {
         eventos.add(suscriptor);
     }
 }

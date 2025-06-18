@@ -1,66 +1,50 @@
 package gui.Paneles.PanelTienda;
 
-import gui.Paneles.PanelEmpleados.PanelEmpleados;
-import gui.Paneles.PanelMascotas.PanelMascotas;
-import gui.Paneles.VentanaPrincipal;
+import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.V_CambiarVentanaEvento;
+import gui.Paneles.Ventanas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 /**
  * En este panel el usuario puede acceder a los otros menus de la simulación
  */
 public class PanelMenu extends JPanel {
     private static final Color COLOR_DE_FONDO = Color.GRAY;
+    public EventHandler handler;
 
-    private VentanaPrincipal ventanaPrincipal;
+    public void enviarHandler(EventHandler handler) {
+        this.handler = handler;
+    }
 
-    private static class BotonOpcion extends JButton {
+    private class BotonOpcion extends JButton {
         private static final int ANCHO = 150;
         private static final int ALTO = 100;
 
-        public BotonOpcion(String texto, VentanaPrincipal ventanaPrincipal, VentanaPrincipal.PANELES panelAAbrir) {
+        public BotonOpcion(String texto, Ventanas ventana) {
             setPreferredSize(new Dimension(ANCHO, ALTO));
             setMinimumSize(new Dimension(ANCHO, ALTO));
             setMaximumSize(new Dimension(ANCHO, ALTO));
 
-            addActionListener((ActionEvent e) -> {
-                switch (panelAAbrir) {
-                    case PANEL_TIENDA: {
-                        ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_TIENDA);
-                        break;
-                    } case PANEL_MASCOTAS: {
-                        ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_MASCOTAS);
-                        break;
-                    } case PANEL_EMPLEADOS: {
-                        ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_EMPLEADOS);
-                        break;
-                    } case PANEL_COMPRAS: {
-                        // TODO: Implementar PanelCompras
-                        // ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_COMPRAS);
-                        break;
-                    }
-                }
-            });
+            addActionListener(e -> handler.enviar(new V_CambiarVentanaEvento(ventana)));
 
             setText(texto);
         }
     }
 
-    public PanelMenu(VentanaPrincipal ventanaPrincipal) {
-        this.ventanaPrincipal = ventanaPrincipal;
+    public PanelMenu() {
         setLayout(new BorderLayout());
         setBackground(COLOR_DE_FONDO);
 
         Box box = Box.createHorizontalBox();
 
         box.add(Box.createHorizontalGlue());
-        box.add(new BotonOpcion("Mascotas", ventanaPrincipal, VentanaPrincipal.PANELES.PANEL_MASCOTAS));
+        box.add(new BotonOpcion("Mascotas", Ventanas.MASCOTAS));
         box.add(Box.createHorizontalGlue());
-        box.add(new BotonOpcion("Empleados", ventanaPrincipal, VentanaPrincipal.PANELES.PANEL_EMPLEADOS));
+        box.add(new BotonOpcion("Empleados", Ventanas.PERSONAL));
         box.add(Box.createHorizontalGlue());
-        box.add(new BotonOpcion("Comprar", ventanaPrincipal, VentanaPrincipal.PANELES.PANEL_COMPRAS));
+        box.add(new BotonOpcion("Comprar", Ventanas.COMPRAS));
         box.add(Box.createHorizontalGlue());
 
         add(box, BorderLayout.CENTER);

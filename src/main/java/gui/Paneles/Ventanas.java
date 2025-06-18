@@ -1,8 +1,8 @@
 package gui.Paneles;
 
 public enum Ventanas {
-    PRINCIPAL,
+    TIENDA,
     MASCOTAS,
     PERSONAL,
-    CONFIG,
+    COMPRAS
 }

@@ -16,10 +16,11 @@ public class ControladorMascotas implements Suscriptor {
     }
 
     @Override
-    public void recibir(Evento e){
-        switch (e.getTipo()){
-            case ActualizarMascotas: System.out.print(2);
-            break;
+    public void recibir(Evento e) {
+        switch (e.getTipo()) {
+            case ActualizarMascotas:
+                System.out.print(2);
+                break;
 
         }
     }

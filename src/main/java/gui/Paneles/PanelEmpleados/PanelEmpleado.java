@@ -1,20 +1,16 @@
 package gui.Paneles.PanelEmpleados;
 
-import gui.Paneles.PanelMascotas.Jaula;
-import gui.Paneles.PanelMascotas.PanelIndicador;
-import gui.Paneles.VentanaPrincipal;
+import Controladores.Eventos.EventHandler;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class PanelEmpleado extends JPanel {
-    VentanaPrincipal ventanaPrincipal;
-
+    EventHandler handler;
     private final static int ANCHO = 300;
     private final static int ALTO = 700;
 
-    public PanelEmpleado(VentanaPrincipal ventanaPrincipal, Color colorDeFondo) {
-        this.ventanaPrincipal = ventanaPrincipal;
+    public PanelEmpleado(Color colorDeFondo) {
         setBackground(colorDeFondo);
         Dimension tamanio = new Dimension(ANCHO, ALTO);
         setSize(tamanio);
@@ -24,6 +20,19 @@ public class PanelEmpleado extends JPanel {
 
         Box box = Box.createVerticalBox();
 
+        JPanel panelNombre = crearPanelNombre(colorDeFondo);
+
+        ImagenEmpleado imagenEmpleado = new ImagenEmpleado();
+        InformacionEmpleado informacionEmpleado = new InformacionEmpleado(ANCHO, colorDeFondo);
+
+        box.add(panelNombre);
+        box.add(imagenEmpleado);
+        box.add(informacionEmpleado);
+
+        add(box);
+    }
+
+    private static JPanel crearPanelNombre(Color colorDeFondo) {
         JPanel panelNombre = new JPanel();
         panelNombre.setBackground(Color.GREEN);
         panelNombre.setBackground(colorDeFondo);
@@ -34,14 +43,10 @@ public class PanelEmpleado extends JPanel {
         labelNombre.setFont(new Font("Arial", Font.PLAIN, 14));
         labelNombre.setForeground(Color.WHITE);
         panelNombre.add(labelNombre);
+        return panelNombre;
+    }
 
-        ImagenEmpleado imagenEmpleado = new ImagenEmpleado();
-        InformacionEmpleado informacionEmpleado = new InformacionEmpleado(ANCHO, colorDeFondo);
-
-        box.add(panelNombre);
-        box.add(imagenEmpleado);
-        box.add(informacionEmpleado);
-
-        add(box);
+    public void enviarHandler(EventHandler handler) {
+        this.handler = handler;
     }
 }

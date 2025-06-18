@@ -1,43 +1,39 @@
 package gui.Paneles.PanelEmpleados;
 
-import gui.Paneles.PanelMascotas.AlmacenMascotas;
-import gui.Paneles.PanelMascotas.PanelMascotas;
-import gui.Paneles.PanelTienda.PanelTienda;
-import gui.Paneles.VentanaPrincipal;
+import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.V_CambiarVentanaEvento;
+import gui.Paneles.Ventanas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PanelEmpleados extends JPanel {
-    VentanaPrincipal ventanaPrincipal;
+    private EventHandler handler;
+    private PlanillaEmpleados planillaEmpleados;
 
-    private static class BackButton extends JButton {
-        public BackButton(VentanaPrincipal ventanaPrincipal) {
+    private class BackButton extends JButton {
+        public BackButton() {
             setText("<--  Volver");
             setPreferredSize(new Dimension(125, 55));
             setMaximumSize(new Dimension(125, 55));
             setMinimumSize(new Dimension(125, 55));
-            addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_TIENDA);
-                }
-            });
+            addActionListener(e -> handler.enviar(new V_CambiarVentanaEvento(Ventanas.TIENDA)));
         }
     }
 
-    public PanelEmpleados(VentanaPrincipal ventanaPrincipal) {
-        this.ventanaPrincipal = ventanaPrincipal;
-
+    public PanelEmpleados() {
         setLayout(new BorderLayout());
 
         JPanel panelNorte = new JPanel();
         panelNorte.setLayout(new BorderLayout());
-        panelNorte.add(new PanelEmpleados.BackButton(ventanaPrincipal), BorderLayout.WEST);
+        panelNorte.add(new PanelEmpleados.BackButton(), BorderLayout.WEST);
         add(panelNorte, BorderLayout.NORTH);
+        planillaEmpleados = new PlanillaEmpleados();
+        add(planillaEmpleados);
+    }
 
-        add(new PlanillaEmpleados(ventanaPrincipal));
+    public void enviarHandler(EventHandler handler){
+        this.handler = handler;
+        planillaEmpleados.enviarHandler(handler);
     }
 }

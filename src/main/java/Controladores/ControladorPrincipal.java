@@ -7,5 +7,6 @@ public class ControladorPrincipal {
     private ControladorMascotas mascotas;
     private ControladorSuministros suministros;
 
-    public ControladorPrincipal(Tienda tienda) {}
+    public ControladorPrincipal(Tienda tienda) {
+    }
 }
