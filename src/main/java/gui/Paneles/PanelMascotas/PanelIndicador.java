@@ -1,7 +1,5 @@
 package gui.Paneles.PanelMascotas;
 
-import gui.Paneles.VentanaPrincipal;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

@@ -1,25 +1,39 @@
 package gui.Paneles.PanelEmpleados;
 
-import gui.Paneles.VentanaPrincipal;
-import javafx.embed.swing.JFXPanel;
+import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.V_CambiarVentanaEvento;
+import gui.Paneles.Ventanas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PanelEmpleados extends JPanel {
-    VentanaPrincipal ventanaPrincipal;
+    private EventHandler handler;
+    private PlanillaEmpleados planillaEmpleados;
 
-    private final static Color COLOR_DE_FONDO = Color.GRAY;
-
-    public PanelEmpleados(VentanaPrincipal ventanaPrincipal) {
-        setBackground(COLOR_DE_FONDO);
-        setLayout(new GridLayout(0, 3));
-
-        for (int i = 0; i < 3; i++) {
-            add(new PanelEmpleado(ventanaPrincipal, COLOR_DE_FONDO));
+    private class BackButton extends JButton {
+        public BackButton() {
+            setText("<--  Volver");
+            setPreferredSize(new Dimension(125, 55));
+            setMaximumSize(new Dimension(125, 55));
+            setMinimumSize(new Dimension(125, 55));
+            addActionListener(e -> handler.enviar(new V_CambiarVentanaEvento(Ventanas.TIENDA)));
         }
     }
-}
 
+    public PanelEmpleados() {
+        setLayout(new BorderLayout());
+
+        JPanel panelNorte = new JPanel();
+        panelNorte.setLayout(new BorderLayout());
+        panelNorte.add(new PanelEmpleados.BackButton(), BorderLayout.WEST);
+        add(panelNorte, BorderLayout.NORTH);
+        planillaEmpleados = new PlanillaEmpleados();
+        add(planillaEmpleados);
+    }
+
+    public void enviarHandler(EventHandler handler){
+        this.handler = handler;
+        planillaEmpleados.enviarHandler(handler);
+    }
+}

@@ -1,24 +1,18 @@
 package gui.Paneles.PanelMascotas;
 
-import gui.Paneles.VentanaPrincipal;
-
+import Controladores.Eventos.EventHandler;
 import javax.swing.*;
 import java.awt.*;
 
 public class PanelMascota extends JPanel {
-    private VentanaPrincipal ventanaPrincipal;
+    EventHandler handler;
+    public final static int ANCHO = 300;
+    public final static int ALTO = 400;
 
-    private final static int ANCHO = 300;
-    private final static int ALTO = 700;
-
-    public PanelMascota(VentanaPrincipal ventanaPrincipal, Color colorDeFondo) {
-        this.ventanaPrincipal = ventanaPrincipal;
+    public PanelMascota(Color colorDeFondo) {
         setBackground(colorDeFondo);
         Dimension tamanio = new Dimension(ANCHO, ALTO);
-        setSize(tamanio);
         setPreferredSize(tamanio);
-        setMaximumSize(tamanio);
-        setMinimumSize(tamanio);
 
         Box box = Box.createVerticalBox();
 
@@ -40,5 +34,9 @@ public class PanelMascota extends JPanel {
         box.add(panelIndicador);
 
         add(box);
+    }
+    
+    public void enviarHandler(EventHandler handler){
+        this.handler = handler;
     }
 }

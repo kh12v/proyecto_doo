@@ -6,7 +6,6 @@ public class Tienda {
     String nombre;
     int dinero;
     ArrayList<Mascota> mascotas;
-    ArrayList<ContenedorAnimal> jaulas;
     int[] stockMedicamentos;
     int[] stockAlimentos;
 
@@ -16,7 +15,6 @@ public class Tienda {
         this.mascotas = new ArrayList<>();
         stockMedicamentos = new int[Medicamentos.values().length];
         stockAlimentos = new int[Alimentos.values().length];
-        this.jaulas = new ArrayList<>();
     }
 
     public boolean comprarMedicamento(Medicamentos medicamento) {
