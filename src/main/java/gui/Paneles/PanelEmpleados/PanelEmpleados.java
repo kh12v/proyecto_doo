@@ -1,9 +1,7 @@
 package gui.Paneles.PanelEmpleados;
 
-import gui.Paneles.PanelMascotas.AlmacenMascotas;
-import gui.Paneles.PanelMascotas.PanelMascotas;
-import gui.Paneles.PanelTienda.PanelTienda;
 import gui.Paneles.VentanaPrincipal;
+import javafx.embed.swing.JFXPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,31 +11,15 @@ import java.awt.event.ActionListener;
 public class PanelEmpleados extends JPanel {
     VentanaPrincipal ventanaPrincipal;
 
-    private static class BackButton extends JButton {
-        public BackButton(VentanaPrincipal ventanaPrincipal) {
-            setText("<--  Volver");
-            setPreferredSize(new Dimension(125, 55));
-            setMaximumSize(new Dimension(125, 55));
-            setMinimumSize(new Dimension(125, 55));
-            addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_TIENDA);
-                }
-            });
-        }
-    }
+    private final static Color COLOR_DE_FONDO = Color.GRAY;
 
     public PanelEmpleados(VentanaPrincipal ventanaPrincipal) {
-        this.ventanaPrincipal = ventanaPrincipal;
+        setBackground(COLOR_DE_FONDO);
+        setLayout(new GridLayout(0, 3));
 
-        setLayout(new BorderLayout());
-
-        JPanel panelNorte = new JPanel();
-        panelNorte.setLayout(new BorderLayout());
-        panelNorte.add(new PanelEmpleados.BackButton(ventanaPrincipal), BorderLayout.WEST);
-        add(panelNorte, BorderLayout.NORTH);
-
-        add(new PlanillaEmpleados(ventanaPrincipal));
+        for (int i = 0; i < 3; i++) {
+            add(new PanelEmpleado(ventanaPrincipal, COLOR_DE_FONDO));
+        }
     }
 }
+

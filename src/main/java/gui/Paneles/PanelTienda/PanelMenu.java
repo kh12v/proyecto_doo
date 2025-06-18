@@ -37,8 +37,7 @@ public class PanelMenu extends JPanel {
                         ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_EMPLEADOS);
                         break;
                     } case PANEL_COMPRAS: {
-                        // TODO: Implementar PanelCompras
-                        // ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_COMPRAS);
+                        ventanaPrincipal.setPanelPrincipal(VentanaPrincipal.PANELES.PANEL_COMPRAS);
                         break;
                     }
                 }
