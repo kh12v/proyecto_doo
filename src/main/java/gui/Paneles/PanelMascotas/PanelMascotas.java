@@ -28,7 +28,8 @@ public class PanelMascotas extends JPanel {
         panelNorte.add(new BackButton(), BorderLayout.WEST);
         add(panelNorte, BorderLayout.NORTH);
         almacen = new AlmacenMascotas();
-        add(almacen);
+        JScrollPane pane = new JScrollPane(almacen);
+        add(pane);
     }
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;

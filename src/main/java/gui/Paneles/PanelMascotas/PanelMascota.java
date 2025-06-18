@@ -7,15 +7,12 @@ import java.awt.*;
 public class PanelMascota extends JPanel {
     EventHandler handler;
     private final static int ANCHO = 300;
-    private final static int ALTO = 700;
+    private final static int ALTO = 400;
 
     public PanelMascota(Color colorDeFondo) {
         setBackground(colorDeFondo);
         Dimension tamanio = new Dimension(ANCHO, ALTO);
-        setSize(tamanio);
         setPreferredSize(tamanio);
-        setMaximumSize(tamanio);
-        setMinimumSize(tamanio);
 
         Box box = Box.createVerticalBox();
 

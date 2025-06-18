@@ -13,7 +13,8 @@ public class AlmacenMascotas extends JPanel {
     public AlmacenMascotas() {
         mascotas = new ArrayList<>();
         setBackground(Color.GRAY);
-        setLayout(new GridLayout(3, 3));
+        setLayout(new FlowLayout());
+        setPreferredSize(new Dimension(900, 450*9/3));
 
         for (int i = 0; i < 9; i++) {
             PanelMascota mascota = new PanelMascota(Color.GRAY);
