@@ -6,7 +6,9 @@ public class EventHandler {
     public ArrayList<Suscriptor> eventos;
     public void enviar(Evento evento){
         for(Suscriptor suscriptor : eventos)
-            suscriptor.recibir(evento);
+            if (suscriptor.getEventosEscuchados().contains(evento.getDestino())) {
+                suscriptor.recibir(evento);
+            }
     }
     public void suscribir(Suscriptor suscriptor){
         eventos.add(suscriptor);

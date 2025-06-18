@@ -17,12 +17,7 @@ public class PanelMascotas extends JPanel {
             setPreferredSize(new Dimension(125, 55));
             setMaximumSize(new Dimension(125, 55));
             setMinimumSize(new Dimension(125, 55));
-            addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ventanaPrincipal.setPanelPrincipal(new PanelTienda(ventanaPrincipal));
-                }
-            });
+            addActionListener(e -> ventanaPrincipal.setPanelPrincipal(new PanelTienda(ventanaPrincipal)));
         }
     }
 
