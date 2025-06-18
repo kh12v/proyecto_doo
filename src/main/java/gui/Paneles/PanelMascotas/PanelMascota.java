@@ -6,8 +6,8 @@ import java.awt.*;
 
 public class PanelMascota extends JPanel {
     EventHandler handler;
-    private final static int ANCHO = 300;
-    private final static int ALTO = 400;
+    public final static int ANCHO = 300;
+    public final static int ALTO = 400;
 
     public PanelMascota(Color colorDeFondo) {
         setBackground(colorDeFondo);

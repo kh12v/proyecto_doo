@@ -25,7 +25,7 @@ public class VentanaPrincipal extends JFrame implements Suscriptor {
     @Override
     public void recibir(Evento evento) {
         switch (evento.getTipo()){
-            case CambiarVentana: setPanelPrincipal(((V_CambiarVentanaEvento) evento).getVentana());
+            case CambiarVentana -> setPanelPrincipal(((V_CambiarVentanaEvento) evento).getVentana());
         }
     }
 
@@ -37,10 +37,6 @@ public class VentanaPrincipal extends JFrame implements Suscriptor {
     }
     // TODO: Crear panel compras
     // private final PanelCompras PANEL_COMPRAS;
-
-    public enum PANELES {
-        PANEL_TIENDA, PANEL_MASCOTAS, PANEL_EMPLEADOS, PANEL_COMPRAS
-    }
 
     public VentanaPrincipal(String titulo) {
         setTitle(titulo);
