@@ -7,8 +7,7 @@ import Controladores.Eventos.Tipos.V_ActualizarMascotasEvento;
 import Logica.Mascota;
 import Logica.Tienda;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class ControladorMascotas implements Suscriptor, Publicador {
     EventHandler handler;
@@ -35,20 +34,24 @@ public class ControladorMascotas implements Suscriptor, Publicador {
     }
 
     public void contestarPeticionMascotas(M_PedirMascotasEvento e) {
-        ArrayList<Mascota> mascotas = t.getMascotas();
-        int[] indices;
-        //no me gusta este if
-        if (e.getIndices() == M_PedirMascotasEvento.WILD){
-            indices = new int[mascotas.size()];
-            for (int i = 0; i < mascotas.size(); i++){
-                indices[i] = i;
-            }
-        } else {
-            indices = Arrays.stream(e.getIndices())
-                    .filter(i -> i >= 0 && i < mascotas.size())
-                    .toArray();
-        }
-        ArrayList<Mascota> mascotasFiltro = new ArrayList<>(Arrays.stream(indices).mapToObj(mascotas::get).toList());
-        handler.enviar(new V_ActualizarMascotasEvento(mascotasFiltro,indices,e.isForzar()));
+        List<Mascota> mascotas = t.getMascotas();
+        //filtra todas las ids pedidas que tiene la tienda, o entrega todas en caso de WILD
+        List<Integer> ids = (e.getIDs() == M_PedirMascotasEvento.WILD)
+                ? mascotas.stream()
+                .map(Mascota::getID)
+                .toList()
+                : mascotas.stream()
+                .map(Mascota::getID)
+                .filter(t::encontrarID)
+                .toList();
+
+        //filtra todas las mascotas con las ids pedidas
+        MascotaState[] filtrado = mascotas.stream()
+                .filter(m -> ids.contains(m.getID()))
+                .map(MascotaState::toState)
+                .toArray(MascotaState[]::new);
+
+        handler.enviar(new V_ActualizarMascotasEvento(filtrado));
     }
+
 }

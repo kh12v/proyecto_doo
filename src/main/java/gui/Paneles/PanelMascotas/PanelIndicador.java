@@ -16,9 +16,9 @@ public class PanelIndicador extends JPanel {
         return indicador;
     }
 
-    public PanelIndicador(int ancho, Color colorDeFondo) {
+    public PanelIndicador(int ancho) {
         setBorder(new EmptyBorder(0, 0, 0, 0));
-        setBackground(colorDeFondo);
+        setBackground(new Color(0,0,0,0));
 
         Box box = Box.createVerticalBox();
 

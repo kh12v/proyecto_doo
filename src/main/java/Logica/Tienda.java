@@ -39,6 +39,9 @@ public class Tienda {
         return mascotas;
     }
 
+    public boolean encontrarID(int id){
+        return mascotas.stream().anyMatch(i -> i.getID() == id);
+    }
     public void agregarMascota(Mascota mascota) {
         mascotas.add(mascota);
     }

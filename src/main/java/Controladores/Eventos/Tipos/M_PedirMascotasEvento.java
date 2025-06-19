@@ -10,20 +10,15 @@ import Controladores.Eventos.TipoEvento;
 public class M_PedirMascotasEvento extends Evento {
     // me encantaría usar una máscara de bits para esto :(
     int[] indices;
-    boolean forzar;
     /**
      * Al usar WILD, se pide información sobre todas las mascotas existentes
      */
-    public static final int[] WILD = {Integer.MIN_VALUE};
-    public M_PedirMascotasEvento(int[] indices, boolean forzar) {
+    public static final int[] WILD = {};
+    public M_PedirMascotasEvento(int[] indices) {
         super(TipoEvento.PedirMascotas, DestinoEvento.Controlador);
         this.indices = indices;
-        this.forzar = forzar;
     }
-    public boolean isForzar(){
-        return forzar;
-    }
-    public int[] getIndices() {
+    public int[] getIDs() {
         return indices;
     }
 }

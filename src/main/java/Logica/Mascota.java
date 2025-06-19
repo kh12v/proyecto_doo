@@ -6,13 +6,15 @@ import java.util.List;
 public class Mascota {
     private String nombre;
     private Especies especie;
+    private int id;
     Indicador hambre;
     Indicador salud;
     Indicador felicidad;
 
-    public Mascota(String nombre, Especies especie) {
+    public Mascota(String nombre, Especies especie, int id) {
         this.nombre = nombre;
         this.especie = especie;
+        this.id = id;
         hambre = new Indicador();
         salud = new Indicador();
         felicidad = new Indicador();
@@ -38,6 +40,7 @@ public class Mascota {
         return especie;
     }
 
+    public int getID() {return id;}
     public ArrayList<Indicador> getIndicadores(){
         return new ArrayList<>(List.of(new Indicador[]{hambre, salud, felicidad}));
     }

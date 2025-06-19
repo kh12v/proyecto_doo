@@ -13,18 +13,19 @@ import java.util.Arrays;
  */
 public record MascotaState (String nombre,
                            Especies especie,
+                           int id,
                            int[][] estadoIndicadores){
     /**
      * DEL representa la mascota nula, si se recibe esta mascota en un índice, significa que hay que borrarla
      */
-    public static final MascotaState DEL = new MascotaState("BORRAR",Especies.NULL,null);
+    public static final MascotaState DEL = new MascotaState("BORRAR",Especies.NULL,0,null);
     public static MascotaState toState(Mascota mascota){
         int[][] indicadorEstado = mascota
                 .getIndicadores()
                 .stream()
                 .map(m -> new int[]{m.getValor(),m.getFrecuenciaReduccion()})
                 .toArray(int[][]::new);
-        return new MascotaState(mascota.getNombre(),mascota.getEspecie(),indicadorEstado);
+        return new MascotaState(mascota.getNombre(),mascota.getEspecie(),mascota.getID(),indicadorEstado);
     }
 
     @Override
