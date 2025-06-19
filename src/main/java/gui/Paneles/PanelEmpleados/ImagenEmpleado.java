@@ -13,7 +13,7 @@ public class ImagenEmpleado extends JPanel {
     private final static int ANCHO = 150;
     private final static int ALTO = 150;
 
-    private final static String RUTA = "resources/empleado.png";
+    private final static String RUTA = "recursos/empleado.png";
 
     public ImagenEmpleado() {
         setBackground(COLOR_DE_FONDO);

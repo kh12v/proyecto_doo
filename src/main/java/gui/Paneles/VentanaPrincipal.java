@@ -1,6 +1,7 @@
 package gui.Paneles;
 
 import Controladores.Eventos.*;
+import gui.Paneles.PanelCompras.PanelCompras;
 import gui.Paneles.PanelEmpleados.PanelEmpleados;
 import gui.Paneles.PanelMascotas.PanelMascotas;
 import gui.Paneles.PanelTienda.PanelTienda;
@@ -21,6 +22,7 @@ public class VentanaPrincipal extends JFrame implements Suscriptor {
     private final PanelTienda PANEL_TIENDA;
     private final PanelMascotas PANEL_MASCOTAS;
     private final PanelEmpleados PANEL_EMPLEADOS;
+     private final PanelCompras PANEL_COMPRAS;
 
     @Override
     public void recibir(Evento evento) {
@@ -35,8 +37,6 @@ public class VentanaPrincipal extends JFrame implements Suscriptor {
         eventos.add(DestinoEvento.Vista);
         return eventos;
     }
-    // TODO: Crear panel compras
-    // private final PanelCompras PANEL_COMPRAS;
 
     public VentanaPrincipal(String titulo) {
         setTitle(titulo);
@@ -46,8 +46,7 @@ public class VentanaPrincipal extends JFrame implements Suscriptor {
         PANEL_TIENDA = new PanelTienda();
         PANEL_MASCOTAS = new PanelMascotas();
         PANEL_EMPLEADOS = new PanelEmpleados();
-        // TODO: Crear panel compras
-        // panelCompras = new PanelCompras(this);
+        PANEL_COMPRAS = new PanelCompras();
 
         setPanelPrincipal(Ventanas.TIENDA);
 
@@ -76,8 +75,7 @@ public class VentanaPrincipal extends JFrame implements Suscriptor {
                 panelPrincipal = PANEL_EMPLEADOS;
                 break;
             case COMPRAS:
-                // TODO: Crear panel compras
-                // panelPrincipal = panelCompras;
+                panelPrincipal = PANEL_COMPRAS;
                 break;
         }
 
@@ -86,10 +84,12 @@ public class VentanaPrincipal extends JFrame implements Suscriptor {
         revalidate();
         repaint();
     }
+
     public void enviarHandler(EventHandler handler) {
         PANEL_TIENDA.enviarHandler(handler);
         PANEL_EMPLEADOS.enviarHandler(handler);
         PANEL_MASCOTAS.enviarHandler(handler);
+        PANEL_COMPRAS.enviarHandler(handler);
         handler.suscribir(this);
     }
     public JPanel getPanelPrincipal() {

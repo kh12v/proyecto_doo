@@ -32,7 +32,7 @@ public class PanelEmpleados extends JPanel {
         add(planillaEmpleados);
     }
 
-    public void enviarHandler(EventHandler handler){
+    public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         planillaEmpleados.enviarHandler(handler);
     }

@@ -62,11 +62,11 @@ public class Jaula extends JPanel {
         setLayout(new OverlayLayout(this));
         setVisible(true);
         if (bloqueada) {
-            add(cargarImagen(ANCHO, ALTO, "resources/espacioBloqueado.png"));
+            add(cargarImagen(ANCHO, ALTO, "recursos/espacioBloqueado.png"));
         } else if (animal == Animal.NINGUNO){
-            add(cargarImagen(ANCHO, ALTO, "resources/espacioDisponible.png"));
+            add(cargarImagen(ANCHO, ALTO, "recursos/espacioDisponible.png"));
         } else {
-            add(cargarImagen(ANCHO, ALTO, "resources/animals/" + animal.getTipo() + ".png"));
+            add(cargarImagen(ANCHO, ALTO, "recursos/jaulas/" + animal.getTipo() + ".png"));
         }
     }
 }

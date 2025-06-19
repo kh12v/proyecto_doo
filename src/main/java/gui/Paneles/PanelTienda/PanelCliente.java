@@ -15,7 +15,7 @@ public class PanelCliente extends JPanel {
         setBackground(COLOR_DE_FONDO);
         setBorder(new EmptyBorder(0, 0, 0, 0));
 
-        IconoCliente iconoCliente = new IconoCliente("resources/cliente.png", 300, 300, COLOR_DE_FONDO);
+        IconoCliente iconoCliente = new IconoCliente("recursos/cliente.png", 300, 300, COLOR_DE_FONDO);
 
         add(iconoCliente, BorderLayout.SOUTH);
     }
