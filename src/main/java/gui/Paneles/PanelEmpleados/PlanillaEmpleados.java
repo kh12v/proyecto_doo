@@ -1,12 +1,13 @@
 package gui.Paneles.PanelEmpleados;
 
 import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.Publicador;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PlanillaEmpleados extends JPanel {
+public class PlanillaEmpleados extends JPanel implements Publicador {
     EventHandler handler;
     ArrayList<PanelEmpleado> empleados;
 

@@ -1,7 +1,13 @@
-package Controladores.Eventos;
+package Controladores.Eventos.Tipos;
 
+import Controladores.Eventos.DestinoEvento;
+import Controladores.Eventos.Evento;
+import Controladores.Eventos.TipoEvento;
 import gui.Paneles.Ventanas;
 
+/**
+ * Pide a la ventana principal cambiar el panel mostrado actualmente
+ */
 public class V_CambiarVentanaEvento extends Evento {
     Ventanas ventana;
 

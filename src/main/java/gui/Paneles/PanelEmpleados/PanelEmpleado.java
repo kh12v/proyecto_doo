@@ -1,11 +1,12 @@
 package gui.Paneles.PanelEmpleados;
 
 import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.Publicador;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelEmpleado extends JPanel {
+public class PanelEmpleado extends JPanel implements Publicador {
     EventHandler handler;
     private final static int ANCHO = 300;
     private final static int ALTO = 700;

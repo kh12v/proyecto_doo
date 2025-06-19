@@ -1,15 +1,17 @@
 package gui.Paneles.PanelMascotas;
 
 import Controladores.Eventos.EventHandler;
-import Controladores.Eventos.V_CambiarVentanaEvento;
+import Controladores.Eventos.Publicador;
+import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
 import gui.Paneles.Ventanas;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelMascotas extends JPanel {
+public class PanelMascotas extends JPanel implements Publicador {
     private EventHandler handler;
     private final AlmacenMascotas almacen;
+
     private class BackButton extends JButton {
         public BackButton() {
             setText("<--  Volver");

@@ -1,16 +1,14 @@
 package gui.Paneles.PanelCompras;
 
 import Controladores.Eventos.EventHandler;
-import Controladores.Eventos.V_CambiarVentanaEvento;
-import gui.Paneles.PanelEmpleados.PanelEmpleados;
-import gui.Paneles.PanelEmpleados.PlanillaEmpleados;
-import gui.Paneles.VentanaPrincipal;
+import Controladores.Eventos.Publicador;
+import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
 import gui.Paneles.Ventanas;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelCompras extends JPanel {
+public class PanelCompras extends JPanel implements Publicador {
     private EventHandler handler;
     private PanelDeCompras panelDeCompras;
 

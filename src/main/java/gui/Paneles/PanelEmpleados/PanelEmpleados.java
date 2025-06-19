@@ -1,15 +1,16 @@
 package gui.Paneles.PanelEmpleados;
 
 import Controladores.Eventos.EventHandler;
-import Controladores.Eventos.V_CambiarVentanaEvento;
+import Controladores.Eventos.Publicador;
+import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
 import gui.Paneles.Ventanas;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelEmpleados extends JPanel {
+public class PanelEmpleados extends JPanel implements Publicador {
     private EventHandler handler;
-    private PlanillaEmpleados planillaEmpleados;
+    private final PlanillaEmpleados planillaEmpleados;
 
     private class BackButton extends JButton {
         public BackButton() {

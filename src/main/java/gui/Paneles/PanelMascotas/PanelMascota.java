@@ -1,15 +1,19 @@
 package gui.Paneles.PanelMascotas;
 
+import Controladores.Estado.MascotaState;
 import Controladores.Eventos.EventHandler;
+import Logica.Especies;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class PanelMascota extends JPanel {
     EventHandler handler;
+    Jaula jaula;
     public final static int ANCHO = 300;
     public final static int ALTO = 400;
 
-    public PanelMascota(Color colorDeFondo) {
+    public PanelMascota(Color colorDeFondo, Especies especie) {
         setBackground(colorDeFondo);
         Dimension tamanio = new Dimension(ANCHO, ALTO);
         setPreferredSize(tamanio);
@@ -26,7 +30,7 @@ public class PanelMascota extends JPanel {
         labelNombre.setForeground(Color.WHITE);
         panelNombre.add(labelNombre);
 
-        Jaula jaula = new Jaula(false, Jaula.Animal.PERRO);
+        jaula = new Jaula(false, especie);
         PanelIndicador panelIndicador = new PanelIndicador(ANCHO, colorDeFondo);
 
         box.add(panelNombre);
@@ -34,6 +38,10 @@ public class PanelMascota extends JPanel {
         box.add(panelIndicador);
 
         add(box);
+    }
+
+    public void modificarPanel(MascotaState estado){
+        jaula.modificarJaula(estado);
     }
     
     public void enviarHandler(EventHandler handler){

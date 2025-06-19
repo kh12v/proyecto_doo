@@ -4,6 +4,8 @@ public enum Especies {
     Perro,
     Gato,
     Loro,
-    Hamster
+    Hamster,
+    NULL;
+
 
 }

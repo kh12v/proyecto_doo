@@ -1,12 +1,13 @@
 package gui.Paneles.PanelTienda;
 
 import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.Publicador;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class PanelCliente extends JPanel {
+public class PanelCliente extends JPanel implements Publicador {
     private static final Color COLOR_DE_FONDO = new Color(87, 177, 230);
 
 

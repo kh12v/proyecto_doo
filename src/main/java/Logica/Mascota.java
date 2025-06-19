@@ -1,5 +1,8 @@
 package Logica;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Mascota {
     private String nombre;
     private Especies especie;
@@ -33,6 +36,10 @@ public class Mascota {
 
     public Especies getEspecie() {
         return especie;
+    }
+
+    public ArrayList<Indicador> getIndicadores(){
+        return new ArrayList<>(List.of(new Indicador[]{hambre, salud, felicidad}));
     }
 
 }

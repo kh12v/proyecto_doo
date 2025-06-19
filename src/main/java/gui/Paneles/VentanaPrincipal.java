@@ -1,6 +1,7 @@
 package gui.Paneles;
 
 import Controladores.Eventos.*;
+import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
 import gui.Paneles.PanelCompras.PanelCompras;
 import gui.Paneles.PanelEmpleados.PanelEmpleados;
 import gui.Paneles.PanelMascotas.PanelMascotas;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Esta es la ventana principal desde la que se mostrarán los paneles
  */
-public class VentanaPrincipal extends JFrame implements Suscriptor {
+public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
     static private final int ANCHO = 950;
     static private final int ALTO = 950;
 
@@ -32,10 +33,8 @@ public class VentanaPrincipal extends JFrame implements Suscriptor {
     }
 
     @Override
-    public ArrayList<DestinoEvento> getEventosEscuchados() {
-        ArrayList<DestinoEvento> eventos = new ArrayList<>();
-        eventos.add(DestinoEvento.Vista);
-        return eventos;
+    public DestinoEvento[] getEventosEscuchados() {
+        return new DestinoEvento[]{DestinoEvento.Vista};
     }
 
     public VentanaPrincipal(String titulo) {

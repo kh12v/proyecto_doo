@@ -34,4 +34,8 @@ public class Tienda {
         stockMedicamentos[alimento.ordinal()]++;
         return true;
     }
+
+    public ArrayList<Mascota> getMascotas() {
+        return mascotas;
+    }
 }

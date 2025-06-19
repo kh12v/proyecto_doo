@@ -1,7 +1,8 @@
 package gui.Paneles.PanelTienda;
 
 import Controladores.Eventos.EventHandler;
-import Controladores.Eventos.V_CambiarVentanaEvento;
+import Controladores.Eventos.Publicador;
+import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
 import gui.Paneles.Ventanas;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.awt.*;
 /**
  * En este panel el usuario puede acceder a los otros menus de la simulación
  */
-public class PanelMenu extends JPanel {
+public class PanelMenu extends JPanel implements Publicador {
     private static final Color COLOR_DE_FONDO = Color.GRAY;
     public EventHandler handler;
 
