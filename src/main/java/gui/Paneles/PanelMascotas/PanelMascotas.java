@@ -35,6 +35,6 @@ public class PanelMascotas extends JPanel implements Publicador {
     }
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
-
+        almacen.enviarHandler(handler);
     }
 }

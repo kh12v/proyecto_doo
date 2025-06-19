@@ -18,7 +18,7 @@ public class V_ActualizarMascotasEvento extends Evento {
     int[] indices;
     boolean forzar;
     public V_ActualizarMascotasEvento(ArrayList<Mascota> mascotas, int[] indices, boolean forzar) {
-        super(TipoEvento.EntregarMascotas, DestinoEvento.Vista);
+        super(TipoEvento.ActualizarMascotas, DestinoEvento.Vista);
         this.forzar = forzar;
         this.indices = indices;
         this.mascotas = mascotas

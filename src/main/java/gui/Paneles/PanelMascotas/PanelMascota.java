@@ -10,10 +10,11 @@ import java.awt.*;
 public class PanelMascota extends JPanel {
     EventHandler handler;
     Jaula jaula;
+    JLabel labelNombre;
     public final static int ANCHO = 300;
     public final static int ALTO = 400;
 
-    public PanelMascota(Color colorDeFondo, Especies especie) {
+    public PanelMascota(Color colorDeFondo, MascotaState mascota) {
         setBackground(colorDeFondo);
         Dimension tamanio = new Dimension(ANCHO, ALTO);
         setPreferredSize(tamanio);
@@ -25,12 +26,12 @@ public class PanelMascota extends JPanel {
         panelNombre.setPreferredSize(new Dimension(ANCHO, (int)(ALTO*0.05)));
         panelNombre.setMaximumSize(new Dimension(ANCHO, (int)(ALTO*0.05)));
 
-        JLabel labelNombre = new JLabel("Nombre aquí", SwingConstants.LEFT);
+        labelNombre = new JLabel(mascota.nombre(), SwingConstants.LEFT);
         labelNombre.setFont(new Font("Arial", Font.PLAIN, 14));
         labelNombre.setForeground(Color.WHITE);
         panelNombre.add(labelNombre);
 
-        jaula = new Jaula(false, especie);
+        jaula = new Jaula(false, mascota.especie());
         PanelIndicador panelIndicador = new PanelIndicador(ANCHO, colorDeFondo);
 
         box.add(panelNombre);
@@ -42,6 +43,7 @@ public class PanelMascota extends JPanel {
 
     public void modificarPanel(MascotaState estado){
         jaula.modificarJaula(estado);
+        labelNombre.setText(estado.nombre());
     }
     
     public void enviarHandler(EventHandler handler){

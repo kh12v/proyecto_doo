@@ -1,5 +1,6 @@
 package Controladores;
 
+import Controladores.Estado.MascotaState;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.M_PedirMascotasEvento;
 import Controladores.Eventos.Tipos.V_ActualizarMascotasEvento;
@@ -19,6 +20,7 @@ public class ControladorMascotas implements Suscriptor, Publicador {
 
     public void enviarHandler(EventHandler handler){
         this.handler = handler;
+        handler.suscribir(this);
     }
     @Override
     public DestinoEvento[] getEventosEscuchados() {
@@ -47,7 +49,6 @@ public class ControladorMascotas implements Suscriptor, Publicador {
                     .toArray();
         }
         ArrayList<Mascota> mascotasFiltro = new ArrayList<>(Arrays.stream(indices).mapToObj(mascotas::get).toList());
-
         handler.enviar(new V_ActualizarMascotasEvento(mascotasFiltro,indices,e.isForzar()));
     }
 }

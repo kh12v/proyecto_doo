@@ -7,6 +7,7 @@ import Controladores.Eventos.Tipos.V_ActualizarMascotasEvento;
 import Logica.Especies;
 
 import javax.swing.*;
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
 
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
+        handler.suscribir(this);
         mascotas.forEach(m -> m.enviarHandler(handler));
         handler.enviar(new M_PedirMascotasEvento(M_PedirMascotasEvento.WILD,true));
     }
@@ -31,13 +33,15 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
     @Override
     public void recibir(Evento evento) {
         switch (evento.getTipo()){
-            case ActualizarMascotas -> actualizarMascotas((V_ActualizarMascotasEvento) evento);
+            case ActualizarMascotas -> {
+                actualizarMascotas((V_ActualizarMascotasEvento) evento);
+            }
         }
     }
 
     @Override
     public DestinoEvento[] getEventosEscuchados() {
-        return new DestinoEvento[0];
+        return new DestinoEvento[]{DestinoEvento.Vista};
     }
 
     public void actualizarMascotas(V_ActualizarMascotasEvento evento) {
@@ -56,7 +60,7 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
     }
 
     public void agregarMascota(MascotaState estado){
-        PanelMascota mascota = new PanelMascota(Color.GRAY,estado.especie());
+        PanelMascota mascota = new PanelMascota(Color.GRAY,estado);
         mascotas.add(mascota);
         add(mascota);
     }

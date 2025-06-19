@@ -38,4 +38,8 @@ public class Tienda {
     public ArrayList<Mascota> getMascotas() {
         return mascotas;
     }
+
+    public void agregarMascota(Mascota mascota) {
+        mascotas.add(mascota);
+    }
 }
