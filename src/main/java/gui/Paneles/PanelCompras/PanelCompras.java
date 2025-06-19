@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class PanelCompras extends JPanel implements Publicador {
     private EventHandler handler;
-    private PanelDeCompras panelDeCompras;
+    private final PanelDeCompras panelDeCompras;
 
     private final static Color COLOR_DE_FONDO = Color.GRAY;
 

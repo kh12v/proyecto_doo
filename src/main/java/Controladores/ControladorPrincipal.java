@@ -6,9 +6,9 @@ import Controladores.Eventos.Publicador;
 import Logica.Tienda;
 
 public class ControladorPrincipal implements Publicador {
-    private Tienda tienda;
-    private ControladorMascotas mascotas;
-    private ControladorSuministros suministros;
+    private final Tienda tienda;
+    private final ControladorMascotas mascotas;
+    private final ControladorSuministros suministros;
     private EventHandler handler;
 
     public ControladorPrincipal(Tienda tienda) {

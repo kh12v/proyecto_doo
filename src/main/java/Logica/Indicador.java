@@ -1,6 +1,6 @@
 package Logica;
 
-public class Indicador {
+public class Indicador implements Actualizable {
     int valor;
     int frecuenciaReduccion;
 
@@ -17,6 +17,11 @@ public class Indicador {
     }
 
     public void minimizar(){}
+
+    @Override
+    public void actualizar() {
+        valor -= frecuenciaReduccion;
+    }
 
     public int getValor() {
         return valor;

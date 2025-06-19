@@ -3,7 +3,7 @@ package Logica;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Mascota {
+public class Mascota implements Actualizable {
     private String nombre;
     private Especies especie;
     private int id;
@@ -45,4 +45,10 @@ public class Mascota {
         return new ArrayList<>(List.of(new Indicador[]{hambre, salud, felicidad}));
     }
 
+    @Override
+    public void actualizar() {
+        hambre.actualizar();
+        salud.actualizar();
+        felicidad.actualizar();
+    }
 }

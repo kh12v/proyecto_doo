@@ -2,9 +2,10 @@ package Logica;
 
 import java.util.ArrayList;
 
-public class Tienda {
+public class Tienda implements Actualizable {
     String nombre;
     int dinero;
+    int renta;
     ArrayList<Mascota> mascotas;
     int[] stockMedicamentos;
     int[] stockAlimentos;
@@ -12,6 +13,7 @@ public class Tienda {
     public Tienda(String nombre) {
         this.nombre = nombre;
         dinero = 0;
+        renta = 0;
         this.mascotas = new ArrayList<>();
         stockMedicamentos = new int[Medicamentos.values().length];
         stockAlimentos = new int[Alimentos.values().length];
@@ -35,6 +37,10 @@ public class Tienda {
         return true;
     }
 
+    public void actualizar(){
+        dinero -= renta;
+        mascotas.forEach(Mascota::actualizar);
+    }
     public ArrayList<Mascota> getMascotas() {
         return mascotas;
     }
