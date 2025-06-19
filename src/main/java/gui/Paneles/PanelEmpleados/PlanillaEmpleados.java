@@ -1,12 +1,12 @@
 package gui.Paneles.PanelEmpleados;
 
 import Controladores.Eventos.EventHandler;
-import javafx.embed.swing.JFXPanel;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PlanillaEmpleados extends JFXPanel {
+public class PlanillaEmpleados extends JPanel {
     EventHandler handler;
     ArrayList<PanelEmpleado> empleados;
 
