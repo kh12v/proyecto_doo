@@ -7,6 +7,7 @@ import gui.Paneles.Ventanas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class PanelMascotas extends JPanel implements Publicador {
     private EventHandler handler;
@@ -18,6 +19,7 @@ public class PanelMascotas extends JPanel implements Publicador {
             setPreferredSize(new Dimension(125, 55));
             setMaximumSize(new Dimension(125, 55));
             setMinimumSize(new Dimension(125, 55));
+            setMnemonic(KeyEvent.VK_ESCAPE);
             addActionListener(e -> handler.enviar(new V_CambiarVentanaEvento(Ventanas.TIENDA)));
         }
     }

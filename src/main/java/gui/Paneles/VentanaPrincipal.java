@@ -70,7 +70,7 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
             case MASCOTAS:
                 panelPrincipal = PANEL_MASCOTAS;
                 break;
-            case PERSONAL:
+            case EMPLEADOS:
                 panelPrincipal = PANEL_EMPLEADOS;
                 break;
             case COMPRAS:
