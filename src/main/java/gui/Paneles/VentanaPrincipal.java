@@ -63,20 +63,12 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
             remove(panelPrincipal);
         }
 
-        switch (ventana) {
-            case TIENDA:
-                panelPrincipal = PANEL_TIENDA;
-                break;
-            case MASCOTAS:
-                panelPrincipal = PANEL_MASCOTAS;
-                break;
-            case PERSONAL:
-                panelPrincipal = PANEL_EMPLEADOS;
-                break;
-            case COMPRAS:
-                panelPrincipal = PANEL_COMPRAS;
-                break;
-        }
+        panelPrincipal = switch (ventana) {
+            case TIENDA -> PANEL_TIENDA;
+            case MASCOTAS -> PANEL_MASCOTAS;
+            case EMPLEADOS -> PANEL_EMPLEADOS;
+            case COMPRAS -> PANEL_COMPRAS;
+        };
 
         add(panelPrincipal);
 
