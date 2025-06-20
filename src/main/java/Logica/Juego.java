@@ -4,12 +4,12 @@ import Controladores.ControladorPrincipal;
 import Controladores.Eventos.EventHandler;
 import gui.Paneles.VentanaPrincipal;
 
-public class SimulacionTienda {
+public class Juego {
     Tienda tienda;
     ControladorPrincipal controlador;
     VentanaPrincipal ventanaPrincipal;
     EventHandler eventHandler;
-    public SimulacionTienda(String nombreTienda) {
+    public Juego(String nombreTienda) {
         eventHandler = new EventHandler();
         tienda = new Tienda(nombreTienda);
         controlador = new ControladorPrincipal(tienda);

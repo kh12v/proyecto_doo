@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mascota implements Actualizable {
-    private String nombre;
-    private Especies especie;
-    private int id;
+    private final String nombre;
+    private final Especies especie;
+    private final int id;
+    private static int idActual = 0;
     Indicador hambre;
     Indicador salud;
     Indicador felicidad;
 
-    public Mascota(String nombre, Especies especie, int id) {
+    public Mascota(String nombre, Especies especie) {
         this.nombre = nombre;
         this.especie = especie;
-        this.id = id;
+        this.id = idActual++;
         hambre = new Indicador();
         salud = new Indicador();
         felicidad = new Indicador();

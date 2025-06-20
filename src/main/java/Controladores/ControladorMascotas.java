@@ -3,13 +3,15 @@ package Controladores;
 import Controladores.Estado.MascotaState;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.M_PedirMascotasEvento;
+import Controladores.Eventos.Tipos.V_ActualizarIndicadoresMascotasEvento;
 import Controladores.Eventos.Tipos.V_ActualizarMascotasEvento;
+import Logica.Indicador;
 import Logica.Mascota;
 import Logica.Tienda;
 
 import java.util.List;
 
-public class ControladorMascotas implements Suscriptor, Publicador {
+public class ControladorMascotas implements Controlador {
     EventHandler handler;
     Tienda t;
 
@@ -30,7 +32,16 @@ public class ControladorMascotas implements Suscriptor, Publicador {
     public void recibir(Evento e) {
         switch (e.getTipo()) {
             case PedirMascotas -> contestarPeticionMascotas((M_PedirMascotasEvento) e);
+            case PedirIndicadores -> contestarPeticionIndicadores();
         }
+    }
+
+    private void contestarPeticionIndicadores() {
+        int[][] indicadores = t.getMascotas().stream()
+                .map(Mascota::getIndicadores)
+                .map(ind -> ind.stream().mapToInt(Indicador::getValor).toArray())
+                .toArray(int[][]::new);
+        handler.enviar(new V_ActualizarIndicadoresMascotasEvento(indicadores));
     }
 
     public void contestarPeticionMascotas(M_PedirMascotasEvento e) {
