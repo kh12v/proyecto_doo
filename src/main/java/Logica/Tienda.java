@@ -7,6 +7,7 @@ public class Tienda implements Actualizable {
     int dinero;
     int renta;
     ArrayList<Mascota> mascotas;
+    ArrayList<Empleado> empleados;
     int[] stockMedicamentos;
     int[] stockAlimentos;
 
@@ -15,6 +16,7 @@ public class Tienda implements Actualizable {
         dinero = 0;
         renta = 0;
         this.mascotas = new ArrayList<>();
+        this.empleados = new ArrayList<>();
         stockMedicamentos = new int[Medicamentos.values().length];
         stockAlimentos = new int[Alimentos.values().length];
     }
@@ -37,16 +39,28 @@ public class Tienda implements Actualizable {
         return true;
     }
 
+    public void pagarSalario(int salario) {
+        dinero -= salario;
+    }
+
     public void actualizar(){
         dinero -= renta;
         mascotas.forEach(Mascota::actualizar);
     }
+
     public ArrayList<Mascota> getMascotas() {
         return mascotas;
     }
 
-    public boolean encontrarID(int id){
+    public ArrayList<Empleado> getEmpleados() {
+        return empleados;
+    }
+
+    public boolean encontrarIDMascotas(int id){
         return mascotas.stream().anyMatch(i -> i.getID() == id);
+    }
+    public boolean encontrarIDEmpleados(int id){
+        return empleados.stream().anyMatch(i -> i.getID() == id);
     }
     public void agregarMascota(Mascota mascota) {
         mascotas.add(mascota);

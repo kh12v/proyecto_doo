@@ -7,11 +7,13 @@ import Logica.Tienda;
 
 public class ControladorPrincipal implements Controlador {
     private final ControladorMascotas mascotas;
+    private final ControladorEmpleados empleados;
     private final ControladorSuministros suministros;
     private EventHandler handler;
 
     public ControladorPrincipal(Tienda tienda) {
         mascotas = new ControladorMascotas(tienda);
+        empleados = new ControladorEmpleados(tienda);
         suministros = new ControladorSuministros(tienda);
     }
 

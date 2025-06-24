@@ -53,7 +53,7 @@ public class ControladorMascotas implements Controlador {
                 .toList()
                 : mascotas.stream()
                 .map(Mascota::getID)
-                .filter(t::encontrarID)
+                .filter(t::encontrarIDMascotas)
                 .toList();
 
         //filtra todas las mascotas con las ids pedidas
@@ -64,5 +64,4 @@ public class ControladorMascotas implements Controlador {
 
         handler.enviar(new V_ActualizarMascotasEvento(filtrado));
     }
-
 }
