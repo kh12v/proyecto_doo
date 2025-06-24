@@ -19,6 +19,7 @@ public class ControladorPrincipal implements Controlador {
 
     public void enviarHandler(EventHandler handler) {
         mascotas.enviarHandler(handler);
+        empleados.enviarHandler(handler);
         suministros.enviarHandler(handler);
         this.handler = handler;
     }

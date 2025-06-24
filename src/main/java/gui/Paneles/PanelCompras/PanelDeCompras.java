@@ -1,11 +1,12 @@
 package gui.Paneles.PanelCompras;
 
 import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.Publicador;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelDeCompras extends JPanel {
+public class PanelDeCompras extends JPanel implements Publicador {
     private EventHandler handler;
     private final PanelCompraMascotas panelCompraMascotas;
     private final PanelCompraSuministros panelCompraSuministros;

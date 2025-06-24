@@ -2,13 +2,11 @@ package gui.Paneles.PanelTienda;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
-import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
 import gui.Paneles.BotonVentana;
 import gui.Paneles.Ventanas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
 /**
