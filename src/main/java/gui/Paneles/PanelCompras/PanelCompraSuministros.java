@@ -2,6 +2,7 @@ package gui.Paneles.PanelCompras;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
+import Logica.Producto;
 import gui.Paneles.BordeRedondo;
 import gui.Paneles.VentanaPrincipal;
 
@@ -23,29 +24,29 @@ public class PanelCompraSuministros extends JPanel implements Publicador {
 
         Box box = Box.createVerticalBox();
 
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/juguetes/juguete_gato.png", "Juguete para gatos", 1000));
+        box.add(crearOpcion(Producto.JuguetePerro, "recursos/juguetes/juguete_perro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/juguetes/juguete_perro.png", "Juguete para perros", 2000));
+        box.add(crearOpcion(Producto.JugueteGato, "recursos/juguetes/juguete_gato.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/juguetes/juguete_loro.png", "Juguete para loros", 3000));
+        box.add(crearOpcion(Producto.JugueteLoro, "recursos/juguetes/juguete_loro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/juguetes/juguete_hamster.png", "Juguete para hamsters", 4000));
+        box.add(crearOpcion(Producto.Hamster, "recursos/juguetes/juguete_hamster.png"));
 
         box.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/medicamentos/medicamento_gato.png", "Medicamento para gatos", 1000));
+        box.add(crearOpcion(Producto.MedicamentoPerro, "recursos/medicamentos/medicamento_perro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/medicamentos/medicamento_perro.png", "Medicamento para perros", 2000));
+        box.add(crearOpcion(Producto.MedicamentoGato, "recursos/medicamentos/medicamento_gato.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/medicamentos/medicamento_loro.png", "Medicamento para loros", 3000));
+        box.add(crearOpcion(Producto.MedicamentoLoro, "recursos/medicamentos/medicamento_loro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/medicamentos/medicamento_hamster.png", "Medicamento para hamsters", 4000));
+        box.add(crearOpcion(Producto.MedicamentoHamster, "recursos/medicamentos/medicamento_hamster.png"));
 
         add(box);
     }
 
-    public OpcionDeCompra crearOpcion(Color colorDeFondo, String rutaImagen, String nombre, int precio) {
-        OpcionDeCompra op = new OpcionDeCompra(colorDeFondo, rutaImagen, nombre, precio);
+    public OpcionDeCompra crearOpcion(Producto producto, String rutaImagen) {
+        OpcionDeCompra op = new OpcionDeCompra(COLOR_DE_FONDO, producto, rutaImagen);
         opciones.add(op);
         return op;
     }

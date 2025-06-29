@@ -56,7 +56,7 @@ public class Jaula extends JPanel {
         this.especie = especie;
         if (bloqueada) {
             add(cargarImagen(ANCHO, ALTO, "recursos/espacioBloqueado.png"));
-        } else if (especie == Especies.NULL){
+        } else if (especie == Especies.Null){
             add(cargarImagen(ANCHO, ALTO, "recursos/espacioDisponible.png"));
         } else {
             add(cargarImagen(ANCHO, ALTO, "recursos/jaulas/" + especie.toString().toLowerCase() + ".png"));
@@ -67,7 +67,7 @@ public class Jaula extends JPanel {
         removeAll();
         if (bloqueado) {
             add(cargarImagen(ANCHO, ALTO, "recursos/espacioBloqueado.png"));
-        } else if (especie == Especies.NULL){
+        } else if (especie == Especies.Null){
             add(cargarImagen(ANCHO, ALTO, "recursos/espacioDisponible.png"));
         } else {
             add(cargarImagen(ANCHO, ALTO, "recursos/jaulas/" + especie.toString().toLowerCase() + ".png"));

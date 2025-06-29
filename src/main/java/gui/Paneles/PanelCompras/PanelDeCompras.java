@@ -17,9 +17,11 @@ public class PanelDeCompras extends JPanel implements Publicador {
 
         panelCompraMascotas = new PanelCompraMascotas();
         JScrollPane pane1 = new JScrollPane(panelCompraMascotas);
+        pane1.getVerticalScrollBar().setUnitIncrement(16);
 
         panelCompraSuministros = new PanelCompraSuministros();
         JScrollPane pane2 = new JScrollPane(panelCompraSuministros);
+        pane2.getVerticalScrollBar().setUnitIncrement(16);
 
         add(pane1);
         add(pane2);

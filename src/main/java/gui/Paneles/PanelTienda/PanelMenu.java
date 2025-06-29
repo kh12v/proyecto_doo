@@ -21,8 +21,6 @@ public class PanelMenu extends JPanel implements Publicador {
         Arrays.stream(ventana).forEach(v -> v.enviarHandler(handler));
     }
 
-
-
     public PanelMenu() {
         setLayout(new BorderLayout());
         setBackground(COLOR_DE_FONDO);

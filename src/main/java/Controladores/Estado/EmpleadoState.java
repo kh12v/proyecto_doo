@@ -2,10 +2,6 @@ package Controladores.Estado;
 
 import Logica.Cargo;
 import Logica.Empleado;
-import Logica.Especies;
-import Logica.Mascota;
-
-import java.util.Arrays;
 
 /**
  * DTO (Data Transfer Object) de un empleado
@@ -21,7 +17,7 @@ public record EmpleadoState (String nombre,
     /**
      * DEL representa el empleado nulo, si se recibe esto en un índice, significa que hay que borrarla
      */
-    public static final EmpleadoState DEL = new EmpleadoState("BORRAR", 0, Cargo.NULL,0);
+    public static final EmpleadoState DEL = new EmpleadoState("BORRAR", 0, Cargo.Null,0);
     public static EmpleadoState toState(Empleado empleado) {
         return new EmpleadoState(empleado.getNombre(), empleado.getSalario(), empleado.getCargo(), empleado.getID());
     }

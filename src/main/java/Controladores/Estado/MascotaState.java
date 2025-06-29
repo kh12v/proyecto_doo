@@ -18,7 +18,7 @@ public record MascotaState (String nombre,
     /**
      * DEL representa la mascota nula, si se recibe esta mascota en un índice, significa que hay que borrarla
      */
-    public static final MascotaState DEL = new MascotaState("BORRAR",Especies.NULL,0,null);
+    public static final MascotaState DEL = new MascotaState("BORRAR",Especies.Null,0,null);
     public static MascotaState toState(Mascota mascota){
         int[][] indicadorEstado = mascota
                 .getIndicadores()

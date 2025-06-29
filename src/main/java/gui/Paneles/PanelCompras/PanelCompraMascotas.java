@@ -2,6 +2,7 @@ package gui.Paneles.PanelCompras;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
+import Logica.Producto;
 import gui.Paneles.BordeRedondo;
 import gui.Paneles.VentanaPrincipal;
 
@@ -24,19 +25,19 @@ public class PanelCompraMascotas extends JPanel implements Publicador {
 
         Box box = Box.createVerticalBox();
 
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/animales/gato.png", "Gato", 1000));
+        box.add(crearOpcion(Producto.Perro, "recursos/animales/perro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/animales/perro.png", "Perro", 2000));
+        box.add(crearOpcion(Producto.Gato, "recursos/animales/gato.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/animales/loro.png", "Loro", 3000));
+        box.add(crearOpcion(Producto.Loro, "recursos/animales/loro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(COLOR_DE_FONDO, "recursos/animales/hamster.png", "hamster", 4000));
+        box.add(crearOpcion(Producto.Hamster, "recursos/animales/hamster.png"));
 
         add(box);
     }
 
-    public OpcionDeCompra crearOpcion(Color colorDeFondo, String rutaImagen, String nombre, int precio) {
-        OpcionDeCompra op = new OpcionDeCompra(colorDeFondo, rutaImagen, nombre, precio);
+    public OpcionDeCompra crearOpcion(Producto producto, String rutaImagen) {
+        OpcionDeCompra op = new OpcionDeCompra(COLOR_DE_FONDO, producto, rutaImagen);
         opciones.add(op);
         return op;
     }

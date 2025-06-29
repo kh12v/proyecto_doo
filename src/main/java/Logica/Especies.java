@@ -5,7 +5,7 @@ public enum Especies {
     Gato,
     Loro,
     Hamster,
-    NULL;
+    Null;
 
 
 }

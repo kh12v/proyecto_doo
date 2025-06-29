@@ -1,5 +1,5 @@
 package Logica;
 
 public enum Cargo {
-    NULL, CUIDADOR, RECEPCIONISTA, GERENTE
+    Null, Cuidador, Recepcionista, Gerente
 }

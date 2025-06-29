@@ -3,6 +3,7 @@ package gui.Paneles.PanelCompras;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
 import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
+import Logica.Producto;
 import gui.Paneles.BordeRedondo;
 import gui.Paneles.Ventanas;
 
@@ -15,16 +16,18 @@ import java.awt.event.MouseListener;
 public class OpcionDeCompra extends JPanel implements Publicador {
     private EventHandler handler;
     private static final Color COLOR_DE_FONDO = new Color(220, 220,220);
+    private Producto producto;
 
     private class MyMouseListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-            // TODO: Crear evento para comprar producto y mostrar si la compra fue exitosa o no en pantalla
-            // handler.enviar(new V_CambiarVentanaEvento(Ventanas.EMPLEADOS));
+//            handler.enviar(new V_ComprarProducto(producto));
         }
     }
 
-    public OpcionDeCompra(Color colorDelFondo, String rutaImagen, String nombre, int precio) {
+    public OpcionDeCompra(Color colorDelFondo, Producto producto, String rutaImagen) {
+        this.producto = producto;
+
         setBackground(colorDelFondo);
         setBorder(new BordeRedondo(COLOR_DE_FONDO, 25));
 
@@ -34,7 +37,7 @@ public class OpcionDeCompra extends JPanel implements Publicador {
         Box box = Box.createHorizontalBox();
 
         box.add(new ImagenProducto(rutaImagen, COLOR_DE_FONDO));
-        box.add(new JLabel(nombre + " $" + precio));
+        box.add(new JLabel(producto.getNombre() + " $" + producto.getPrecio()));
 
         add(box);
     }
