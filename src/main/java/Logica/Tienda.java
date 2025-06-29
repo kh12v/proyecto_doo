@@ -85,4 +85,12 @@ public class Tienda implements Actualizable {
     public int getDinero() {
         return this.dinero;
     }
+
+    public int getJaulasGrandes() {
+        return jaulasGrandes;
+    }
+
+    public int getJaulasPequenas() {
+        return jaulasPequenas;
+    }
 }

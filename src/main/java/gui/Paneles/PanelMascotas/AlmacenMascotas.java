@@ -4,6 +4,8 @@ import Controladores.Estado.MascotaState;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.M_PedirMascotasEvento;
 import Controladores.Eventos.Tipos.V_ActualizarMascotasEvento;
+import Logica.Especies;
+import Logica.Tienda;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +15,10 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
     private EventHandler handler;
     private final HashMap<Integer,PanelMascota> mascotas;
 
-    public AlmacenMascotas() {
+    private Tienda t;
+
+    public AlmacenMascotas(Tienda tienda) {
+        this.t = tienda;
         mascotas = new HashMap<>();
         setBackground(Color.GRAY);
         setLayout(new FlowLayout());
@@ -43,13 +48,29 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
     public void actualizarMascotas(V_ActualizarMascotasEvento evento) {
         removeAll();
 
+        int jaulasGrandes = 0;
+        int jaulasPequenas = 0;
+
         MascotaState[] estados = evento.getEstados();
         for (MascotaState estadoActual : estados) {
             if (mascotas.containsKey(estadoActual.id())) {
+                if (estadoActual.especie().getEsAnimalGrande()) {
+                    jaulasGrandes++;
+                } else {
+                    jaulasPequenas++;
+                }
                 mascotas.get(estadoActual.id()).modificarPanel(estadoActual);
             } else {
                 agregarMascota(estadoActual);
             }
+        }
+
+        // Muestra las jaulas vacias
+        for (int i = 0; i < t.getJaulasGrandes() - jaulasGrandes; i++) {
+            add(new Jaula(Especies.NullGrande));
+        }
+        for (int i = 0; i < t.getJaulasPequenas() - jaulasPequenas; i++) {
+            add(new Jaula(Especies.NullPequeno));
         }
 
         AgregarJaula agregarJaula = new AgregarJaula();

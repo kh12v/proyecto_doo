@@ -52,9 +52,12 @@ public class Jaula extends JPanel {
         setLayout(new OverlayLayout(this));
         setVisible(true);
         this.especie = especie;
-        if (especie == Especies.Null){
+        if (especie == Especies.NullGrande){
             add(cargarImagen(ANCHO, ALTO, "recursos/espacioDisponible.png"));
-        } else {
+        } else if (especie == Especies.NullPequeno) {
+            add(cargarImagen((int)(ANCHO*0.75), (int)(ALTO*0.75), "recursos/espacioDisponible.png"));
+        }
+        else {
             if (especie.getEsAnimalGrande()) add(cargarImagen(ANCHO, ALTO, "recursos/jaulas/" + especie.toString().toLowerCase() + ".png"));
             else add(cargarImagen((int)(ANCHO*0.75), (int)(ALTO*0.75), "recursos/jaulas/" + especie.toString().toLowerCase() + ".png"));
         }
@@ -62,8 +65,10 @@ public class Jaula extends JPanel {
 
     public void modificarJaula(MascotaState estado){
         removeAll();
-        if (especie == Especies.Null){
+        if (especie == Especies.NullGrande){
             add(cargarImagen(ANCHO, ALTO, "recursos/espacioDisponible.png"));
+        } else if (especie == Especies.NullPequeno) {
+            add(cargarImagen((int)(ANCHO*0.75), (int)(ALTO*0.75), "recursos/espacioDisponible.png"));
         } else {
             if (especie.getEsAnimalGrande()) add(cargarImagen(ANCHO, ALTO, "recursos/jaulas/" + especie.toString().toLowerCase() + ".png"));
             else add(cargarImagen((int)(ANCHO*0.75), (int)(ALTO*0.75), "recursos/jaulas/" + especie.toString().toLowerCase() + ".png"));

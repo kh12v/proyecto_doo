@@ -70,6 +70,7 @@ public class ControladorMascotas implements Controlador {
         } else {
             handler.enviar(new V_MostrarMensaje("Compra exitosa"));
             handler.enviar(new V_MostrarDinero(t.getDinero()));
+            handler.enviar(new M_PedirMascotasEvento(M_PedirMascotasEvento.WILD));
         }
     }
 }

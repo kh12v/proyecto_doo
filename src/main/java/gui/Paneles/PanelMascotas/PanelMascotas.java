@@ -1,18 +1,14 @@
 package gui.Paneles.PanelMascotas;
 
 import Controladores.Eventos.*;
-import Controladores.Eventos.Tipos.V_ActualizarMascotasEvento;
-import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
 import Logica.Tienda;
 import gui.Paneles.BotonVentana;
 import gui.Paneles.IndicadorDinero;
-import gui.Paneles.PanelEmpleados.PlanillaEmpleados;
 import gui.Paneles.Ventanas;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class PanelMascotas extends JPanel implements Publicador {
     private EventHandler handler;
@@ -32,7 +28,7 @@ public class PanelMascotas extends JPanel implements Publicador {
         indicadorDinero.setBorder(new EmptyBorder(0, 0, 0, 100));
         panelNorte.add(indicadorDinero, BorderLayout.CENTER);
 
-        almacen = new AlmacenMascotas();
+        almacen = new AlmacenMascotas(tienda);
         JScrollPane pane = new JScrollPane(almacen);
 
         add(panelNorte, BorderLayout.NORTH);
