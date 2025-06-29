@@ -24,7 +24,7 @@ public class PanelMascota extends JPanel {
         labelNombre.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(labelNombre);
 
-        jaula = new Jaula(false, mascota.especie());
+        jaula = new Jaula(mascota.especie());
         PanelIndicador panelIndicador = new PanelIndicador(ANCHO);
 
         add(labelNombre);

@@ -2,9 +2,7 @@ package Controladores;
 
 import Controladores.Estado.MascotaState;
 import Controladores.Eventos.*;
-import Controladores.Eventos.Tipos.M_PedirMascotasEvento;
-import Controladores.Eventos.Tipos.V_ActualizarIndicadoresMascotasEvento;
-import Controladores.Eventos.Tipos.V_ActualizarMascotasEvento;
+import Controladores.Eventos.Tipos.*;
 import Logica.Indicador;
 import Logica.Mascota;
 import Logica.Tienda;
@@ -33,6 +31,7 @@ public class ControladorMascotas implements Controlador {
         switch (e.getTipo()) {
             case PedirMascotas -> contestarPeticionMascotas((M_PedirMascotasEvento) e);
             case PedirIndicadores -> contestarPeticionIndicadores();
+            case AgregarJaula -> contestarAgregarJaula((M_AgregarJaula) e);
         }
     }
 
@@ -63,5 +62,14 @@ public class ControladorMascotas implements Controlador {
                 .toArray(MascotaState[]::new);
 
         handler.enviar(new V_ActualizarMascotasEvento(filtrado));
+    }
+
+    public void contestarAgregarJaula(M_AgregarJaula e) {
+        if (!t.comprarJaula(e.tipoContenedor)) {
+            handler.enviar(new V_MostrarMensaje("No hay dinero suficiente"));
+        } else {
+            handler.enviar(new V_MostrarMensaje("Compra exitosa"));
+            handler.enviar(new V_MostrarDinero(t.getDinero()));
+        }
     }
 }

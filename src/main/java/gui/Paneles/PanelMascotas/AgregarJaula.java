@@ -1,21 +1,38 @@
 package gui.Paneles.PanelMascotas;
 
-import Controladores.Estado.MascotaState;
-import Logica.Especies;
+import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.Publicador;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Jaula extends JPanel {
+public class AgregarJaula extends JPanel implements Publicador {
+    private EventHandler handler;
     private final static Color COLOR_DE_FONDO = Color.GRAY;
     private final static int ANCHO = 150;
-    private final static int ALTO = 150;
-    private Especies especie;
+    private final static int ALTO = 150;;
+
+    public static boolean menuAbierto = false;
+
+    private class MyMouseListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (menuAbierto) return;
+            menuAbierto = true;
+
+            MenuSeleccionarJaula menuSeleccionarJaula = new MenuSeleccionarJaula();
+            menuSeleccionarJaula.enviarHandler(handler);
+
+            menuSeleccionarJaula.mostrar();
+        }
+    }
 
     private JPanel cargarImagen(int ancho, int alto, String ruta) {
         JPanel panel = new JPanel();
@@ -47,26 +64,19 @@ public class Jaula extends JPanel {
         return panel;
     }
 
-    public Jaula(Especies especie) {
+    public AgregarJaula() {
         setBackground(COLOR_DE_FONDO);
         setLayout(new OverlayLayout(this));
         setVisible(true);
-        this.especie = especie;
-        if (especie == Especies.Null){
-            add(cargarImagen(ANCHO, ALTO, "recursos/espacioDisponible.png"));
-        } else {
-            if (especie.getEsAnimalGrande()) add(cargarImagen(ANCHO, ALTO, "recursos/jaulas/" + especie.toString().toLowerCase() + ".png"));
-            else add(cargarImagen((int)(ANCHO*0.75), (int)(ALTO*0.75), "recursos/jaulas/" + especie.toString().toLowerCase() + ".png"));
-        }
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        addMouseListener(new MyMouseListener());
+
+        add(cargarImagen(ANCHO, ALTO, "recursos/jaulas/agregarJaula.png"));
     }
 
-    public void modificarJaula(MascotaState estado){
-        removeAll();
-        if (especie == Especies.Null){
-            add(cargarImagen(ANCHO, ALTO, "recursos/espacioDisponible.png"));
-        } else {
-            if (especie.getEsAnimalGrande()) add(cargarImagen(ANCHO, ALTO, "recursos/jaulas/" + especie.toString().toLowerCase() + ".png"));
-            else add(cargarImagen((int)(ANCHO*0.75), (int)(ALTO*0.75), "recursos/jaulas/" + especie.toString().toLowerCase() + ".png"));
-        }
+    @Override
+    public void enviarHandler(EventHandler handler) {
+        this.handler = handler;
     }
 }

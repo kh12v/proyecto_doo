@@ -41,6 +41,8 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
     }
 
     public void actualizarMascotas(V_ActualizarMascotasEvento evento) {
+        removeAll();
+
         MascotaState[] estados = evento.getEstados();
         for (MascotaState estadoActual : estados) {
             if (mascotas.containsKey(estadoActual.id())) {
@@ -49,6 +51,11 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
                 agregarMascota(estadoActual);
             }
         }
+
+        AgregarJaula agregarJaula = new AgregarJaula();
+        agregarJaula.enviarHandler(handler);
+        add(agregarJaula);
+
         revalidate();
         repaint();
     }

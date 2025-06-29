@@ -2,6 +2,8 @@ package gui.Paneles;
 
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
+import Controladores.Eventos.Tipos.V_MostrarMensaje;
+import Logica.Tienda;
 import gui.Paneles.PanelCompras.PanelCompras;
 import gui.Paneles.PanelEmpleados.PanelEmpleados;
 import gui.Paneles.PanelMascotas.PanelMascotas;
@@ -29,6 +31,7 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
     public void recibir(Evento evento) {
         switch (evento.getTipo()){
             case CambiarVentana -> setPanelPrincipal(((V_CambiarVentanaEvento) evento).getVentana());
+            case MostrarMensaje -> mostrarMensaje((V_MostrarMensaje) evento);
         }
     }
 
@@ -37,15 +40,15 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
         return new DestinoEvento[]{DestinoEvento.Vista};
     }
 
-    public VentanaPrincipal(String titulo) {
+    public VentanaPrincipal(Tienda tienda, String titulo) {
         setTitle(titulo);
         setSize(new Dimension(ANCHO, ALTO));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         PANEL_TIENDA = new PanelTienda();
-        PANEL_MASCOTAS = new PanelMascotas();
-        PANEL_EMPLEADOS = new PanelEmpleados();
-        PANEL_COMPRAS = new PanelCompras();
+        PANEL_MASCOTAS = new PanelMascotas(tienda);
+        PANEL_EMPLEADOS = new PanelEmpleados(tienda);
+        PANEL_COMPRAS = new PanelCompras(tienda);
 
         setPanelPrincipal(Ventanas.TIENDA);
 
@@ -89,5 +92,9 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
 
     public void mostrar() {
         setVisible(true);
+    }
+
+    public void mostrarMensaje(V_MostrarMensaje evento) {
+        JOptionPane.showMessageDialog(null, evento.mensaje);
     }
 }

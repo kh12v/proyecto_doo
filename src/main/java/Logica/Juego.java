@@ -9,11 +9,11 @@ public class Juego {
     ControladorPrincipal controlador;
     VentanaPrincipal ventanaPrincipal;
     EventHandler eventHandler;
-    public Juego(String nombreTienda) {
+    public Juego(String nombreTienda, int dineroInicial) {
         eventHandler = new EventHandler();
-        tienda = new Tienda(nombreTienda);
+        tienda = new Tienda(nombreTienda, dineroInicial);
         controlador = new ControladorPrincipal(tienda);
-        ventanaPrincipal = new VentanaPrincipal("Tienda");
+        ventanaPrincipal = new VentanaPrincipal(tienda, "Tienda");
         controlador.enviarHandler(eventHandler);
         ventanaPrincipal.enviarHandler(eventHandler);
     }

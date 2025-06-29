@@ -6,14 +6,16 @@ public class Tienda implements Actualizable {
     String nombre;
     int dinero;
     int renta;
+    int jaulasGrandes = 0;
+    int jaulasPequenas = 0;
     ArrayList<Mascota> mascotas;
     ArrayList<Empleado> empleados;
     int[] stockMedicamentos;
     int[] stockAlimentos;
 
-    public Tienda(String nombre) {
+    public Tienda(String nombre, int dineroInicial) {
         this.nombre = nombre;
-        dinero = 0;
+        dinero = dineroInicial;
         renta = 0;
         this.mascotas = new ArrayList<>();
         this.empleados = new ArrayList<>();
@@ -36,6 +38,20 @@ public class Tienda implements Actualizable {
         }
         dinero -= alimento.precio;
         stockMedicamentos[alimento.ordinal()]++;
+        return true;
+    }
+
+    public boolean comprarJaula(TipoContenedor contenedor) {
+        if (contenedor.precio > dinero) {
+            return false;
+        }
+
+        dinero -= contenedor.precio;
+        if (contenedor == TipoContenedor.JaulaGrande) {
+            jaulasGrandes++;
+        } else if (contenedor == TipoContenedor.JaulaPequena) {
+            jaulasPequenas++;
+        }
         return true;
     }
 
@@ -64,5 +80,9 @@ public class Tienda implements Actualizable {
     }
     public void agregarMascota(Mascota mascota) {
         mascotas.add(mascota);
+    }
+
+    public int getDinero() {
+        return this.dinero;
     }
 }

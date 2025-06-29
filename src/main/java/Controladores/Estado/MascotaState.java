@@ -18,14 +18,14 @@ public record MascotaState (String nombre,
     /**
      * DEL representa la mascota nula, si se recibe esta mascota en un índice, significa que hay que borrarla
      */
-    public static final MascotaState DEL = new MascotaState("BORRAR",Especies.Null,0,null);
+    public static final MascotaState DEL = new MascotaState("BORRAR",Especies.Null,0, null);
     public static MascotaState toState(Mascota mascota){
         int[][] indicadorEstado = mascota
                 .getIndicadores()
                 .stream()
                 .map(m -> new int[]{m.getValor(),m.getFrecuenciaReduccion()})
                 .toArray(int[][]::new);
-        return new MascotaState(mascota.getNombre(),mascota.getEspecie(),mascota.getID(),indicadorEstado);
+        return new MascotaState(mascota.getNombre(),mascota.getEspecie(),mascota.getID(), indicadorEstado);
     }
 
     @Override

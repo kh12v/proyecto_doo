@@ -8,4 +8,7 @@ public enum TipoEvento {
     PedirIndicadores,
     ActualizarIndicadores,
     PedirEmpleados,
+    AgregarJaula,
+    MostrarMensaje,
+    MostrarDinero
 }
