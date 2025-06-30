@@ -10,5 +10,6 @@ public enum TipoEvento {
     PedirEmpleados,
     AgregarJaula,
     MostrarMensaje,
-    MostrarDinero
+    MostrarDinero,
+    ComprarProducto
 }

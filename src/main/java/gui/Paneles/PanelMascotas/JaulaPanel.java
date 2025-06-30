@@ -3,6 +3,8 @@ package gui.Paneles.PanelMascotas;
 import Controladores.Estado.JaulaState;
 import Controladores.Estado.MascotaState;
 import Logica.Especies;
+import Logica.Jaula;
+import Logica.TipoContenedor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -47,14 +49,14 @@ public class JaulaPanel extends JPanel {
         return panel;
     }
 
-    public JaulaPanel(Especies especie) {
+    public JaulaPanel(Especies especie, TipoContenedor tipoContenedor) {
         setBackground(new Color(255, 0, 0,0));
         setLayout(new OverlayLayout(this));
         setVisible(true);
         this.especie = especie;
-        if (especie == Especies.NullGrande){
+        if (especie == Especies.Null && tipoContenedor == TipoContenedor.JaulaGrande){
             add(cargarImagen(ANCHO, ALTO, "recursos/espacioDisponible.png"));
-        } else if (especie == Especies.NullPequeno) {
+        } else if (especie == Especies.Null && tipoContenedor == TipoContenedor.JaulaPequena) {
             add(cargarImagen((int)(ANCHO*0.75), (int)(ALTO*0.75), "recursos/espacioDisponible.png"));
         }
         else {
@@ -66,9 +68,9 @@ public class JaulaPanel extends JPanel {
     public void modificarJaula(JaulaState estado){
         removeAll();
         especie = estado.mascotaState().especie();
-        if (especie == Especies.NullGrande){
+        if (especie == Especies.Null && estado.tipo() == TipoContenedor.JaulaGrande){
             add(cargarImagen(ANCHO, ALTO, "recursos/espacioDisponible.png"));
-        } else if (especie == Especies.NullPequeno) {
+        } else if (especie == Especies.Null && estado.tipo() == TipoContenedor.JaulaPequena) {
             add(cargarImagen((int)(ANCHO*0.75), (int)(ALTO*0.75), "recursos/espacioDisponible.png"));
         } else {
             if (especie.getEsAnimalGrande()) add(cargarImagen(ANCHO, ALTO, "recursos/jaulas/" + especie.toString().toLowerCase() + ".png"));

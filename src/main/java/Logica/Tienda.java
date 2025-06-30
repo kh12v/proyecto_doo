@@ -9,7 +9,13 @@ public class Tienda implements Actualizable {
     ArrayList<Jaula> jaulas;
     ArrayList<Empleado> empleados;
     int[] stockMedicamentos;
+    int[] stockJuguetes;
     int[] stockAlimentos;
+
+    static final int I_Perro = 0;
+    static final int I_Gato = 1;
+    static final int I_Loro = 2;
+    static final int I_Hamster = 3;
 
     public Tienda(String nombre, int dineroInicial) {
         this.nombre = nombre;
@@ -17,25 +23,84 @@ public class Tienda implements Actualizable {
         renta = 0;
         this.jaulas = new ArrayList<>();
         this.empleados = new ArrayList<>();
-        stockMedicamentos = new int[Medicamentos.values().length];
-        stockAlimentos = new int[Alimentos.values().length];
+        stockMedicamentos = new int[4];
+        stockJuguetes = new int[4];
+        stockAlimentos = new int[4];
     }
 
-    public boolean comprarMedicamento(Medicamentos medicamento) {
-        if (medicamento.precio > dinero) {
-            return false;
+    public boolean comprarProducto(Producto producto) {
+        TipoProducto tipoProducto = producto.getTipoProducto();
+        if (tipoProducto == TipoProducto.Mascota) return comprarMascota(producto);
+        else if (tipoProducto == TipoProducto.Comida) return comprarAlimento(producto);
+        else if (tipoProducto == TipoProducto.Juguete) return comprarJuguete(producto);
+        else if (tipoProducto == TipoProducto.Medicamento) return comprarMedicamento(producto);
+
+        return false;
+    }
+
+    public boolean comprarMascota(Producto producto) {
+        if (producto.getTipoProducto() != TipoProducto.Mascota) return false;
+        if (producto.getPrecio() > dinero) return false;
+
+        Especies especie;
+        if (producto == Producto.Perro) especie = Especies.Perro;
+        else if (producto == Producto.Gato) especie = Especies.Gato;
+        else if (producto == Producto.Loro) especie = Especies.Loro;
+        else if (producto == Producto.Hamster) especie = Especies.Hamster;
+        else return false;
+
+        for (Jaula jaula : jaulas) {
+            if (!jaula.estaVacia()) continue;
+
+            if (jaula.admiteEspecie(especie)) {
+                jaula.ingresarMascota(new Mascota("wuah", especie));
+                dinero -= producto.getPrecio();
+                return true;
+            }
         }
-        dinero -= medicamento.precio;
-        stockMedicamentos[medicamento.ordinal()]++;
+
+        return false;
+    }
+
+    public boolean comprarAlimento(Producto producto) {
+        if (producto.getTipoProducto() != TipoProducto.Comida) return false;
+        if (producto.getPrecio() > dinero) return false;
+
+        dinero -= producto.getPrecio();
+        switch (producto) {
+            case ComidaPerro -> stockAlimentos[I_Perro]++;
+            case ComidaGato -> stockAlimentos[I_Gato]++;
+            case ComidaLoro -> stockAlimentos[I_Loro]++;
+            case ComidaHamster -> stockAlimentos[I_Hamster]++;
+        }
         return true;
     }
 
-    public boolean comprarAlimento(Alimentos alimento) {
-        if (alimento.precio > dinero) {
-            return false;
+    public boolean comprarJuguete(Producto producto) {
+        if (producto.getTipoProducto() != TipoProducto.Juguete) return false;
+        if (producto.getPrecio() > dinero) return false;
+
+        dinero -= producto.getPrecio();
+        switch (producto) {
+            case JuguetePerro -> stockJuguetes[I_Perro]++;
+            case JugueteGato -> stockJuguetes[I_Gato]++;
+            case JugueteLoro -> stockJuguetes[I_Loro]++;
+            case JugueteHamster -> stockJuguetes[I_Hamster]++;
         }
-        dinero -= alimento.precio;
-        stockMedicamentos[alimento.ordinal()]++;
+        return true;
+    }
+
+    public boolean comprarMedicamento(Producto producto) {
+        if (producto.getTipoProducto() != TipoProducto.Medicamento) return false;
+        if (producto.getPrecio() > dinero) return false;
+
+        dinero -= producto.getPrecio();
+        switch (producto) {
+            case MedicamentoPerro -> stockMedicamentos[I_Perro]++;
+            case MedicamentoGato -> stockMedicamentos[I_Gato]++;
+            case MedicamentoLoro -> stockMedicamentos[I_Loro]++;
+            case MedicamentoHamster -> stockMedicamentos[I_Hamster]++;
+        }
         return true;
     }
 

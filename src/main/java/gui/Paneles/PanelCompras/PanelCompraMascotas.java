@@ -3,12 +3,9 @@ package gui.Paneles.PanelCompras;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
 import Logica.Producto;
-import gui.Paneles.BordeRedondo;
-import gui.Paneles.VentanaPrincipal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
 

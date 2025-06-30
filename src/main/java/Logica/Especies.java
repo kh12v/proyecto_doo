@@ -5,8 +5,7 @@ public enum Especies {
     Gato(true,10000),
     Loro(false,7000),
     Hamster(false,5000),
-    NullGrande(true,0),
-    NullPequeno(false,0);
+    Null(true,0);
 
     private final boolean esAnimalGrande;
     public final int precio;

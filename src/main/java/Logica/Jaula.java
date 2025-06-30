@@ -43,7 +43,7 @@ public abstract class Jaula implements Actualizable{
     }
 
     public boolean admiteEspecie(Especies especie) {
-        return Arrays.stream(especiesPermitidas).anyMatch(i->i==mascota.getEspecie());
+        return Arrays.stream(especiesPermitidas).anyMatch(i->i==especie);
     }
     public boolean estaVacia() {
         return vacia;

@@ -2,6 +2,7 @@ package gui.Paneles.PanelCompras;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
+import Controladores.Eventos.Tipos.M_ComprarProducto;
 import Logica.Producto;
 import gui.Paneles.BordeRedondo;
 
@@ -18,7 +19,7 @@ public class OpcionDeCompra extends JPanel implements Publicador {
     private class MyMouseListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-//            handler.enviar(new V_ComprarProducto(producto));
+            handler.enviar(new M_ComprarProducto(producto));
         }
     }
 

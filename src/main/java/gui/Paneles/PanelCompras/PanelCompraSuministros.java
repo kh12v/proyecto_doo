@@ -3,8 +3,6 @@ package gui.Paneles.PanelCompras;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
 import Logica.Producto;
-import gui.Paneles.BordeRedondo;
-import gui.Paneles.VentanaPrincipal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -30,7 +28,7 @@ public class PanelCompraSuministros extends JPanel implements Publicador {
         box.add(Box.createRigidArea(new Dimension(0, 15)));
         box.add(crearOpcion(Producto.JugueteLoro, "recursos/juguetes/juguete_loro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.Hamster, "recursos/juguetes/juguete_hamster.png"));
+        box.add(crearOpcion(Producto.JugueteHamster, "recursos/juguetes/juguete_hamster.png"));
 
         box.add(Box.createRigidArea(new Dimension(0, 15)));
 

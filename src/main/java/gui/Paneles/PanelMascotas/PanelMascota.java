@@ -26,7 +26,7 @@ public class PanelMascota extends JPanel {
         labelNombre.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(labelNombre);
 
-        jaulaPanel = new JaulaPanel(jaula.mascotaState().especie());
+        jaulaPanel = new JaulaPanel(jaula.mascotaState().especie(), jaula.tipo());
         add(labelNombre);
         add(jaulaPanel);
         if(jaula.vacia()){
