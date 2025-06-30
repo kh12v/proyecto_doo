@@ -2,7 +2,7 @@ package gui.Paneles;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
-import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
+import Controladores.Eventos.Tipos.V_CambiarVentana;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +28,6 @@ public class BotonVentana extends JButton implements Publicador {
     @Override
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
-        addActionListener(e -> handler.enviar(new V_CambiarVentanaEvento(ventana)));
+        addActionListener(e -> handler.enviar(new V_CambiarVentana(ventana)));
     }
 }

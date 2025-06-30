@@ -2,7 +2,6 @@ package gui.Paneles.PanelCompras;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
-import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
 import Logica.Tienda;
 import gui.Paneles.BotonVentana;
 import gui.Paneles.IndicadorDinero;

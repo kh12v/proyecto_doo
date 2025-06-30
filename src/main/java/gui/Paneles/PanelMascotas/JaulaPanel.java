@@ -1,5 +1,6 @@
 package gui.Paneles.PanelMascotas;
 
+import Controladores.Estado.JaulaState;
 import Controladores.Estado.MascotaState;
 import Logica.Especies;
 
@@ -11,8 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Jaula extends JPanel {
-    private final static Color COLOR_DE_FONDO = Color.GRAY;
+public class JaulaPanel extends JPanel {
     private final static int ANCHO = 150;
     private final static int ALTO = 150;
     private Especies especie;
@@ -27,7 +27,7 @@ public class Jaula extends JPanel {
                 Image imagenEscalada = imagenOriginal.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
 
                 JLabel labelImagen = new JLabel(new ImageIcon(imagenEscalada));
-                labelImagen.setBackground(COLOR_DE_FONDO);
+                labelImagen.setBackground(new Color(0,0,0,0));
 
                 labelImagen.setPreferredSize(new Dimension(ancho, alto));
                 labelImagen.setMinimumSize(new Dimension(ancho, alto));
@@ -35,7 +35,7 @@ public class Jaula extends JPanel {
                 labelImagen.setBorder(new EmptyBorder(0, 0, 0, 0));
 
                 panel.add(labelImagen, BorderLayout.CENTER);
-                panel.setBackground(COLOR_DE_FONDO);
+                panel.setBackground(new Color(0,0,0,0));
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen: " + ruta, "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -47,8 +47,8 @@ public class Jaula extends JPanel {
         return panel;
     }
 
-    public Jaula(Especies especie) {
-        setBackground(COLOR_DE_FONDO);
+    public JaulaPanel(Especies especie) {
+        setBackground(new Color(255, 0, 0,0));
         setLayout(new OverlayLayout(this));
         setVisible(true);
         this.especie = especie;
@@ -63,8 +63,9 @@ public class Jaula extends JPanel {
         }
     }
 
-    public void modificarJaula(MascotaState estado){
+    public void modificarJaula(JaulaState estado){
         removeAll();
+        especie = estado.mascotaState().especie();
         if (especie == Especies.NullGrande){
             add(cargarImagen(ANCHO, ALTO, "recursos/espacioDisponible.png"));
         } else if (especie == Especies.NullPequeno) {

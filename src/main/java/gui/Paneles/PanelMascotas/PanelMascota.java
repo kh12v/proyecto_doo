@@ -1,5 +1,6 @@
 package gui.Paneles.PanelMascotas;
 
+import Controladores.Estado.JaulaState;
 import Controladores.Estado.MascotaState;
 import Controladores.Eventos.EventHandler;
 
@@ -8,7 +9,7 @@ import java.awt.*;
 
 public class PanelMascota extends JPanel {
     EventHandler handler;
-    Jaula jaula;
+    JaulaPanel jaula;
     JLabel labelNombre;
     public final static int ANCHO = 300;
     public final static int ALTO = 350;
@@ -24,7 +25,7 @@ public class PanelMascota extends JPanel {
         labelNombre.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(labelNombre);
 
-        jaula = new Jaula(mascota.especie());
+        jaula = new JaulaPanel(mascota.especie());
         PanelIndicador panelIndicador = new PanelIndicador(ANCHO);
 
         add(labelNombre);
@@ -32,9 +33,9 @@ public class PanelMascota extends JPanel {
         add(panelIndicador);
     }
 
-    public void modificarPanel(MascotaState estado){
+    public void modificarPanel(JaulaState estado){
         jaula.modificarJaula(estado);
-        labelNombre.setText(estado.nombre());
+        labelNombre.setText(estado.mascotaState().nombre());
     }
     
     public void enviarHandler(EventHandler handler){

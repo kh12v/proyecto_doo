@@ -1,9 +1,10 @@
 package gui.Paneles.PanelMascotas;
 
+import Controladores.Estado.JaulaState;
 import Controladores.Estado.MascotaState;
 import Controladores.Eventos.*;
-import Controladores.Eventos.Tipos.M_PedirMascotasEvento;
-import Controladores.Eventos.Tipos.V_ActualizarMascotasEvento;
+import Controladores.Eventos.Tipos.M_PedirMascotas;
+import Controladores.Eventos.Tipos.V_ActualizarMascotas;
 import Logica.Especies;
 import Logica.Tienda;
 
@@ -29,14 +30,14 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
         this.handler = handler;
         handler.suscribir(this);
         mascotas.forEach((k,v) -> v.enviarHandler(handler));
-        handler.enviar(new M_PedirMascotasEvento(M_PedirMascotasEvento.WILD));
+        handler.enviar(new M_PedirMascotas(M_PedirMascotas.WILD));
     }
 
 
     @Override
     public void recibir(Evento evento) {
         switch (evento.getTipo()){
-            case ActualizarMascotas -> actualizarMascotas((V_ActualizarMascotasEvento) evento);
+            case ActualizarMascotas -> actualizarMascotas((V_ActualizarMascotas) evento);
         }
     }
 
@@ -45,14 +46,14 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
         return new DestinoEvento[]{DestinoEvento.Vista};
     }
 
-    public void actualizarMascotas(V_ActualizarMascotasEvento evento) {
+    public void actualizarMascotas(V_ActualizarMascotas evento) {
         removeAll();
 
         int jaulasGrandes = 0;
         int jaulasPequenas = 0;
 
-        MascotaState[] estados = evento.getEstados();
-        for (MascotaState estadoActual : estados) {
+        JaulaState[] estados = evento.getEstados();
+        for (JaulaState estadoActual : estados) {
             if (mascotas.containsKey(estadoActual.id())) {
                 if (estadoActual.especie().getEsAnimalGrande()) {
                     jaulasGrandes++;
@@ -67,10 +68,10 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
 
         // Muestra las jaulas vacias
         for (int i = 0; i < t.getJaulasGrandes() - jaulasGrandes; i++) {
-            add(new Jaula(Especies.NullGrande));
+            add(new JaulaPanel(Especies.NullGrande));
         }
         for (int i = 0; i < t.getJaulasPequenas() - jaulasPequenas; i++) {
-            add(new Jaula(Especies.NullPequeno));
+            add(new JaulaPanel(Especies.NullPequeno));
         }
 
         AgregarJaula agregarJaula = new AgregarJaula();

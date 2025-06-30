@@ -2,16 +2,13 @@ package gui.Paneles.PanelCompras;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
-import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
 import Logica.Producto;
 import gui.Paneles.BordeRedondo;
-import gui.Paneles.Ventanas;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class OpcionDeCompra extends JPanel implements Publicador {
     private EventHandler handler;

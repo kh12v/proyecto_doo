@@ -1,10 +1,10 @@
 package Controladores;
 
-import Controladores.Estado.MascotaState;
+import Controladores.Estado.JaulaState;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.*;
 import Logica.Indicador;
-import Logica.Mascota;
+import Logica.Jaula;
 import Logica.Tienda;
 
 import java.util.List;
@@ -29,39 +29,41 @@ public class ControladorMascotas implements Controlador {
     @Override
     public void recibir(Evento e) {
         switch (e.getTipo()) {
-            case PedirMascotas -> contestarPeticionMascotas((M_PedirMascotasEvento) e);
+            case PedirMascotas -> contestarPeticionMascotas((M_PedirMascotas) e);
             case PedirIndicadores -> contestarPeticionIndicadores();
             case AgregarJaula -> contestarAgregarJaula((M_AgregarJaula) e);
         }
     }
 
     private void contestarPeticionIndicadores() {
-        int[][] indicadores = t.getMascotas().stream()
-                .map(Mascota::getIndicadores)
-                .map(ind -> ind.stream().mapToInt(Indicador::getValor).toArray())
+        int[][] indicadores = t.getJaulas().stream()
+                .map(Jaula::getIndicadores)
+                .map(ind -> ind.stream()
+                        .mapToInt(Indicador::getValor)
+                        .toArray())
                 .toArray(int[][]::new);
-        handler.enviar(new V_ActualizarIndicadoresMascotasEvento(indicadores));
+        handler.enviar(new V_ActualizarIndicadoresMascotas(indicadores));
     }
 
-    public void contestarPeticionMascotas(M_PedirMascotasEvento e) {
-        List<Mascota> mascotas = t.getMascotas();
+    public void contestarPeticionMascotas(M_PedirMascotas e) {
+        List<Jaula> mascotas = t.getJaulas();
         //filtra todas las ids pedidas que tiene la tienda, o entrega todas en caso de WILD
-        List<Integer> ids = (e.getIDs() == M_PedirMascotasEvento.WILD)
+        List<Integer> ids = (e.getIDs() == M_PedirMascotas.WILD)
                 ? mascotas.stream()
-                .map(Mascota::getID)
+                .map(Jaula::getID)
                 .toList()
                 : mascotas.stream()
-                .map(Mascota::getID)
+                .map(Jaula::getID)
                 .filter(t::encontrarIDMascotas)
                 .toList();
 
         //filtra todas las mascotas con las ids pedidas
-        MascotaState[] filtrado = mascotas.stream()
+        JaulaState[] filtrado = mascotas.stream()
                 .filter(m -> ids.contains(m.getID()))
-                .map(MascotaState::toState)
-                .toArray(MascotaState[]::new);
+                .map(JaulaState::toState)
+                .toArray(JaulaState[]::new);
 
-        handler.enviar(new V_ActualizarMascotasEvento(filtrado));
+        handler.enviar(new V_ActualizarMascotas(filtrado));
     }
 
     public void contestarAgregarJaula(M_AgregarJaula e) {
@@ -70,7 +72,7 @@ public class ControladorMascotas implements Controlador {
         } else {
             handler.enviar(new V_MostrarMensaje("Compra exitosa"));
             handler.enviar(new V_MostrarDinero(t.getDinero()));
-            handler.enviar(new M_PedirMascotasEvento(M_PedirMascotasEvento.WILD));
+            handler.enviar(new M_PedirMascotas(M_PedirMascotas.WILD));
         }
     }
 }

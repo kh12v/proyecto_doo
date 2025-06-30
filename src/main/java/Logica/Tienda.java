@@ -6,9 +6,7 @@ public class Tienda implements Actualizable {
     String nombre;
     int dinero;
     int renta;
-    int jaulasGrandes = 0;
-    int jaulasPequenas = 0;
-    ArrayList<Mascota> mascotas;
+    ArrayList<Jaula> jaulas;
     ArrayList<Empleado> empleados;
     int[] stockMedicamentos;
     int[] stockAlimentos;
@@ -17,7 +15,7 @@ public class Tienda implements Actualizable {
         this.nombre = nombre;
         dinero = dineroInicial;
         renta = 0;
-        this.mascotas = new ArrayList<>();
+        this.jaulas = new ArrayList<>();
         this.empleados = new ArrayList<>();
         stockMedicamentos = new int[Medicamentos.values().length];
         stockAlimentos = new int[Alimentos.values().length];
@@ -47,11 +45,11 @@ public class Tienda implements Actualizable {
         }
 
         dinero -= contenedor.precio;
-        if (contenedor == TipoContenedor.JaulaGrande) {
-            jaulasGrandes++;
-        } else if (contenedor == TipoContenedor.JaulaPequena) {
-            jaulasPequenas++;
-        }
+        Jaula jaulaComprada = switch (contenedor){
+            case JaulaGrande -> new JaulaGrande();
+            case JaulaPequena -> new JaulaPequena();
+        };
+        jaulas.add(jaulaComprada);
         return true;
     }
 
@@ -61,11 +59,11 @@ public class Tienda implements Actualizable {
 
     public void actualizar(){
         dinero -= renta;
-        mascotas.forEach(Mascota::actualizar);
+        jaulas.forEach(Jaula::actualizar);
     }
 
-    public ArrayList<Mascota> getMascotas() {
-        return mascotas;
+    public ArrayList<Jaula> getJaulas() {
+        return jaulas;
     }
 
     public ArrayList<Empleado> getEmpleados() {
@@ -73,24 +71,23 @@ public class Tienda implements Actualizable {
     }
 
     public boolean encontrarIDMascotas(int id){
-        return mascotas.stream().anyMatch(i -> i.getID() == id);
+        return jaulas.stream().anyMatch(i -> i.getMascota().getID() == id);
     }
     public boolean encontrarIDEmpleados(int id){
         return empleados.stream().anyMatch(i -> i.getID() == id);
     }
     public void agregarMascota(Mascota mascota) {
-        mascotas.add(mascota);
+        Jaula jaulaDestino = jaulas.stream()
+                .filter(j -> j.estaVacia() && j.admiteEspecie(mascota.getEspecie()))
+                .findFirst()
+                .orElse(null);
+        if (jaulaDestino != null) {
+            jaulaDestino.ingresarMascota(mascota);
+        }
     }
 
     public int getDinero() {
         return this.dinero;
     }
 
-    public int getJaulasGrandes() {
-        return jaulasGrandes;
-    }
-
-    public int getJaulasPequenas() {
-        return jaulasPequenas;
-    }
 }

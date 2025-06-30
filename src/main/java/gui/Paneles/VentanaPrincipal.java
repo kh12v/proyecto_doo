@@ -1,7 +1,7 @@
 package gui.Paneles;
 
 import Controladores.Eventos.*;
-import Controladores.Eventos.Tipos.V_CambiarVentanaEvento;
+import Controladores.Eventos.Tipos.V_CambiarVentana;
 import Controladores.Eventos.Tipos.V_MostrarMensaje;
 import Logica.Tienda;
 import gui.Paneles.PanelCompras.PanelCompras;
@@ -11,7 +11,6 @@ import gui.Paneles.PanelTienda.PanelTienda;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Esta es la ventana principal desde la que se mostrarán los paneles
@@ -30,7 +29,7 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
     @Override
     public void recibir(Evento evento) {
         switch (evento.getTipo()){
-            case CambiarVentana -> setPanelPrincipal(((V_CambiarVentanaEvento) evento).getVentana());
+            case CambiarVentana -> setPanelPrincipal(((V_CambiarVentana) evento).getVentana());
             case MostrarMensaje -> mostrarMensaje((V_MostrarMensaje) evento);
         }
     }

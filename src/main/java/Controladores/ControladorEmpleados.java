@@ -4,8 +4,8 @@ import Controladores.Estado.EmpleadoState;
 import Controladores.Eventos.DestinoEvento;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Evento;
-import Controladores.Eventos.Tipos.M_PedirEmpleadosEvento;
-import Controladores.Eventos.Tipos.V_ActualizarEmpleadosEvento;
+import Controladores.Eventos.Tipos.M_PedirEmpleados;
+import Controladores.Eventos.Tipos.V_ActualizarEmpleados;
 import Logica.Empleado;
 import Logica.Tienda;
 
@@ -32,14 +32,14 @@ public class ControladorEmpleados implements Controlador {
     @Override
     public void recibir(Evento e) {
         switch (e.getTipo()) {
-            case PedirEmpleados -> contestarPeticionEmpleados((M_PedirEmpleadosEvento) e);
+            case PedirEmpleados -> contestarPeticionEmpleados((M_PedirEmpleados) e);
         }
     }
 
-    public void contestarPeticionEmpleados(M_PedirEmpleadosEvento e) {
+    public void contestarPeticionEmpleados(M_PedirEmpleados e) {
         List<Empleado> empleados = t.getEmpleados();
         //filtra todas las ids pedidas que tiene la tienda, o entrega todas en caso de WILD
-        List<Integer> ids = (e.getIDs() == M_PedirEmpleadosEvento.WILD)
+        List<Integer> ids = (e.getIDs() == M_PedirEmpleados.WILD)
                 ? empleados.stream()
                 .map(Empleado::getID)
                 .toList()
@@ -54,6 +54,6 @@ public class ControladorEmpleados implements Controlador {
                 .map(EmpleadoState::toState)
                 .toArray(EmpleadoState[]::new);
 
-        handler.enviar(new V_ActualizarEmpleadosEvento(filtrado));
+        handler.enviar(new V_ActualizarEmpleados(filtrado));
     }
 }
