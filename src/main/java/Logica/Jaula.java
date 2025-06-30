@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public abstract class Jaula implements Actualizable{
     private Mascota mascota;
+    private boolean vacia;
     private final Especies[] especiesPermitidas;
     private final Indicador limpieza;
     private static int idCounter = 0;
@@ -15,6 +16,7 @@ public abstract class Jaula implements Actualizable{
         this.especiesPermitidas = especiesPermitidas;
         limpieza = new Indicador();
         tipoContenedor = tipo;
+        vacia = true;
     }
 
     public Mascota getMascota() {
@@ -24,6 +26,7 @@ public abstract class Jaula implements Actualizable{
     public Mascota removerMascota() {
         Mascota m = mascota;
         mascota = null;
+        vacia = true;
         return m;
     }
 
@@ -34,15 +37,16 @@ public abstract class Jaula implements Actualizable{
     }
 
     public void ingresarMascota(Mascota mascota) {
-        if (this.mascota != null || !admiteEspecie(mascota.getEspecie())) {return;}
+        if (!estaVacia() || !admiteEspecie(mascota.getEspecie())) {return;}
         this.mascota = mascota;
+        vacia = false;
     }
 
     public boolean admiteEspecie(Especies especie) {
         return Arrays.stream(especiesPermitidas).anyMatch(i->i==mascota.getEspecie());
     }
     public boolean estaVacia() {
-        return mascota==null;
+        return vacia;
     }
     @Override
     public void actualizar() {

@@ -76,14 +76,22 @@ public class Tienda implements Actualizable {
     public boolean encontrarIDEmpleados(int id){
         return empleados.stream().anyMatch(i -> i.getID() == id);
     }
-    public void agregarMascota(Mascota mascota) {
+
+    public int comprarMascota(Especies especie, String nombreMascota) {
+        if (dinero < especie.precio){
+            return -1;
+        }
+        dinero -= especie.precio;
+        Mascota mascota = new Mascota(nombreMascota, especie);
         Jaula jaulaDestino = jaulas.stream()
                 .filter(j -> j.estaVacia() && j.admiteEspecie(mascota.getEspecie()))
                 .findFirst()
                 .orElse(null);
         if (jaulaDestino != null) {
             jaulaDestino.ingresarMascota(mascota);
+            return jaulaDestino.getID();
         }
+        return -1;
     }
 
     public int getDinero() {

@@ -3,12 +3,14 @@ package gui.Paneles.PanelMascotas;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PanelIndicador extends JPanel {
-    private JProgressBar crearIndicador(int ancho, String texto) {
+    ArrayList<JProgressBar> indicadores;
+    private JProgressBar crearIndicador(int ancho, String texto, int progreso) {
         JProgressBar indicador = new JProgressBar(0, 100);
         indicador.setPreferredSize(new Dimension(ancho, 25));
-        indicador.setValue(100);
+        indicador.setValue(progreso);
         indicador.setStringPainted(true);
         indicador.setString(texto);
         indicador.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -16,17 +18,26 @@ public class PanelIndicador extends JPanel {
         return indicador;
     }
 
-    public PanelIndicador(int ancho) {
+    public PanelIndicador(int ancho, int[] estadoIndicadores) {
         setBorder(new EmptyBorder(0, 0, 0, 0));
         setBackground(new Color(0,0,0,0));
-
+        indicadores = new ArrayList<>();
         Box box = Box.createVerticalBox();
-
-        box.add(crearIndicador(ancho, "Hambre"));
-        box.add(crearIndicador(ancho, "Salud"));
-        box.add(crearIndicador(ancho, "Higiene"));
-        box.add(crearIndicador(ancho, "Felicidad"));
-
+        String[] nombresIndicadores = new String[]{"Hambre","Salud","Felicidad","Higiene"};
+        for (int i = 0; i < 4; i++) {
+            indicadores.add(crearIndicador(ancho, nombresIndicadores[i], estadoIndicadores[i]));
+        }
+        indicadores.forEach(box::add);
         add(box);
+    }
+
+    public void modificarPanel(int[] estadoIndicadores) {
+        if(estadoIndicadores.length == 0){
+            indicadores.forEach(jProgressBar -> jProgressBar.setValue(0));
+            return;
+        }
+        for(int i = 0; i < 4; i++){
+            indicadores.get(i).setValue(estadoIndicadores[i]);
+        }
     }
 }

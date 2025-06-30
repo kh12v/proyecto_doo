@@ -8,6 +8,7 @@ import Logica.Jaula;
 import Logica.Tienda;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class ControladorMascotas implements Controlador {
     EventHandler handler;
@@ -37,6 +38,7 @@ public class ControladorMascotas implements Controlador {
 
     private void contestarPeticionIndicadores() {
         int[][] indicadores = t.getJaulas().stream()
+                .filter(Predicate.not(Jaula::estaVacia))
                 .map(Jaula::getIndicadores)
                 .map(ind -> ind.stream()
                         .mapToInt(Indicador::getValor)
