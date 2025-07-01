@@ -4,8 +4,7 @@ import Controladores.Estado.EmpleadoState;
 import Controladores.Eventos.DestinoEvento;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Evento;
-import Controladores.Eventos.Tipos.M_PedirEmpleados;
-import Controladores.Eventos.Tipos.V_ActualizarEmpleados;
+import Controladores.Eventos.Tipos.*;
 import Logica.Empleado;
 import Logica.Tienda;
 
@@ -33,6 +32,8 @@ public class ControladorEmpleados implements Controlador {
     public void recibir(Evento e) {
         switch (e.getTipo()) {
             case PedirEmpleados -> contestarPeticionEmpleados((M_PedirEmpleados) e);
+            case AgregarEmpleado -> contestarAgregarEmpleado((M_AgregarEmpleado) e);
+            case DespedirEmpleado -> contestarDespedirEmpleado((M_DespedirEmpleado) e);
         }
     }
 
@@ -55,5 +56,26 @@ public class ControladorEmpleados implements Controlador {
                 .toArray(EmpleadoState[]::new);
 
         handler.enviar(new V_ActualizarEmpleados(filtrado));
+    }
+
+    public void contestarAgregarEmpleado(M_AgregarEmpleado e) {
+        int id = t.contratarEmpleado(e.cargo);
+        if (id < 0) {
+            handler.enviar(new V_MostrarMensaje("Error al intentar contratar empleado"));
+        } else {
+            handler.enviar(new V_MostrarMensaje("Empleado contratado exitosamente"));
+            handler.enviar(new V_MostrarDinero(t.getDinero()));
+            handler.enviar(new M_PedirEmpleados(new int[]{id}));
+        }
+    }
+
+    public void contestarDespedirEmpleado(M_DespedirEmpleado e) {
+        int resultado = t.despedirEmpleado(e.estado.id());
+        if (resultado < 0) {
+            handler.enviar(new V_MostrarMensaje("Error al intentar despedir empleado"));
+        } else {
+            handler.enviar(new V_MostrarMensaje("Empleado despedido exitosamente"));
+            handler.enviar(new V_QuitarEmpleado(e.estado.id()));
+        }
     }
 }

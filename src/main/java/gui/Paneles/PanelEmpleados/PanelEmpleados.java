@@ -10,6 +10,8 @@ import gui.Paneles.Ventanas;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PanelEmpleados extends JPanel implements Publicador {
     private EventHandler handler;
@@ -29,7 +31,7 @@ public class PanelEmpleados extends JPanel implements Publicador {
         panelNorte.add(indicadorDinero, BorderLayout.CENTER);
 
         add(panelNorte, BorderLayout.NORTH);
-        planillaEmpleados = new PlanillaEmpleados();
+        planillaEmpleados = new PlanillaEmpleados(tienda);
         add(planillaEmpleados);
     }
 

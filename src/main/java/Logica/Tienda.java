@@ -123,6 +123,25 @@ public class Tienda implements Actualizable {
         return jaulaComprada.getID();
     }
 
+    public int contratarEmpleado(Cargo cargo) {
+        if (cargo.getSalario() > dinero) return C_DineroInsuficiente;
+
+        Empleado empleado = new Empleado(this, cargo);
+        empleados.add(empleado);
+        return empleado.getID();
+    }
+
+    public int despedirEmpleado(int id) {
+        for (int i = 0; i < empleados.size(); i++) {
+            if (empleados.get(i).getID() == id) {
+                empleados.remove(i);
+                return 1;
+            }
+        }
+
+        return -1;
+    }
+
     public void pagarSalario(int salario) {
         dinero -= salario;
     }
@@ -130,6 +149,7 @@ public class Tienda implements Actualizable {
     public void actualizar(){
         dinero -= renta;
         jaulas.forEach(Jaula::actualizar);
+        empleados.forEach(e -> pagarSalario(e.getSalario()));
     }
 
     public ArrayList<Jaula> getJaulas() {
