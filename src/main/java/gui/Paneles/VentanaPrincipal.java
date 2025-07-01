@@ -16,8 +16,8 @@ import java.awt.*;
  * Esta es la ventana principal desde la que se mostrarán los paneles
  */
 public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
-    static private final int ANCHO = 950;
-    static private final int ALTO = 950;
+    static private final int ANCHO = 1000;
+    static private final int ALTO = 850;
 
     private JPanel panelPrincipal = null;
 

@@ -56,7 +56,7 @@ public class ControladorMascotas implements Controlador {
                 .toList()
                 : mascotas.stream()
                 .map(Jaula::getID)
-                .filter(t::encontrarIDMascotas)
+                .filter(t::encontrarIDJaulas)
                 .toList();
 
         //filtra todas las mascotas con las ids pedidas
@@ -69,12 +69,13 @@ public class ControladorMascotas implements Controlador {
     }
 
     public void contestarAgregarJaula(M_AgregarJaula e) {
-        if (!t.comprarJaula(e.tipoContenedor)) {
+        int id = t.comprarJaula(e.tipoContenedor);
+        if (id < 0) {
             handler.enviar(new V_MostrarMensaje("No hay dinero suficiente"));
         } else {
             handler.enviar(new V_MostrarMensaje("Compra exitosa"));
             handler.enviar(new V_MostrarDinero(t.getDinero()));
-            handler.enviar(new M_PedirMascotas(M_PedirMascotas.WILD));
+            handler.enviar(new M_PedirMascotas(new int[]{id}));
         }
     }
 }

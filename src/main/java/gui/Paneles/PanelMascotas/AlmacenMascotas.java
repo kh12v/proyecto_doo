@@ -59,6 +59,7 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
             }
         }
 
+        setPreferredSize(new Dimension(PanelMascota.ANCHO*3, PanelMascota.ALTO * (mascotas.size()/2 + 1)));
         add(botonAgregar);
 
         revalidate();

@@ -17,7 +17,6 @@ public class PanelMascota extends JPanel {
 
     public PanelMascota(JaulaState jaula) {
         setBackground(new Color(0,0,0,0));
-        setPreferredSize(new Dimension(ANCHO, ALTO));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         labelNombre = new JLabel(jaula.mascotaState().nombre(), SwingConstants.CENTER);

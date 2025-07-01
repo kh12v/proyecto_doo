@@ -36,23 +36,14 @@ public class ControladorSuministros implements Controlador {
     }
 
     public void contestarComprarProducto(M_ComprarProducto e) {
-        if (!t.comprarProducto(e.producto)) {
+        int codigoCompra = t.comprarProducto(e.producto);
+        if (codigoCompra < 0) {
             handler.enviar(new V_MostrarMensaje("Compra fallida"));
         } else {
             handler.enviar(new V_MostrarMensaje("Compra exitosa"));
             if (e.producto.getTipoProducto() == TipoProducto.Mascota) {
-                // Se actualizarán todas las mascotas
-                List<Jaula> mascotas = t.getJaulas();
-                List<Integer> ids = mascotas.stream()
-                        .map(Jaula::getID)
-                        .toList();
-
-                JaulaState[] filtrado = mascotas.stream()
-                        .filter(m -> ids.contains(m.getID()))
-                        .map(JaulaState::toState)
-                        .toArray(JaulaState[]::new);
-
-                handler.enviar(new V_ActualizarMascotas(filtrado));
+                //dejemos al controlador encargarse de esto
+                handler.enviar(new M_PedirMascotas(new int[]{codigoCompra}));
             }
             handler.enviar(new V_MostrarDinero(t.getDinero()));
         }

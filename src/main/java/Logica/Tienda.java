@@ -28,26 +28,26 @@ public class Tienda implements Actualizable {
         stockAlimentos = new int[4];
     }
 
-    public boolean comprarProducto(Producto producto) {
+    public int comprarProducto(Producto producto) {
         TipoProducto tipoProducto = producto.getTipoProducto();
         if (tipoProducto == TipoProducto.Mascota) return comprarMascota(producto);
         else if (tipoProducto == TipoProducto.Comida) return comprarAlimento(producto);
         else if (tipoProducto == TipoProducto.Juguete) return comprarJuguete(producto);
         else if (tipoProducto == TipoProducto.Medicamento) return comprarMedicamento(producto);
 
-        return false;
+        return -1;
     }
 
-    public boolean comprarMascota(Producto producto) {
-        if (producto.getTipoProducto() != TipoProducto.Mascota) return false;
-        if (producto.getPrecio() > dinero) return false;
+    public int comprarMascota(Producto producto) {
+        if (producto.getTipoProducto() != TipoProducto.Mascota) return -1;
+        if (producto.getPrecio() > dinero) return -1;
 
         Especies especie;
         if (producto == Producto.Perro) especie = Especies.Perro;
         else if (producto == Producto.Gato) especie = Especies.Gato;
         else if (producto == Producto.Loro) especie = Especies.Loro;
         else if (producto == Producto.Hamster) especie = Especies.Hamster;
-        else return false;
+        else return -1;
 
         for (Jaula jaula : jaulas) {
             if (!jaula.estaVacia()) continue;
@@ -55,16 +55,16 @@ public class Tienda implements Actualizable {
             if (jaula.admiteEspecie(especie)) {
                 jaula.ingresarMascota(new Mascota("wuah", especie));
                 dinero -= producto.getPrecio();
-                return true;
+                return jaula.getID();
             }
         }
 
-        return false;
+        return -1;
     }
 
-    public boolean comprarAlimento(Producto producto) {
-        if (producto.getTipoProducto() != TipoProducto.Comida) return false;
-        if (producto.getPrecio() > dinero) return false;
+    public int comprarAlimento(Producto producto) {
+        if (producto.getTipoProducto() != TipoProducto.Comida) return -1;
+        if (producto.getPrecio() > dinero) return -1;
 
         dinero -= producto.getPrecio();
         switch (producto) {
@@ -73,12 +73,12 @@ public class Tienda implements Actualizable {
             case ComidaLoro -> stockAlimentos[I_Loro]++;
             case ComidaHamster -> stockAlimentos[I_Hamster]++;
         }
-        return true;
+        return 1;
     }
 
-    public boolean comprarJuguete(Producto producto) {
-        if (producto.getTipoProducto() != TipoProducto.Juguete) return false;
-        if (producto.getPrecio() > dinero) return false;
+    public int comprarJuguete(Producto producto) {
+        if (producto.getTipoProducto() != TipoProducto.Juguete) return -1;
+        if (producto.getPrecio() > dinero) return -1;
 
         dinero -= producto.getPrecio();
         switch (producto) {
@@ -87,12 +87,12 @@ public class Tienda implements Actualizable {
             case JugueteLoro -> stockJuguetes[I_Loro]++;
             case JugueteHamster -> stockJuguetes[I_Hamster]++;
         }
-        return true;
+        return 1;
     }
 
-    public boolean comprarMedicamento(Producto producto) {
-        if (producto.getTipoProducto() != TipoProducto.Medicamento) return false;
-        if (producto.getPrecio() > dinero) return false;
+    public int comprarMedicamento(Producto producto) {
+        if (producto.getTipoProducto() != TipoProducto.Medicamento) return -1;
+        if (producto.getPrecio() > dinero) return -1;
 
         dinero -= producto.getPrecio();
         switch (producto) {
@@ -101,12 +101,12 @@ public class Tienda implements Actualizable {
             case MedicamentoLoro -> stockMedicamentos[I_Loro]++;
             case MedicamentoHamster -> stockMedicamentos[I_Hamster]++;
         }
-        return true;
+        return 1;
     }
 
-    public boolean comprarJaula(TipoContenedor contenedor) {
+    public int comprarJaula(TipoContenedor contenedor) {
         if (contenedor.precio > dinero) {
-            return false;
+            return -1;
         }
 
         dinero -= contenedor.precio;
@@ -115,7 +115,8 @@ public class Tienda implements Actualizable {
             case JaulaPequena -> new JaulaPequena();
         };
         jaulas.add(jaulaComprada);
-        return true;
+        System.out.println(jaulaComprada.getID());
+        return jaulaComprada.getID();
     }
 
     public void pagarSalario(int salario) {
@@ -142,21 +143,8 @@ public class Tienda implements Actualizable {
         return empleados.stream().anyMatch(i -> i.getID() == id);
     }
 
-    public int comprarMascota(Especies especie, String nombreMascota) {
-        if (dinero < especie.precio){
-            return -1;
-        }
-        dinero -= especie.precio;
-        Mascota mascota = new Mascota(nombreMascota, especie);
-        Jaula jaulaDestino = jaulas.stream()
-                .filter(j -> j.estaVacia() && j.admiteEspecie(mascota.getEspecie()))
-                .findFirst()
-                .orElse(null);
-        if (jaulaDestino != null) {
-            jaulaDestino.ingresarMascota(mascota);
-            return jaulaDestino.getID();
-        }
-        return -1;
+    public boolean encontrarIDJaulas(int id){
+        return jaulas.stream().anyMatch(i -> i.getID() == id);
     }
 
     public int getDinero() {
