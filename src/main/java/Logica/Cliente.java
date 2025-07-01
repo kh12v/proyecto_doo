@@ -18,7 +18,7 @@ public class Cliente {
             calificacion *= 0.5;
             return false;
         }
-        int[] indicadores = mascota.getIndicadores().stream().mapToInt(Indicador::getValor).toArray();
+        int[] indicadores = mascota.getIndicadores();
         Arrays.stream(indicadores).forEach(indicador -> calificacion *= ((double) indicador /100 + 0.5));
         calificacion = Math.max(calificacion, 5.0);
         return true;

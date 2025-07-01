@@ -1,10 +1,13 @@
 package Controladores;
 
 import Controladores.Eventos.*;
+import Controladores.Eventos.Tipos.M_PedirIndicadoresMascotas;
 import Controladores.Eventos.Tipos.V_ActualizarCalificacion;
+import Controladores.Eventos.Tipos.V_MostrarDinero;
+import Logica.Actualizable;
 import Logica.Tienda;
 
-public class ControladorPrincipal implements Controlador {
+public class ControladorPrincipal implements Controlador, Actualizable {
     private final ControladorMascotas mascotas;
     private final ControladorEmpleados empleados;
     private final ControladorSuministros suministros;
@@ -40,5 +43,12 @@ public class ControladorPrincipal implements Controlador {
     @Override
     public DestinoEvento[] getEventosEscuchados() {
         return new DestinoEvento[]{DestinoEvento.Controlador};
+    }
+
+    @Override
+    public void actualizar() {
+        tienda.actualizar();
+        handler.enviar(new V_MostrarDinero(tienda.getDinero()));
+        handler.enviar(new M_PedirIndicadoresMascotas(M_PedirIndicadoresMascotas.WILD));
     }
 }

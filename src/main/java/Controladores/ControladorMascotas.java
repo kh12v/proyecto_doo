@@ -3,12 +3,17 @@ package Controladores;
 import Controladores.Estado.JaulaState;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.*;
-import Logica.Indicador;
 import Logica.Jaula;
+import Logica.Mascota;
 import Logica.Tienda;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ControladorMascotas implements Controlador {
     EventHandler handler;
@@ -31,20 +36,24 @@ public class ControladorMascotas implements Controlador {
     public void recibir(Evento e) {
         switch (e.getTipo()) {
             case PedirMascotas -> contestarPeticionMascotas((M_PedirMascotas) e);
-            case PedirIndicadores -> contestarPeticionIndicadores();
+            case PedirIndicadores -> contestarPeticionIndicadores((M_PedirIndicadoresMascotas) e);
             case AgregarJaula -> contestarAgregarJaula((M_AgregarJaula) e);
         }
     }
 
-    private void contestarPeticionIndicadores() {
-        int[][] indicadores = t.getJaulas().stream()
+    private void contestarPeticionIndicadores(M_PedirIndicadoresMascotas e) {
+        List<Jaula> mascotas = t.getJaulas();
+        // lo siento mucho, si quieres hacer un for loop esta bien
+        Map<Integer,int[]> indicadores = (e.getIds() == M_PedirIndicadoresMascotas.WILD)
+                ? mascotas.stream()
                 .filter(Predicate.not(Jaula::estaVacia))
-                .map(Jaula::getIndicadores)
-                .map(ind -> ind.stream()
-                        .mapToInt(Indicador::getValor)
-                        .toArray())
-                .toArray(int[][]::new);
-        handler.enviar(new V_ActualizarIndicadoresMascotas(indicadores));
+                .collect(Collectors.toMap(Jaula::getID,Jaula::getIndicadores))
+                : mascotas.stream()
+                .filter(Predicate.not(Jaula::estaVacia))
+                .filter(jaula -> Arrays.stream(e.getIds()).anyMatch(i -> i == jaula.getID()))
+                .collect(Collectors.toMap(Jaula::getID,Jaula::getIndicadores));
+
+        handler.enviar(new V_ActualizarIndicadoresMascotas(new HashMap<>(indicadores)));
     }
 
     public void contestarPeticionMascotas(M_PedirMascotas e) {

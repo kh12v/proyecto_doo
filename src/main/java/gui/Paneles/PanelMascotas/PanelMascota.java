@@ -45,4 +45,8 @@ public class PanelMascota extends JPanel {
     public void enviarHandler(EventHandler handler){
         this.handler = handler;
     }
+
+    public void actualizarIndicadores(int[] indicadores) {
+        panelIndicador.modificarPanel(indicadores);
+    }
 }

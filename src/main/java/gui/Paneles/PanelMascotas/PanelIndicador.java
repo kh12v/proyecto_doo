@@ -33,7 +33,6 @@ public class PanelIndicador extends JPanel {
 
     public void modificarPanel(int[] estadoIndicadores) {
         if(estadoIndicadores.length == 0){
-            indicadores.forEach(jProgressBar -> jProgressBar.setValue(0));
             return;
         }
         for(int i = 0; i < 4; i++){

@@ -27,7 +27,7 @@ public class Tienda implements Actualizable {
     public Tienda(String nombre, int dineroInicial) {
         this.nombre = nombre;
         dinero = dineroInicial;
-        renta = 0;
+        renta = 5;
         jaulas = new ArrayList<>();
         empleados = new ArrayList<>();
         calificaciones = new ArrayList<>();

@@ -3,6 +3,7 @@ package gui.Paneles.PanelMascotas;
 import Controladores.Estado.JaulaState;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.M_PedirMascotas;
+import Controladores.Eventos.Tipos.V_ActualizarIndicadoresMascotas;
 import Controladores.Eventos.Tipos.V_ActualizarMascotas;
 import Logica.Tienda;
 
@@ -39,7 +40,13 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
     public void recibir(Evento evento) {
         switch (evento.getTipo()){
             case ActualizarMascotas -> actualizarMascotas((V_ActualizarMascotas) evento);
+            case ActualizarIndicadores -> actualizarIndicadores((V_ActualizarIndicadoresMascotas) evento);
         }
+    }
+
+    private void actualizarIndicadores(V_ActualizarIndicadoresMascotas evento) {
+        HashMap<Integer,int[]> mapaIndicadores = evento.getIndicadores();
+        mascotas.forEach((k,v) -> v.actualizarIndicadores(mapaIndicadores.getOrDefault(k,new int[]{})));
     }
 
     @Override

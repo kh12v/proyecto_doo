@@ -1,20 +1,17 @@
 package Logica;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public abstract class Jaula implements Actualizable{
     private Mascota mascota;
     private boolean vacia;
     private final Especies[] especiesPermitidas;
-    private final Indicador limpieza;
     private static int idCounter = 0;
     private final int id;
     private final TipoContenedor tipoContenedor;
     public Jaula(Especies[] especiesPermitidas, TipoContenedor tipo) {
         id = idCounter++;
         this.especiesPermitidas = especiesPermitidas;
-        limpieza = new Indicador();
         tipoContenedor = tipo;
         vacia = true;
     }
@@ -30,10 +27,11 @@ public abstract class Jaula implements Actualizable{
         return m;
     }
 
-    public ArrayList<Indicador> getIndicadores() {
-        ArrayList<Indicador> indicadores = new ArrayList<>(mascota.getIndicadores());
-        indicadores.add(limpieza);
-        return indicadores;
+    public int[] getIndicadores() {
+        if(vacia){
+            return new int[]{};
+        }
+        return mascota.getIndicadores();
     }
 
     public void ingresarMascota(Mascota mascota) {
@@ -48,9 +46,10 @@ public abstract class Jaula implements Actualizable{
     public boolean estaVacia() {
         return vacia;
     }
+
     @Override
     public void actualizar() {
-        limpieza.actualizar();
+        if(vacia){return;}
         mascota.actualizar();
     }
 

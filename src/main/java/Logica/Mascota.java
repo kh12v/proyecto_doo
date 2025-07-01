@@ -1,29 +1,31 @@
 package Logica;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class Mascota implements Actualizable {
     private final String nombre;
     private final Especies especie;
     private final int id;
     private static int idActual = 0;
-    Indicador hambre;
-    Indicador salud;
-    Indicador felicidad;
 
+    double[] indicadores;
+
+    double[][] matrizTransicion = {
+            {  0.9,     0.05,   -0.03,     0     },  // Hambre: Se reduce con el tiempo, mejora salud
+            {  0.03,    0.85,    0.05,     0.03  },  // Salud: Mejora si hay hambre (alimentación)
+            {  0.05,    0.05,    0.8,      0.05  },  // Felicidad: Disminuye si no hay comida
+            {  0,       0.05,   -0.05,     0.9   }   // Higiene: Se reduce con el tiempo
+    };
     public Mascota(String nombre, Especies especie) {
         this.nombre = nombre;
         this.especie = especie;
         this.id = idActual++;
-        hambre = new Indicador();
-        salud = new Indicador();
-        felicidad = new Indicador();
+        indicadores = new double[]{100,100,100,100};
     }
 
     public boolean alimentar(Alimentos alimento) {
         if (puedeComer(alimento)) {
-            hambre.incrementar(alimento.precio);
+            incrementarIndicador(Indicadores.HAMBRE,alimento.precio);
             return true;
         }
         return false;
@@ -42,14 +44,34 @@ public class Mascota implements Actualizable {
     }
 
     public int getID() {return id;}
-    public ArrayList<Indicador> getIndicadores(){
-        return new ArrayList<>(List.of(new Indicador[]{hambre, salud, felicidad}));
+
+    public int[] getIndicadores(){
+        return Arrays.stream(indicadores).mapToInt(i -> (int) i).toArray();
     }
 
     @Override
     public void actualizar() {
-        hambre.actualizar();
-        salud.actualizar();
-        felicidad.actualizar();
+        actualizarIndicadores();
+    }
+    public void actualizarIndicadores() {
+        double[] nuevosIndicadores = new double[4];
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 4; j++){
+                nuevosIndicadores[i] += matrizTransicion[i][j]*indicadores[j];
+            }
+            nuevosIndicadores[i] = Math.min(nuevosIndicadores[i],100);
+        }
+        indicadores = nuevosIndicadores;
+    }
+    private void incrementarIndicador(Indicadores indicador, double cantidad) {
+        indicadores[indicador.ordinal()] = Math.min(indicadores[indicador.ordinal()] + cantidad,100);
     }
 }
+
+enum Indicadores{
+    HAMBRE,
+    SALUD,
+    FELICIDAD,
+    HIGIENE
+}
+

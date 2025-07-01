@@ -4,13 +4,15 @@ import Controladores.Eventos.DestinoEvento;
 import Controladores.Eventos.Evento;
 import Controladores.Eventos.TipoEvento;
 
+import java.util.HashMap;
+
 public class V_ActualizarIndicadoresMascotas extends Evento {
-    int[][] indicadores;
-    public V_ActualizarIndicadoresMascotas(int[][] indicadores) {
+    HashMap<Integer,int[]> indicadores;
+    public V_ActualizarIndicadoresMascotas(HashMap<Integer,int[]> indicadores) {
         super(TipoEvento.ActualizarIndicadores, DestinoEvento.Vista);
         this.indicadores = indicadores;
     }
-    public int[][] getIndicadores() {
+    public HashMap<Integer, int[]> getIndicadores() {
         return indicadores;
     }
 }

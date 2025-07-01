@@ -1,7 +1,6 @@
 package Controladores.Estado;
 
 import Logica.Especies;
-import Logica.Indicador;
 import Logica.Mascota;
 
 import java.util.Arrays;
@@ -23,11 +22,7 @@ public record MascotaState (String nombre,
     public static final MascotaState NULL = new MascotaState("",Especies.Null,0, null);
     public static MascotaState toState(Mascota mascota){
         if (mascota==null) return null;
-        int[] indicadorEstado = mascota
-                .getIndicadores()
-                .stream()
-                .mapToInt(Indicador::getValor)
-                .toArray();
+        int[] indicadorEstado = mascota.getIndicadores();
         return new MascotaState(mascota.getNombre(),mascota.getEspecie(),mascota.getID(), indicadorEstado);
     }
 
