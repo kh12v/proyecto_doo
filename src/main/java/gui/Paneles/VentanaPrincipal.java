@@ -85,9 +85,6 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
         PANEL_COMPRAS.enviarHandler(handler);
         handler.suscribir(this);
     }
-    public JPanel getPanelPrincipal() {
-        return panelPrincipal;
-    }
 
     public void mostrar() {
         setVisible(true);

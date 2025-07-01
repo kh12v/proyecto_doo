@@ -11,5 +11,7 @@ public enum TipoEvento {
     AgregarJaula,
     MostrarMensaje,
     MostrarDinero,
-    ComprarProducto
+    ComprarProducto,
+    PedirCalificacion,
+    ActualizarCalificacion,
 }

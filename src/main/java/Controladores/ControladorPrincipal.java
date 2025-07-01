@@ -1,8 +1,7 @@
 package Controladores;
 
-import Controladores.Eventos.DestinoEvento;
-import Controladores.Eventos.EventHandler;
-import Controladores.Eventos.Evento;
+import Controladores.Eventos.*;
+import Controladores.Eventos.Tipos.V_ActualizarCalificacion;
 import Logica.Tienda;
 
 public class ControladorPrincipal implements Controlador {
@@ -10,11 +9,13 @@ public class ControladorPrincipal implements Controlador {
     private final ControladorEmpleados empleados;
     private final ControladorSuministros suministros;
     private EventHandler handler;
+    private final Tienda tienda;
 
     public ControladorPrincipal(Tienda tienda) {
         mascotas = new ControladorMascotas(tienda);
         empleados = new ControladorEmpleados(tienda);
         suministros = new ControladorSuministros(tienda);
+        this.tienda = tienda;
     }
 
     public void enviarHandler(EventHandler handler) {
@@ -22,10 +23,18 @@ public class ControladorPrincipal implements Controlador {
         empleados.enviarHandler(handler);
         suministros.enviarHandler(handler);
         this.handler = handler;
+        handler.suscribir(this);
     }
 
     @Override
     public void recibir(Evento evento) {
+        switch (evento.getTipo()) {
+            case PedirCalificacion -> actualizarCalificacion();
+        }
+    }
+
+    private void actualizarCalificacion() {
+        handler.enviar(new V_ActualizarCalificacion(tienda.getCalificacion()));
     }
 
     @Override

@@ -3,14 +3,16 @@ package Logica;
 import java.util.ArrayList;
 
 public class Tienda implements Actualizable {
-    String nombre;
-    int dinero;
-    int renta;
-    ArrayList<Jaula> jaulas;
-    ArrayList<Empleado> empleados;
-    int[] stockMedicamentos;
-    int[] stockJuguetes;
-    int[] stockAlimentos;
+    private final String nombre;
+    private int dinero;
+    private int renta;
+    private final ArrayList<Double> calificaciones;
+    private final ArrayList<Jaula> jaulas;
+    private final ArrayList<Empleado> empleados;
+    private final ArrayList<Cliente> clientes;
+    private final int[] stockMedicamentos;
+    private final int[] stockJuguetes;
+    private final int[] stockAlimentos;
 
     static final int I_Perro = 0;
     static final int I_Gato = 1;
@@ -21,11 +23,14 @@ public class Tienda implements Actualizable {
         this.nombre = nombre;
         dinero = dineroInicial;
         renta = 0;
-        this.jaulas = new ArrayList<>();
-        this.empleados = new ArrayList<>();
+        jaulas = new ArrayList<>();
+        empleados = new ArrayList<>();
+        calificaciones = new ArrayList<>();
+        calificaciones.add(3.0);
         stockMedicamentos = new int[4];
         stockJuguetes = new int[4];
         stockAlimentos = new int[4];
+        clientes = new ArrayList<>();
     }
 
     public int comprarProducto(Producto producto) {
@@ -39,20 +44,13 @@ public class Tienda implements Actualizable {
     }
 
     public int comprarMascota(Producto producto) {
-        if (producto.getTipoProducto() != TipoProducto.Mascota) return -1;
-        if (producto.getPrecio() > dinero) return -1;
+        if (!producto.esMascota() || producto.getPrecio() >= dinero ) return -1;
 
-        Especies especie;
-        if (producto == Producto.Perro) especie = Especies.Perro;
-        else if (producto == Producto.Gato) especie = Especies.Gato;
-        else if (producto == Producto.Loro) especie = Especies.Loro;
-        else if (producto == Producto.Hamster) especie = Especies.Hamster;
-        else return -1;
+        Especies especie = producto.getEspecie();
 
         for (Jaula jaula : jaulas) {
-            if (!jaula.estaVacia()) continue;
-
-            if (jaula.admiteEspecie(especie)) {
+            // los operadores emplean short circuiting (no evalúa la derecha si la izquierda es falsa)
+            if (jaula.estaVacia() && jaula.admiteEspecie(especie)) {
                 jaula.ingresarMascota(new Mascota("wuah", especie));
                 dinero -= producto.getPrecio();
                 return jaula.getID();
@@ -149,6 +147,10 @@ public class Tienda implements Actualizable {
 
     public int getDinero() {
         return this.dinero;
+    }
+
+    public double getCalificacion(){
+        return calificaciones.stream().reduce(0.0,Double::sum)/calificaciones.size();
     }
 
 }

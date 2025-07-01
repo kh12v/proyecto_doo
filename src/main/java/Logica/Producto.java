@@ -39,6 +39,17 @@ public enum Producto {
         return precio;
     }
 
+    public boolean esMascota() {
+        return tipoProducto == TipoProducto.Mascota;
+    }
+
+    public Especies getEspecie() {
+        if(!esMascota()){
+            return Especies.Null;
+        }
+        return Especies.values()[ordinal()];
+    }
+
     public TipoProducto getTipoProducto() {
         return tipoProducto;
     }
