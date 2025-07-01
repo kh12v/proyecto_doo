@@ -22,6 +22,14 @@ public class PanelCompraSuministros extends JPanel implements Publicador {
 
         Box box = Box.createVerticalBox();
 
+        box.add(crearOpcion(Producto.ComidaPerro, "recursos/comida/comida_perro.png"));
+        box.add(Box.createRigidArea(new Dimension(0, 15)));
+        box.add(crearOpcion(Producto.ComidaGato, "recursos/comida/comida_gato.png"));
+        box.add(Box.createRigidArea(new Dimension(0, 15)));
+        box.add(crearOpcion(Producto.ComidaLoro, "recursos/comida/comida_loro.png"));
+        box.add(Box.createRigidArea(new Dimension(0, 15)));
+        box.add(crearOpcion(Producto.ComidaHamster, "recursos/comida/comida_hamster.png"));
+
         box.add(crearOpcion(Producto.JuguetePerro, "recursos/juguetes/juguete_perro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
         box.add(crearOpcion(Producto.JugueteGato, "recursos/juguetes/juguete_gato.png"));

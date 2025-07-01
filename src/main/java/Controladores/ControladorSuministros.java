@@ -38,7 +38,13 @@ public class ControladorSuministros implements Controlador {
     public void contestarComprarProducto(M_ComprarProducto e) {
         int codigoCompra = t.comprarProducto(e.producto);
         if (codigoCompra < 0) {
-            handler.enviar(new V_MostrarMensaje("Compra fallida"));
+            if (codigoCompra == Tienda.C_DineroInsuficiente) {
+                handler.enviar(new V_MostrarMensaje("No cuenta con dinero suficiente"));
+            } else if (codigoCompra == Tienda.C_NoJaulaDisponible) {
+                handler.enviar(new V_MostrarMensaje("No hay una jaula disponible"));
+            } else {
+                handler.enviar(new V_MostrarMensaje("Error en la compra"));
+            }
         } else {
             handler.enviar(new V_MostrarMensaje("Compra exitosa"));
             if (e.producto.getTipoProducto() == TipoProducto.Mascota) {

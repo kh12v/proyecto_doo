@@ -19,6 +19,11 @@ public class Tienda implements Actualizable {
     static final int I_Loro = 2;
     static final int I_Hamster = 3;
 
+    public static final int C_Exito = 1;
+    public static final int C_Error = -1;
+    public static final int C_DineroInsuficiente = -2;
+    public static final int C_NoJaulaDisponible = -3;
+
     public Tienda(String nombre, int dineroInicial) {
         this.nombre = nombre;
         dinero = dineroInicial;
@@ -40,11 +45,12 @@ public class Tienda implements Actualizable {
         else if (tipoProducto == TipoProducto.Juguete) return comprarJuguete(producto);
         else if (tipoProducto == TipoProducto.Medicamento) return comprarMedicamento(producto);
 
-        return -1;
+        return C_Error;
     }
 
     public int comprarMascota(Producto producto) {
-        if (!producto.esMascota() || producto.getPrecio() >= dinero ) return -1;
+        if (!producto.esMascota()) return C_Error;
+        else if (producto.getPrecio() >= dinero ) return C_DineroInsuficiente;
 
         Especies especie = producto.getEspecie();
 
@@ -57,12 +63,12 @@ public class Tienda implements Actualizable {
             }
         }
 
-        return -1;
+        return C_NoJaulaDisponible;
     }
 
     public int comprarAlimento(Producto producto) {
-        if (producto.getTipoProducto() != TipoProducto.Comida) return -1;
-        if (producto.getPrecio() > dinero) return -1;
+        if (producto.getTipoProducto() != TipoProducto.Comida) return C_Error;
+        if (producto.getPrecio() > dinero) return C_DineroInsuficiente;
 
         dinero -= producto.getPrecio();
         switch (producto) {
@@ -71,12 +77,12 @@ public class Tienda implements Actualizable {
             case ComidaLoro -> stockAlimentos[I_Loro]++;
             case ComidaHamster -> stockAlimentos[I_Hamster]++;
         }
-        return 1;
+        return C_Exito;
     }
 
     public int comprarJuguete(Producto producto) {
-        if (producto.getTipoProducto() != TipoProducto.Juguete) return -1;
-        if (producto.getPrecio() > dinero) return -1;
+        if (producto.getTipoProducto() != TipoProducto.Juguete) return C_Error;
+        if (producto.getPrecio() > dinero) return C_DineroInsuficiente;
 
         dinero -= producto.getPrecio();
         switch (producto) {
@@ -85,12 +91,12 @@ public class Tienda implements Actualizable {
             case JugueteLoro -> stockJuguetes[I_Loro]++;
             case JugueteHamster -> stockJuguetes[I_Hamster]++;
         }
-        return 1;
+        return C_Exito;
     }
 
     public int comprarMedicamento(Producto producto) {
-        if (producto.getTipoProducto() != TipoProducto.Medicamento) return -1;
-        if (producto.getPrecio() > dinero) return -1;
+        if (producto.getTipoProducto() != TipoProducto.Medicamento) return C_Error;
+        if (producto.getPrecio() > dinero) return C_DineroInsuficiente;
 
         dinero -= producto.getPrecio();
         switch (producto) {
@@ -99,12 +105,12 @@ public class Tienda implements Actualizable {
             case MedicamentoLoro -> stockMedicamentos[I_Loro]++;
             case MedicamentoHamster -> stockMedicamentos[I_Hamster]++;
         }
-        return 1;
+        return C_Exito;
     }
 
     public int comprarJaula(TipoContenedor contenedor) {
         if (contenedor.precio > dinero) {
-            return -1;
+            return C_DineroInsuficiente;
         }
 
         dinero -= contenedor.precio;
