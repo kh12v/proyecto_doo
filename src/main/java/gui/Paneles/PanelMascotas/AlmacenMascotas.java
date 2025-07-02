@@ -15,10 +15,8 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
     private EventHandler handler;
     private final HashMap<Integer,PanelMascota> mascotas;
     private final AgregarJaula botonAgregar;
-    private Tienda t;
 
-    public AlmacenMascotas(Tienda tienda) {
-        this.t = tienda;
+    public AlmacenMascotas() {
         mascotas = new HashMap<>();
         botonAgregar = new AgregarJaula();
         setBackground(Color.GRAY);

@@ -4,14 +4,9 @@ import Controladores.Estado.JaulaState;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.*;
 import Logica.Jaula;
-import Logica.Mascota;
 import Logica.Tienda;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -56,25 +51,19 @@ public class ControladorMascotas implements Controlador {
         handler.enviar(new V_ActualizarIndicadoresMascotas(new HashMap<>(indicadores)));
     }
 
-    public void contestarPeticionMascotas(M_PedirMascotas e) {
-        List<Jaula> mascotas = t.getJaulas();
-        //filtra todas las ids pedidas que tiene la tienda, o entrega todas en caso de WILD
-        List<Integer> ids = (e.getIDs() == M_PedirMascotas.WILD)
-                ? mascotas.stream()
-                .map(Jaula::getID)
-                .toList()
-                : mascotas.stream()
-                .map(Jaula::getID)
-                .filter(t::encontrarIDJaulas)
-                .toList();
+    public void contestarPeticionMascotas(M_PedirMascotas evento) {
+        // me gusta asi con el ternario, pero si no te gusta lo puedes cambiar por un if else
+        int[] ids = (evento.getIDs() == M_PedirMascotas.WILD)
+                ? t.getJaulas().stream().mapToInt(Jaula::getID).toArray()
+                : evento.getIDs();
 
-        //filtra todas las mascotas con las ids pedidas
-        JaulaState[] filtrado = mascotas.stream()
-                .filter(m -> ids.contains(m.getID()))
-                .map(JaulaState::toState)
-                .toArray(JaulaState[]::new);
+        ArrayList<Jaula> jaulas = t.getJaulas();
 
-        handler.enviar(new V_ActualizarMascotas(filtrado));
+        JaulaState[] jaulasEncontradas = jaulas.stream()
+                .filter(jaula -> Arrays.stream(ids).anyMatch(i -> i == jaula.getID()))
+                .map(JaulaState::toState).toArray(JaulaState[]::new);
+
+        handler.enviar(new V_ActualizarMascotas(jaulasEncontradas));
     }
 
     public void contestarAgregarJaula(M_AgregarJaula e) {

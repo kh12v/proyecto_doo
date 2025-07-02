@@ -16,10 +16,6 @@ public class V_ActualizarEmpleados extends Evento {
         this.empleados = empleados;
     }
 
-    public EmpleadoState[] getEmpleados() {
-        return empleados;
-    }
-
     public EmpleadoState[] getEstados() {
         return empleados;
     }

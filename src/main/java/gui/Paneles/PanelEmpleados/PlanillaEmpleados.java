@@ -4,7 +4,7 @@ import Controladores.Estado.EmpleadoState;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.M_PedirEmpleados;
 import Controladores.Eventos.Tipos.V_ActualizarEmpleados;
-import Controladores.Eventos.Tipos.V_QuitarEmpleado;
+import Logica.Cargo;
 import Logica.Tienda;
 
 import javax.swing.*;
@@ -15,12 +15,10 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
     private EventHandler handler;
     private final HashMap<Integer,PanelEmpleado> empleados;
     private final AgregarEmpleado botonAgregar;
-    private Tienda t;
 
     private final static Color COLOR_DE_FONDO = Color.GRAY;
 
-    public PlanillaEmpleados(Tienda tienda) {
-        this.t = tienda;
+    public PlanillaEmpleados() {
         empleados = new HashMap<>();
         botonAgregar = new AgregarEmpleado();
         setBackground(COLOR_DE_FONDO);
@@ -39,7 +37,6 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
     public void recibir(Evento evento) {
         switch (evento.getTipo()){
             case ActualizarEmpleados -> actualizarEmpleados((V_ActualizarEmpleados) evento);
-            case QuitarEmpleado -> quitarEmpleado((V_QuitarEmpleado) evento);
         }
     }
 
@@ -48,14 +45,18 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
         return new DestinoEvento[]{DestinoEvento.Vista};
     }
 
-    public void actualizarEmpleados(V_ActualizarEmpleados evento) {
+    private void actualizarEmpleados(V_ActualizarEmpleados evento) {
         remove(botonAgregar);
 
         EmpleadoState[] estados = evento.getEstados();
         for(EmpleadoState estado: estados){
             if(empleados.containsKey(estado.id())){
-                empleados.get(estado.id()).modificarPanel(estado);
-            } else {
+                if(estado.cargo() == Cargo.DESPEDIDO){
+                    quitarEmpleado(estado.id());
+                } else {
+                    empleados.get(estado.id()).modificarPanel(estado);
+                }
+            } else if (estado.cargo() != Cargo.DESPEDIDO){
                 agregarEmpleado(estado);
             }
         }
@@ -67,15 +68,15 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
         repaint();
     }
 
-    public void agregarEmpleado(EmpleadoState estado){
+    private void agregarEmpleado(EmpleadoState estado){
         PanelEmpleado empleado = new PanelEmpleado(COLOR_DE_FONDO, estado);
         empleado.enviarHandler(handler);
         empleados.put(estado.id(),empleado);
         add(empleado);
     }
 
-    public void quitarEmpleado(V_QuitarEmpleado evento){
-        PanelEmpleado panelEmpleado = empleados.remove(evento.id);
+    private void quitarEmpleado(int id){
+        PanelEmpleado panelEmpleado = empleados.remove(id);
 
         remove(panelEmpleado);
 

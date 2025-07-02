@@ -19,14 +19,14 @@ public class PanelCompras extends JPanel implements Publicador {
     private final static Color COLOR_DE_FONDO = Color.GRAY;
 
 
-    public PanelCompras(Tienda tienda) {
+    public PanelCompras() {
         setLayout(new BorderLayout());
         back = new BotonVentana("<--- Volver",Ventanas.TIENDA);
         JPanel panelNorte = new JPanel();
         panelNorte.setLayout(new BorderLayout());
         panelNorte.add(back, BorderLayout.WEST);
 
-        indicadorDinero = new IndicadorDinero(tienda.getDinero());
+        indicadorDinero = new IndicadorDinero();
         indicadorDinero.setBorder(new EmptyBorder(0, 0, 0, 100));
         panelNorte.add(indicadorDinero, BorderLayout.CENTER);
 

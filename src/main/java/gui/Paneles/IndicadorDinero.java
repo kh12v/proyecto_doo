@@ -1,6 +1,7 @@
 package gui.Paneles;
 
 import Controladores.Eventos.*;
+import Controladores.Eventos.Tipos.M_PedirDinero;
 import Controladores.Eventos.Tipos.V_MostrarDinero;
 
 import javax.swing.*;
@@ -9,8 +10,8 @@ import javax.swing.border.EmptyBorder;
 public class IndicadorDinero extends JLabel implements Suscriptor, Publicador {
     EventHandler handler;
 
-    public IndicadorDinero(int dinero) {
-        setText("Dinero: $" + dinero);
+    public IndicadorDinero() {
+        setText("Dinero: $");
 
         setHorizontalAlignment(SwingConstants.RIGHT);
     }
@@ -35,5 +36,6 @@ public class IndicadorDinero extends JLabel implements Suscriptor, Publicador {
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         handler.suscribir(this);
+        handler.enviar(new M_PedirDinero());
     }
 }

@@ -1,7 +1,7 @@
 package Logica;
 
 public enum Cargo {
-    Null(0, "Null"), Cuidador(5, "Cuidador"), Recepcionista(5, "Recepcionista"), Gerente(7, "Gerente");
+    DESPEDIDO(0, "Null"), Cuidador(5, "Cuidador"), Recepcionista(5, "Recepcionista"), Gerente(7, "Gerente");
 
     private final int salario;
     private final String texto;

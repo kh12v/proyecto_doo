@@ -39,15 +39,15 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
         return new DestinoEvento[]{DestinoEvento.Vista};
     }
 
-    public VentanaPrincipal(Tienda tienda, String titulo) {
+    public VentanaPrincipal(String titulo) {
         setTitle(titulo);
         setSize(new Dimension(ANCHO, ALTO));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        PANEL_TIENDA = new PanelTienda(tienda);
-        PANEL_MASCOTAS = new PanelMascotas(tienda);
-        PANEL_EMPLEADOS = new PanelEmpleados(tienda);
-        PANEL_COMPRAS = new PanelCompras(tienda);
+        PANEL_TIENDA = new PanelTienda();
+        PANEL_MASCOTAS = new PanelMascotas();
+        PANEL_EMPLEADOS = new PanelEmpleados();
+        PANEL_COMPRAS = new PanelCompras();
 
         setPanelPrincipal(Ventanas.TIENDA);
 

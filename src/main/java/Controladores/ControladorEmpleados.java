@@ -8,7 +8,8 @@ import Controladores.Eventos.Tipos.*;
 import Logica.Empleado;
 import Logica.Tienda;
 
-import java.util.List;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class ControladorEmpleados implements Controlador {
     EventHandler handler;
@@ -37,25 +38,26 @@ public class ControladorEmpleados implements Controlador {
         }
     }
 
-    public void contestarPeticionEmpleados(M_PedirEmpleados e) {
-        List<Empleado> empleados = t.getEmpleados();
-        //filtra todas las ids pedidas que tiene la tienda, o entrega todas en caso de WILD
-        List<Integer> ids = (e.getIDs() == M_PedirEmpleados.WILD)
-                ? empleados.stream()
-                .map(Empleado::getID)
-                .toList()
-                : empleados.stream()
-                .map(Empleado::getID)
-                .filter(t::encontrarIDEmpleados)
+    public void contestarPeticionEmpleados(M_PedirEmpleados evento) {
+        int[] ids = (evento.getIDs() == M_PedirEmpleados.WILD)
+                ? t.getEmpleados().stream().mapToInt(Empleado::getID).toArray()
+                : evento.getIDs();
+
+        ArrayList<Empleado> empleados = t.getEmpleados();
+
+        ArrayList<EmpleadoState> empleadosEncontrados = new ArrayList<>(empleados.stream()
+                .filter(e -> Arrays.stream(ids).anyMatch(i -> i == e.getID()))
+                .map(EmpleadoState::toState).toList());
+
+        List<EmpleadoState> empleadosBorrados = Arrays.stream(ids)
+                .boxed()
+                .filter(Predicate.not(t::encontrarIDEmpleados))
+                .map(EmpleadoState::createDEL)
                 .toList();
 
-        //filtra todos los empleados con las ids pedidas
-        EmpleadoState[] filtrado = empleados.stream()
-                .filter(p -> ids.contains(p.getID()))
-                .map(EmpleadoState::toState)
-                .toArray(EmpleadoState[]::new);
+        empleadosEncontrados.addAll(empleadosBorrados);
 
-        handler.enviar(new V_ActualizarEmpleados(filtrado));
+        handler.enviar(new V_ActualizarEmpleados(empleadosEncontrados.toArray(new EmpleadoState[0])));
     }
 
     public void contestarAgregarEmpleado(M_AgregarEmpleado e) {
@@ -75,7 +77,7 @@ public class ControladorEmpleados implements Controlador {
             handler.enviar(new V_MostrarMensaje("Error al intentar despedir empleado"));
         } else {
             handler.enviar(new V_MostrarMensaje("Empleado despedido exitosamente"));
-            handler.enviar(new V_QuitarEmpleado(e.estado.id()));
+            handler.enviar(new M_PedirEmpleados(new int[]{e.estado.id()}));
         }
     }
 }

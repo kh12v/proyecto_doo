@@ -19,19 +19,19 @@ public class PanelEmpleados extends JPanel implements Publicador {
     private final IndicadorDinero indicadorDinero;
     private final BotonVentana back;
 
-    public PanelEmpleados(Tienda tienda) {
+    public PanelEmpleados() {
         setLayout(new BorderLayout());
         back = new BotonVentana("<--- Volver", Ventanas.TIENDA);
         JPanel panelNorte = new JPanel();
         panelNorte.setLayout(new BorderLayout());
         panelNorte.add(back, BorderLayout.WEST);
 
-        indicadorDinero = new IndicadorDinero(tienda.getDinero());
+        indicadorDinero = new IndicadorDinero();
         indicadorDinero.setBorder(new EmptyBorder(0, 0, 0, 100));
         panelNorte.add(indicadorDinero, BorderLayout.CENTER);
 
         add(panelNorte, BorderLayout.NORTH);
-        planillaEmpleados = new PlanillaEmpleados(tienda);
+        planillaEmpleados = new PlanillaEmpleados();
         add(planillaEmpleados);
     }
 

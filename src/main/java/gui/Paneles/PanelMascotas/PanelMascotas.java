@@ -16,7 +16,7 @@ public class PanelMascotas extends JPanel implements Publicador {
     private final IndicadorDinero indicadorDinero;
     private BotonVentana back;
 
-    public PanelMascotas(Tienda tienda) {
+    public PanelMascotas() {
         setLayout(new BorderLayout());
 
         back = new BotonVentana("<--- Volver", Ventanas.TIENDA);
@@ -24,11 +24,11 @@ public class PanelMascotas extends JPanel implements Publicador {
         panelNorte.setLayout(new BorderLayout());
         panelNorte.add(back, BorderLayout.WEST);
 
-        indicadorDinero = new IndicadorDinero(tienda.getDinero());
+        indicadorDinero = new IndicadorDinero();
         indicadorDinero.setBorder(new EmptyBorder(0, 0, 0, 100));
         panelNorte.add(indicadorDinero, BorderLayout.CENTER);
 
-        almacen = new AlmacenMascotas(tienda);
+        almacen = new AlmacenMascotas();
         JScrollPane pane = new JScrollPane(almacen);
 
         add(panelNorte, BorderLayout.NORTH);

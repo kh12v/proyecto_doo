@@ -32,12 +32,9 @@ public class ControladorPrincipal implements Controlador, Actualizable {
     @Override
     public void recibir(Evento evento) {
         switch (evento.getTipo()) {
-            case PedirCalificacion -> actualizarCalificacion();
+            case PedirCalificacion -> handler.enviar(new V_ActualizarCalificacion(tienda.getCalificacion()));
+            case PedirDinero -> handler.enviar(new V_MostrarDinero(tienda.getDinero()));
         }
-    }
-
-    private void actualizarCalificacion() {
-        handler.enviar(new V_ActualizarCalificacion(tienda.getCalificacion()));
     }
 
     @Override

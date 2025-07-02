@@ -14,12 +14,11 @@ public record EmpleadoState (String nombre,
                             int salario,
                             Cargo cargo,
                             int id){
-    /**
-     * DEL representa el empleado nulo, si se recibe esto en un índice, significa que hay que borrarla
-     */
-    public static final EmpleadoState DEL = new EmpleadoState("BORRAR", 0, Cargo.Null,0);
     public static EmpleadoState toState(Empleado empleado) {
         return new EmpleadoState(empleado.getNombre(), empleado.getSalario(), empleado.getCargo(), empleado.getID());
+    }
+    public static EmpleadoState createDEL(int id){
+        return new EmpleadoState("",0,Cargo.DESPEDIDO,id);
     }
 
     @Override

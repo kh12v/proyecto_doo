@@ -16,7 +16,7 @@ public class PanelCliente extends JPanel implements Publicador, Suscriptor {
     IndicadorDinero indicadorDinero;
     EventHandler handler;
 
-    public PanelCliente(Tienda tienda) {
+    public PanelCliente() {
         setLayout(new BorderLayout());
         setBackground(COLOR_DE_FONDO);
         setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -24,7 +24,7 @@ public class PanelCliente extends JPanel implements Publicador, Suscriptor {
         calificacion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         IconoCliente iconoCliente = new IconoCliente("recursos/cliente.png", 300, 300, COLOR_DE_FONDO);
 
-        indicadorDinero = new IndicadorDinero(tienda.getDinero());
+        indicadorDinero = new IndicadorDinero();
 
         JPanel panelNorte = new JPanel();
         panelNorte.setBorder(new EmptyBorder(0, 10, 0, 10));

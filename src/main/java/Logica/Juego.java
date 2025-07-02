@@ -18,7 +18,7 @@ public class Juego implements Actualizable {
         eventHandler = new EventHandler();
         Tienda tienda = new Tienda(nombreTienda, dineroInicial);
         controlador = new ControladorPrincipal(tienda);
-        ventanaPrincipal = new VentanaPrincipal(tienda, "Tienda");
+        ventanaPrincipal = new VentanaPrincipal("Tienda");
         controlador.enviarHandler(eventHandler);
         ventanaPrincipal.enviarHandler(eventHandler);
     }
