@@ -3,7 +3,10 @@ package Logica;
 import Logica.Enums.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class Tienda implements Actualizable {
     private final String nombre;
@@ -146,7 +149,40 @@ public class Tienda implements Actualizable {
         dinero -= renta;
         jaulas.forEach(Jaula::actualizar);
         empleados.forEach(this::pagarSalario);
+        cuidarMascotasEmpleados();
     }
+
+    private void cuidarMascotasEmpleados() {
+        if(empleados.isEmpty()){return;}
+        Stream<Mascota> mascotasOrdenadas = jaulas.stream()
+                .filter(Predicate.not(Jaula::estaVacia))
+                .map(Jaula::getMascota)
+                .sorted(Comparator.comparingInt(k -> Arrays.stream(k.getIndicadores()).reduce(0, Integer::sum)));
+
+        for(Empleado e: empleados) {
+            if (e.isTrabajando() && e.getCargo() == Cargo.Cuidador) {
+                Mascota m = mascotasOrdenadas.findFirst().orElse(null);
+                if (m == null) {
+                    break;
+                }
+
+                Alimentos alimento = Alimentos.getAlimento(m.getEspecie());
+                if (stockAlimentos[alimento.ordinal()] > 0 && m.getIndicadores()[Mascota.I_HAMBRE] < 100 - alimento.getValorNutritivo()) {
+                    m.alimentar(alimento);
+                    stockAlimentos[alimento.ordinal()]--;
+                }
+
+                m.limpiar();
+
+                Medicamentos medicamento = Medicamentos.getMedicamento(m.getEspecie());
+
+                if (stockMedicamentos[medicamento.ordinal()] > 0 && m.getIndicadores()[Mascota.I_SALUD] < 100 - medicamento.valorMedicinal()) {
+                    m.darMedicamento(medicamento);
+                    stockMedicamentos[medicamento.ordinal()]--;
+                }
+            }
+        }
+}
 
     public ArrayList<Jaula> getJaulas() {
         return jaulas;
@@ -163,6 +199,7 @@ public class Tienda implements Actualizable {
     public boolean encontrarIDMascotas(int id){
         return jaulas.stream().anyMatch(i -> i.getMascota().getID() == id);
     }
+
     public boolean encontrarIDEmpleados(int id){
         return empleados.stream().anyMatch(i -> i.getID() == id);
     }
@@ -178,5 +215,5 @@ public class Tienda implements Actualizable {
     public double getCalificacion(){
         return calificaciones.stream().reduce(0.0,Double::sum)/calificaciones.size();
     }
-
 }
+

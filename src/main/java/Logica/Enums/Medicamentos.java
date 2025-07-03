@@ -21,4 +21,8 @@ public enum Medicamentos {
             default -> throw new IllegalStateException("Unexpected value: " + especie);
         };
     }
+
+    public int valorMedicinal() {
+        return valorMedicinal;
+    }
 }
