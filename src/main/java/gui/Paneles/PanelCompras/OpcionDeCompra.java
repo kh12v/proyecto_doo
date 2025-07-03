@@ -3,7 +3,7 @@ package gui.Paneles.PanelCompras;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
 import Controladores.Eventos.Tipos.M_ComprarProducto;
-import Logica.Producto;
+import Logica.Enums.Producto;
 import gui.Paneles.BordeRedondo;
 
 import javax.swing.*;

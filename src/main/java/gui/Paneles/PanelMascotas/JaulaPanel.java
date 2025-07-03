@@ -1,10 +1,8 @@
 package gui.Paneles.PanelMascotas;
 
 import Controladores.Estado.JaulaState;
-import Controladores.Estado.MascotaState;
-import Logica.Especies;
-import Logica.Jaula;
-import Logica.TipoContenedor;
+import Logica.Enums.Especies;
+import Logica.Enums.TipoContenedor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

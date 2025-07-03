@@ -1,7 +1,7 @@
 package Controladores.Estado;
 
 import Logica.Jaula;
-import Logica.TipoContenedor;
+import Logica.Enums.TipoContenedor;
 
 public record JaulaState(
         MascotaState mascotaState,

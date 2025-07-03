@@ -1,17 +1,18 @@
 package Logica;
 
-import java.util.ArrayList;
+import Logica.Enums.Cargo;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class Empleado implements Actualizable {
-    private final Tienda t;
+public class Empleado {
 
     private final String nombre;
     private final int id;
     private static int idActual = 0;
-    private Cargo cargo;
+    private final Cargo cargo;
+    private boolean trabajando;
 
     private final static Random rand = new Random();
     private final static List<String> nombres = Arrays.asList(
@@ -27,11 +28,11 @@ public class Empleado implements Actualizable {
             "Marcelo", "Amanda", "Mauricio", "Isidora", "Danilo", "Rafaela", "Pedro", "Maite", "Jorge", "Alma"
     );
 
-    public Empleado(Tienda t, Cargo cargo) {
-        this.t = t;
+    public Empleado(Cargo cargo) {
         this.nombre = getNombreAleatorio();
         this.id = idActual++;
         this.cargo = cargo;
+        trabajando = true;
     }
 
     private String getNombreAleatorio() {
@@ -52,8 +53,11 @@ public class Empleado implements Actualizable {
 
     public int getID() { return id; }
 
-    @Override
-    public void actualizar() {
-        t.pagarSalario(cargo.getSalario());
+    public void setTrabajando(boolean estado){
+        trabajando = estado;
+    }
+
+    public boolean isTrabajando() {
+        return trabajando;
     }
 }

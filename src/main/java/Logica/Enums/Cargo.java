@@ -1,4 +1,4 @@
-package Logica;
+package Logica.Enums;
 
 public enum Cargo {
     DESPEDIDO(0, "Null"), Cuidador(5, "Cuidador"), Recepcionista(5, "Recepcionista"), Gerente(7, "Gerente");

@@ -1,4 +1,4 @@
-package Logica;
+package Logica.Enums;
 
 public enum Especies {
     Perro(true,10000),

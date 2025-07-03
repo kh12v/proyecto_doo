@@ -1,6 +1,6 @@
 package Controladores.Estado;
 
-import Logica.Cargo;
+import Logica.Enums.Cargo;
 import Logica.Empleado;
 
 /**

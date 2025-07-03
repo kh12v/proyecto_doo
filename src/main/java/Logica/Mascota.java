@@ -1,5 +1,8 @@
 package Logica;
 
+import Logica.Enums.Alimentos;
+import Logica.Enums.Especies;
+
 import java.util.Arrays;
 
 public class Mascota implements Actualizable {
@@ -25,7 +28,7 @@ public class Mascota implements Actualizable {
 
     public boolean alimentar(Alimentos alimento) {
         if (puedeComer(alimento)) {
-            incrementarIndicador(Indicadores.HAMBRE,alimento.precio);
+            incrementarIndicador(Indicadores.HAMBRE,alimento.getValorNutritivo());
             return true;
         }
         return false;

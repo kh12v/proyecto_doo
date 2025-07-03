@@ -1,15 +1,11 @@
 package Controladores;
 
-import Controladores.Estado.JaulaState;
 import Controladores.Eventos.DestinoEvento;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Evento;
 import Controladores.Eventos.Tipos.*;
-import Logica.Jaula;
 import Logica.Tienda;
-import Logica.TipoProducto;
-
-import java.util.List;
+import Logica.Enums.TipoProducto;
 
 public class ControladorSuministros implements Controlador {
     private final Tienda t;

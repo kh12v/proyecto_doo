@@ -1,5 +1,8 @@
 package Logica;
 
+import Logica.Enums.Especies;
+import Logica.Enums.TipoContenedor;
+
 import java.util.Arrays;
 
 public abstract class Jaula implements Actualizable{

@@ -4,8 +4,7 @@ import Controladores.Estado.EmpleadoState;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.M_PedirEmpleados;
 import Controladores.Eventos.Tipos.V_ActualizarEmpleados;
-import Logica.Cargo;
-import Logica.Tienda;
+import Logica.Enums.Cargo;
 
 import javax.swing.*;
 import java.awt.*;
