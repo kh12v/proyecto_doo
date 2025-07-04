@@ -16,4 +16,5 @@ public enum TipoEvento {
     ActualizarCalificacion,
     AgregarEmpleado,
     DespedirEmpleado, PedirDinero,
+    SolicitarProductos, MostrarProductos
 }

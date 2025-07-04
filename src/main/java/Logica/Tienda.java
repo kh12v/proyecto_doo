@@ -14,10 +14,10 @@ public class Tienda implements Actualizable {
     private final int[] stockJuguetes;
     private final int[] stockAlimentos;
 
-    static final int I_Perro = 0;
-    static final int I_Gato = 1;
-    static final int I_Loro = 2;
-    static final int I_Hamster = 3;
+    public static final int I_Perro = 0;
+    public static final int I_Gato = 1;
+    public static final int I_Loro = 2;
+    public static final int I_Hamster = 3;
 
     public static final int C_Exito = 1;
     public static final int C_Error = -1;
@@ -179,4 +179,15 @@ public class Tienda implements Actualizable {
         return calificaciones.stream().reduce(0.0,Double::sum)/calificaciones.size();
     }
 
+    public int getStockAlimentos(int indiceEspecie) {
+        return stockAlimentos[indiceEspecie];
+    }
+
+    public int getStockMedicamentos(int indiceEspecie) {
+        return stockMedicamentos[indiceEspecie];
+    }
+
+    public int getStockJuguetes(int indiceEspecie) {
+        return stockJuguetes[indiceEspecie];
+    }
 }

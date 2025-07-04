@@ -1,6 +1,7 @@
 package gui.Paneles.PanelMascotas;
 
 import Controladores.Eventos.*;
+import Logica.Especies;
 import Logica.Tienda;
 import gui.Paneles.BotonVentana;
 import gui.Paneles.IndicadorDinero;
@@ -15,6 +16,7 @@ public class PanelMascotas extends JPanel implements Publicador {
     private final AlmacenMascotas almacen;
     private final IndicadorDinero indicadorDinero;
     private BotonVentana back;
+    static private MenuInteractuar menuInteractuar = new MenuInteractuar();
 
     public PanelMascotas() {
         setLayout(new BorderLayout());
@@ -35,10 +37,15 @@ public class PanelMascotas extends JPanel implements Publicador {
         add(pane);
     }
 
+    public static void mostrarMenuInteractuar(int id, String nombre, Especies especie) {
+        menuInteractuar.mostrar(id, nombre, especie);
+    }
+
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         almacen.enviarHandler(handler);
         indicadorDinero.enviarHandler(handler);
         back.enviarHandler(handler);
+        menuInteractuar.enviarHandler(handler);
     }
 }

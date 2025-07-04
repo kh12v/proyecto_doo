@@ -1,0 +1,16 @@
+package Controladores.Eventos.Tipos;
+
+import Controladores.Eventos.DestinoEvento;
+import Controladores.Eventos.Evento;
+import Controladores.Eventos.TipoEvento;
+import Logica.Especies;
+
+public class M_SolicitarProductos extends Evento {
+    public Especies especie;
+
+    public M_SolicitarProductos(Especies especie) {
+        super(TipoEvento.SolicitarProductos, DestinoEvento.Controlador);
+
+        this.especie = especie;
+    }
+}
