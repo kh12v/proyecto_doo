@@ -3,10 +3,7 @@ package gui.Paneles.PanelEmpleados;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
 import Controladores.Eventos.Tipos.M_AgregarEmpleado;
-import Controladores.Eventos.Tipos.M_AgregarJaula;
-import Logica.Cargo;
-import Logica.TipoContenedor;
-import gui.Paneles.PanelMascotas.AgregarJaula;
+import Logica.Enums.Cargo;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

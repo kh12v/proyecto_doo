@@ -3,7 +3,7 @@ package Controladores.Eventos.Tipos;
 import Controladores.Eventos.DestinoEvento;
 import Controladores.Eventos.Evento;
 import Controladores.Eventos.TipoEvento;
-import Logica.Especies;
+import Logica.Enums.Especies;
 
 public class M_SolicitarProductos extends Evento {
     public Especies especie;

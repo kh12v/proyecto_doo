@@ -1,6 +1,12 @@
 package Logica;
 
+import Logica.Enums.*;
+
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+import java.util.Arrays;
 
 public class Tienda implements Actualizable {
     private final String nombre;
@@ -48,11 +54,10 @@ public class Tienda implements Actualizable {
         return C_Error;
     }
 
-    public int comprarMascota(Producto producto) {
-        if (!producto.esMascota()) return C_Error;
-        else if (producto.getPrecio() >= dinero ) return C_DineroInsuficiente;
+    private int comprarMascota(Producto producto) {
+        if (producto.getPrecio() >= dinero) return C_DineroInsuficiente;
 
-        Especies especie = producto.getEspecie();
+        Especies especie = (Especies) producto.getEnumReal();
 
         for (Jaula jaula : jaulas) {
             // los operadores emplean short circuiting (no evalúa la derecha si la izquierda es falsa)
@@ -66,54 +71,45 @@ public class Tienda implements Actualizable {
         return C_NoJaulaDisponible;
     }
 
-    public int comprarAlimento(Producto producto) {
-        if (producto.getTipoProducto() != TipoProducto.Comida) return C_Error;
+    private int comprarAlimento(Producto producto) {
         if (producto.getPrecio() > dinero) return C_DineroInsuficiente;
 
         dinero -= producto.getPrecio();
-        switch (producto) {
-            case ComidaPerro -> stockAlimentos[I_Perro]++;
-            case ComidaGato -> stockAlimentos[I_Gato]++;
-            case ComidaLoro -> stockAlimentos[I_Loro]++;
-            case ComidaHamster -> stockAlimentos[I_Hamster]++;
-        }
+
+        Alimentos alimento = (Alimentos) producto.getEnumReal();
+        stockAlimentos[alimento.ordinal()]++;
+
         return C_Exito;
     }
 
-    public int comprarJuguete(Producto producto) {
-        if (producto.getTipoProducto() != TipoProducto.Juguete) return C_Error;
+    private int comprarJuguete(Producto producto) {
         if (producto.getPrecio() > dinero) return C_DineroInsuficiente;
 
         dinero -= producto.getPrecio();
-        switch (producto) {
-            case JuguetePerro -> stockJuguetes[I_Perro]++;
-            case JugueteGato -> stockJuguetes[I_Gato]++;
-            case JugueteLoro -> stockJuguetes[I_Loro]++;
-            case JugueteHamster -> stockJuguetes[I_Hamster]++;
-        }
+
+        Juguetes juguete = (Juguetes) producto.getEnumReal();
+        stockJuguetes[juguete.ordinal()]++;
+
         return C_Exito;
     }
 
-    public int comprarMedicamento(Producto producto) {
-        if (producto.getTipoProducto() != TipoProducto.Medicamento) return C_Error;
+    private int comprarMedicamento(Producto producto) {
         if (producto.getPrecio() > dinero) return C_DineroInsuficiente;
 
         dinero -= producto.getPrecio();
-        switch (producto) {
-            case MedicamentoPerro -> stockMedicamentos[I_Perro]++;
-            case MedicamentoGato -> stockMedicamentos[I_Gato]++;
-            case MedicamentoLoro -> stockMedicamentos[I_Loro]++;
-            case MedicamentoHamster -> stockMedicamentos[I_Hamster]++;
-        }
+
+        Medicamentos medicamento = (Medicamentos) producto.getEnumReal();
+        stockMedicamentos[medicamento.ordinal()]++;
+
         return C_Exito;
     }
 
     public int comprarJaula(TipoContenedor contenedor) {
-        if (contenedor.precio > dinero) {
+        if (contenedor.getPrecio() > dinero) {
             return C_DineroInsuficiente;
         }
 
-        dinero -= contenedor.precio;
+        dinero -= contenedor.getPrecio();
         Jaula jaulaComprada = switch (contenedor){
             case JaulaGrande -> new JaulaGrande();
             case JaulaPequena -> new JaulaPequena();
@@ -126,7 +122,7 @@ public class Tienda implements Actualizable {
     public int contratarEmpleado(Cargo cargo) {
         if (cargo.getSalario() > dinero) return C_DineroInsuficiente;
 
-        Empleado empleado = new Empleado(this, cargo);
+        Empleado empleado = new Empleado(cargo);
         empleados.add(empleado);
         return empleado.getID();
     }
@@ -142,18 +138,62 @@ public class Tienda implements Actualizable {
         return -1;
     }
 
-    public void pagarSalario(int salario) {
-        dinero -= salario;
+    public void pagarSalario(Empleado e) {
+        int salario = e.getSalario();
+        if(salario > dinero){
+            e.setTrabajando(false);
+        } else {
+            dinero -= salario;
+            e.setTrabajando(true);
+        }
     }
 
+    @Override
     public void actualizar(){
         dinero -= renta;
         jaulas.forEach(Jaula::actualizar);
-        empleados.forEach(e -> pagarSalario(e.getSalario()));
+        empleados.forEach(this::pagarSalario);
+        cuidarMascotasEmpleados();
     }
+
+    private void cuidarMascotasEmpleados() {
+        if(empleados.isEmpty()){return;}
+        Stream<Mascota> mascotasOrdenadas = jaulas.stream()
+                .filter(Predicate.not(Jaula::estaVacia))
+                .map(Jaula::getMascota)
+                .sorted(Comparator.comparingInt(k -> Arrays.stream(k.getIndicadores()).reduce(0, Integer::sum)));
+
+        for(Empleado e: empleados) {
+            if (e.isTrabajando() && e.getCargo() == Cargo.Cuidador) {
+                Mascota m = mascotasOrdenadas.findFirst().orElse(null);
+                if (m == null) {
+                    break;
+                }
+
+                Alimentos alimento = Alimentos.getAlimento(m.getEspecie());
+                if (stockAlimentos[alimento.ordinal()] > 0 && m.getIndicadores()[Mascota.I_HAMBRE] < 100 - alimento.getValorNutritivo()) {
+                    m.alimentar(alimento);
+                    stockAlimentos[alimento.ordinal()]--;
+                }
+
+                m.limpiar();
+
+                Medicamentos medicamento = Medicamentos.getMedicamento(m.getEspecie());
+
+                if (stockMedicamentos[medicamento.ordinal()] > 0 && m.getIndicadores()[Mascota.I_SALUD] < 100 - medicamento.valorMedicinal()) {
+                    m.darMedicamento(medicamento);
+                    stockMedicamentos[medicamento.ordinal()]--;
+                }
+            }
+        }
+}
 
     public ArrayList<Jaula> getJaulas() {
         return jaulas;
+    }
+
+    public int[] getEmpleadosInactivos(){
+        return empleados.stream().filter(Predicate.not(Empleado::isTrabajando)).mapToInt(Empleado::getID).toArray();
     }
 
     public ArrayList<Empleado> getEmpleados() {
@@ -163,6 +203,7 @@ public class Tienda implements Actualizable {
     public boolean encontrarIDMascotas(int id){
         return jaulas.stream().anyMatch(i -> i.getMascota().getID() == id);
     }
+
     public boolean encontrarIDEmpleados(int id){
         return empleados.stream().anyMatch(i -> i.getID() == id);
     }
@@ -191,3 +232,4 @@ public class Tienda implements Actualizable {
         return stockJuguetes[indiceEspecie];
     }
 }
+

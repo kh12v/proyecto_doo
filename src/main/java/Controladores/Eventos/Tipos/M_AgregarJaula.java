@@ -3,7 +3,7 @@ package Controladores.Eventos.Tipos;
 import Controladores.Eventos.DestinoEvento;
 import Controladores.Eventos.Evento;
 import Controladores.Eventos.TipoEvento;
-import Logica.TipoContenedor;
+import Logica.Enums.TipoContenedor;
 
 public class M_AgregarJaula extends Evento {
     public TipoContenedor tipoContenedor;

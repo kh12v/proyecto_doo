@@ -2,7 +2,7 @@ package gui.Paneles.PanelMascotas;
 
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.M_AgregarJaula;
-import Logica.TipoContenedor;
+import Logica.Enums.TipoContenedor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

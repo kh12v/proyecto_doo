@@ -2,7 +2,7 @@ package gui.Paneles.PanelCompras;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
-import Logica.Producto;
+import Logica.Enums.Producto;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

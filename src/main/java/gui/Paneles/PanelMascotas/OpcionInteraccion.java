@@ -3,7 +3,7 @@ package gui.Paneles.PanelMascotas;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.M_SolicitarProductos;
 import Controladores.Eventos.Tipos.V_MostrarProductos;
-import Logica.Especies;
+import Logica.Enums.Especies;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -1,5 +1,7 @@
 package Logica;
 
+import Logica.Enums.Especies;
+
 import java.util.Arrays;
 
 public class Cliente {

@@ -1,6 +1,6 @@
 package Controladores.Estado;
 
-import Logica.Especies;
+import Logica.Enums.Especies;
 import Logica.Mascota;
 
 import java.util.Arrays;

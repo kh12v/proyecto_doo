@@ -1,4 +1,4 @@
-package Logica;
+package Logica.Enums;
 
 import java.util.Arrays;
 import java.util.HashSet;

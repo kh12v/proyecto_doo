@@ -2,7 +2,7 @@ package gui.Paneles.PanelMascotas;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
-import Logica.Especies;
+import Logica.Enums.Especies;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package Logica;
+package Logica.Enums;
 
 public enum Producto {
     Perro(TipoProducto.Mascota, "Perro", 10000),
@@ -43,11 +43,13 @@ public enum Producto {
         return tipoProducto == TipoProducto.Mascota;
     }
 
-    public Especies getEspecie() {
-        if(!esMascota()){
-            return Especies.Null;
-        }
-        return Especies.values()[ordinal()];
+    public Enum getEnumReal(){
+        return switch (tipoProducto){
+            case Mascota     -> Especies.values()[ordinal()%4];
+            case Comida      -> Alimentos.values()[ordinal()%4];
+            case Medicamento -> Medicamentos.values()[ordinal()%4];
+            case Juguete     -> Juguetes.values()[ordinal()%4];
+        };
     }
 
     public TipoProducto getTipoProducto() {

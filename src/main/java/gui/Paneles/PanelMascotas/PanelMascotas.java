@@ -1,8 +1,7 @@
 package gui.Paneles.PanelMascotas;
 
 import Controladores.Eventos.*;
-import Logica.Especies;
-import Logica.Tienda;
+import Logica.Enums.Especies;
 import gui.Paneles.BotonVentana;
 import gui.Paneles.IndicadorDinero;
 import gui.Paneles.Ventanas;

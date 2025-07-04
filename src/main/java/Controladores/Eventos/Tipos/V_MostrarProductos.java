@@ -3,7 +3,6 @@ package Controladores.Eventos.Tipos;
 import Controladores.Eventos.DestinoEvento;
 import Controladores.Eventos.Evento;
 import Controladores.Eventos.TipoEvento;
-import Logica.TipoContenedor;
 
 public class V_MostrarProductos extends Evento {
     public int[] productos;

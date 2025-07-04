@@ -3,8 +3,7 @@ package Controladores.Eventos.Tipos;
 import Controladores.Eventos.DestinoEvento;
 import Controladores.Eventos.Evento;
 import Controladores.Eventos.TipoEvento;
-import Logica.Producto;
-import Logica.TipoContenedor;
+import Logica.Enums.Producto;
 
 public class M_ComprarProducto extends Evento {
     public Producto producto;
