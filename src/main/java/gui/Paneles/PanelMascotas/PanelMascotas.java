@@ -40,6 +40,11 @@ public class PanelMascotas extends JPanel implements Publicador {
         menuInteractuar.mostrar(id, nombre, especie);
     }
 
+    public static void ocultarMenuInteractuar() {
+        JaulaPanel.menuAbierto = false;
+        menuInteractuar.ocultar();
+    }
+
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         almacen.enviarHandler(handler);

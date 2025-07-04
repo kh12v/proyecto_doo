@@ -6,9 +6,10 @@ import Controladores.Eventos.TipoEvento;
 import Logica.Enums.Especies;
 
 public class M_SolicitarProductos extends Evento {
+    public int id;
     public Especies especie;
 
-    public M_SolicitarProductos(Especies especie) {
+    public M_SolicitarProductos(int ind, Especies especie) {
         super(TipoEvento.SolicitarProductos, DestinoEvento.Controlador);
 
         this.especie = especie;

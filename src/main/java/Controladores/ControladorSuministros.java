@@ -8,6 +8,8 @@ import Logica.Enums.Especies;
 import Logica.Tienda;
 import Logica.Enums.TipoProducto;
 
+import java.util.HashMap;
+
 public class ControladorSuministros implements Controlador {
     private final Tienda t;
     private EventHandler handler;
@@ -25,6 +27,7 @@ public class ControladorSuministros implements Controlador {
         switch (e.getTipo()) {
             case ComprarProducto -> contestarComprarProducto((M_ComprarProducto) e);
             case SolicitarProductos -> contestarSolicitarProductos((M_SolicitarProductos) e);
+            case ConsumirProducto -> contestarConsumirProducto((M_ConsumirProducto) e);
         }
     }
 
@@ -66,6 +69,27 @@ public class ControladorSuministros implements Controlador {
         int medicamentos = t.getStockMedicamentos(indice);
         int juguetes = t.getStockJuguetes(indice);
 
-        handler.enviar(new V_MostrarProductos(alimentos, medicamentos, juguetes));
+        handler.enviar(new V_MostrarProductos(e.id, alimentos, medicamentos, juguetes));
+    }
+
+    public void contestarConsumirProducto(M_ConsumirProducto e) {
+        int resultado = -1;
+        switch (e.tipoProducto) {
+            case TipoProducto.Comida -> resultado = t.consumirAlimento(e.id, e.especie);
+            case TipoProducto.Medicamento -> resultado = t.consumirMedicamento(e.id, e.especie);
+            case TipoProducto.Juguete -> resultado = t.consumirJuguete(e.id, e.especie);
+        }
+
+        if (resultado == Tienda.C_Error) {
+            handler.enviar(new V_MostrarMensaje("Error al intentar interactuar"));
+        } else if (resultado == Tienda.C_StockInsuficiente) {
+            handler.enviar(new V_MostrarMensaje("No cuenta con stock del producto"));
+        } else {
+            int[] indicadores = t.getIndicadores(e.id);
+            if (indicadores.length == 0) return;
+            HashMap<Integer, int[]> indHash = new HashMap<>();
+            indHash.put(e.id, indicadores);
+            handler.enviar(new V_ActualizarIndicadoresMascotas(indHash));
+        }
     }
 }

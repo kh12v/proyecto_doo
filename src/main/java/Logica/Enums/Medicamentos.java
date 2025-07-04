@@ -25,4 +25,11 @@ public enum Medicamentos {
     public int valorMedicinal() {
         return valorMedicinal;
     }
+
+    static public Medicamentos deEspecie(Especies especie) {
+        if (especie == Especies.Perro) return Medicamentos.MedicinaPerro;
+        if (especie == Especies.Gato) return Medicamentos.MedicinaGato;
+        if (especie == Especies.Loro) return Medicamentos.MedicinaLoro;
+        else return Medicamentos.MedicinaHamster;
+    }
 }

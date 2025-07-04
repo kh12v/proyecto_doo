@@ -30,14 +30,18 @@ public class MenuInteractuar extends JFrame implements Publicador {
     public void mostrar(int id, String nombre, Especies especie) {
         setTitle("Interactuar con [" + nombre + "]");
 
-        opcionInteraccion1.cargar(especie, I_COMIDA);
-        opcionInteraccion2.cargar(especie, I_MEDICAMENTO);
-        opcionInteraccion3.cargar(especie, I_JUGUETE);
+        opcionInteraccion1.cargar(id, especie, I_COMIDA);
+        opcionInteraccion2.cargar(id, especie, I_MEDICAMENTO);
+        opcionInteraccion3.cargar(id, especie, I_JUGUETE);
 
         invalidate();
         repaint();
 
         setVisible(true);
+    }
+
+    public void ocultar() {
+        setVisible(false);
     }
 
     public MenuInteractuar() {

@@ -29,6 +29,7 @@ public class Tienda implements Actualizable {
     public static final int C_Error = -1;
     public static final int C_DineroInsuficiente = -2;
     public static final int C_NoJaulaDisponible = -3;
+    public static final int C_StockInsuficiente = -4;
 
     public Tienda(String nombre, int dineroInicial) {
         this.nombre = nombre;
@@ -231,5 +232,72 @@ public class Tienda implements Actualizable {
     public int getStockJuguetes(int indiceEspecie) {
         return stockJuguetes[indiceEspecie];
     }
-}
 
+    int getIndice(Especies especie) {
+        return (especie == Especies.Perro) ? I_Perro
+                : (especie == Especies.Gato) ? I_Gato
+                : (especie == Especies.Loro) ? I_Loro
+                : I_Hamster;
+    }
+
+    public int consumirAlimento(int id, Especies especie) {
+        int indice = getIndice(especie);
+
+        if (stockAlimentos[indice] <= 0) return C_StockInsuficiente;
+
+        for (Jaula jaula : jaulas) {
+            if (jaula.estaVacia()) continue;
+            Mascota mascota = jaula.getMascota();
+            if (mascota.getID() == id && mascota.alimentar(Alimentos.deEspecie(especie))) {
+                stockAlimentos[indice]--;
+                return C_Exito;
+            }
+        }
+
+        return C_Error;
+    }
+
+    public int consumirMedicamento(int id, Especies especie) {
+        int indice = getIndice(especie);
+
+        if (stockMedicamentos[indice] <= 0) return C_StockInsuficiente;
+
+        for (Jaula jaula : jaulas) {
+            if (jaula.estaVacia()) continue;
+            Mascota mascota = jaula.getMascota();
+            if (mascota.getID() == id && mascota.darMedicamento(Medicamentos.deEspecie(especie))) {
+                stockMedicamentos[indice]--;
+                return C_Exito;
+            }
+        }
+
+        return C_Error;
+    }
+
+    public int consumirJuguete(int id, Especies especie) {
+        int indice = getIndice(especie);
+
+        if (stockJuguetes[indice] <= 0) return C_StockInsuficiente;
+
+        for (Jaula jaula : jaulas) {
+            if (jaula.estaVacia()) continue;
+            Mascota mascota = jaula.getMascota();
+            if (mascota.getID() == id && mascota.jugar(Juguetes.deEspecie(especie))) {
+                stockJuguetes[indice]--;
+                return C_Exito;
+            }
+        }
+
+        return C_Error;
+    }
+
+    public int[] getIndicadores(int id) {
+        for (Jaula jaula : jaulas) {
+            if (jaula.estaVacia()) continue;
+            Mascota mascota = jaula.getMascota();
+            if (mascota.getID() == id) return mascota.getIndicadores();
+        }
+
+        return new int[]{};
+    }
+}

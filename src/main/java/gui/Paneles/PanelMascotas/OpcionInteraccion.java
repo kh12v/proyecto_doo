@@ -1,14 +1,18 @@
 package gui.Paneles.PanelMascotas;
 
 import Controladores.Eventos.*;
+import Controladores.Eventos.Tipos.M_ConsumirProducto;
 import Controladores.Eventos.Tipos.M_SolicitarProductos;
 import Controladores.Eventos.Tipos.V_MostrarProductos;
 import Logica.Enums.Especies;
+import Logica.Enums.TipoProducto;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +23,7 @@ public class OpcionInteraccion extends JPanel implements Publicador {
     JPanel panelImagen;
     JLabel labelImagen;
     CantidadDeProducto cantidadDeProducto;
+    MyMouseListener myMouseListener;
 
     private class CantidadDeProducto extends JLabel implements Publicador, Suscriptor {
         EventHandler handler;
@@ -52,6 +57,35 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         }
     }
 
+    private class MyMouseListener extends MouseAdapter {
+        private int id = -1;
+        private Especies especie;
+        private final int indice;
+
+        public MyMouseListener(int indice) {
+            this.indice = indice;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setEspecie(Especies especie) {
+            this.especie = especie;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (id == -1) return;
+            TipoProducto tipoProducto;
+            if (indice == MenuInteractuar.I_COMIDA) tipoProducto = TipoProducto.Comida;
+            else if (indice == MenuInteractuar.I_MEDICAMENTO) tipoProducto = TipoProducto.Medicamento;
+            else tipoProducto = TipoProducto.Juguete;
+            PanelMascotas.ocultarMenuInteractuar();
+            handler.enviar(new M_ConsumirProducto(id, especie, tipoProducto));
+        }
+    }
+
     private void cargarRutas(Especies especie) {
         String rc = "recursos/comida/";
         String rm = "recursos/medicamentos/";
@@ -77,33 +111,45 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         }
     }
 
-    public OpcionInteraccion(int index) {
+    public OpcionInteraccion(int indice) {
         Box box = Box.createVerticalBox();
 
         panelImagen = new JPanel();
 
         labelImagen = new JLabel();
 
+        myMouseListener = new MyMouseListener(indice);
+        labelImagen.addMouseListener(myMouseListener);
+
+        labelImagen.setCursor(new Cursor(Cursor.HAND_CURSOR));
         labelImagen.setBackground(new Color(0,0,0,0));
         labelImagen.setBorder(new EmptyBorder(0, 0, 0, 0));
 
         panelImagen.add(labelImagen, BorderLayout.CENTER);
         panelImagen.setBackground(new Color(0,0,0,0));
 
-        cantidadDeProducto = new CantidadDeProducto(index, "");
+        cantidadDeProducto = new CantidadDeProducto(indice, "");
 
+        String texto = (indice == MenuInteractuar.I_COMIDA) ? "Comida" : (indice == MenuInteractuar.I_MEDICAMENTO) ? "Medicamento" : "Juguete";
+        JPanel panelTexto = new JPanel();
+        panelTexto.add(new JLabel(texto, SwingConstants.CENTER));
+        box.add(panelTexto);
         box.add(labelImagen);
         box.add(Box.createRigidArea(new Dimension(0, 10)));
-        box.add(cantidadDeProducto);
+        JPanel panelTexto2 = new JPanel();
+        panelTexto2.add(cantidadDeProducto);
+        box.add(panelTexto2);
 
         add(box);
     }
 
-    public void cargar(Especies especie, int indiceImagen) {
+    public void cargar(int id, Especies especie, int indiceImagen) {
         cargarRutas(especie);
 
+        myMouseListener.setId(id);
+        myMouseListener.setEspecie(especie);
         cargarImagen(140, 140, rutasDeImagenes[indiceImagen]);
-        handler.enviar(new M_SolicitarProductos(especie));
+        handler.enviar(new M_SolicitarProductos(id, especie));
     }
 
     private void cargarImagen(int ancho, int alto, String ruta) {

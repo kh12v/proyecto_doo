@@ -2,6 +2,7 @@ package Logica;
 
 import Logica.Enums.Alimentos;
 import Logica.Enums.Especies;
+import Logica.Enums.Juguetes;
 import Logica.Enums.Medicamentos;
 
 import java.util.Arrays;
@@ -35,7 +36,15 @@ public class Mascota implements Actualizable {
 
     public boolean alimentar(Alimentos alimento) {
         if (puedeComer(alimento)) {
-            incrementarIndicador(I_HAMBRE,alimento.getValorNutritivo());
+            incrementarIndicador(I_HAMBRE, alimento.getValorNutritivo());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean jugar(Juguetes juguete) {
+        if (puedeJugar(juguete)) {
+            incrementarIndicador(I_FELICIDAD, juguete.getValorJuguete());
             return true;
         }
         return false;
@@ -45,14 +54,20 @@ public class Mascota implements Actualizable {
         incrementarIndicador(I_HIGIENE,100);
     }
 
-    public void darMedicamento(Medicamentos medicamento) {
+    public boolean darMedicamento(Medicamentos medicamento) {
         if(Medicamentos.getMedicamento(this.especie) == medicamento) {
             incrementarIndicador(I_SALUD, medicamento.valorMedicinal());
+            return true;
         }
+        return false;
     }
 
     public boolean puedeComer(Alimentos alimento) {
         return alimento.esComiblePor(especie);
+    }
+
+    public boolean puedeJugar(Juguetes juguete) {
+        return juguete.esJugablePor(especie);
     }
 
     public String getNombre() {

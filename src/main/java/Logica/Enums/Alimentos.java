@@ -34,4 +34,11 @@ public enum Alimentos {
     public int getValorNutritivo() {
         return valorNutritivo;
     }
+
+    static public Alimentos deEspecie(Especies especie) {
+        if (especie == Especies.Perro) return Alimentos.ComidaPerro;
+        if (especie == Especies.Gato) return Alimentos.ComidaGato;
+        if (especie == Especies.Loro) return Alimentos.ComidaLoro;
+        else return Alimentos.ComidaHamster;
+    }
 }
