@@ -68,8 +68,9 @@ public class ControladorSuministros implements Controlador {
         int alimentos = t.getStockAlimentos(indice);
         int medicamentos = t.getStockMedicamentos(indice);
         int juguetes = t.getStockJuguetes(indice);
+        int jabones = t.getStockJabones();
 
-        handler.enviar(new V_MostrarProductos(e.id, alimentos, medicamentos, juguetes));
+        handler.enviar(new V_MostrarProductos(e.id, alimentos, medicamentos, juguetes, jabones));
     }
 
     public void contestarConsumirProducto(M_ConsumirProducto e) {
@@ -78,6 +79,7 @@ public class ControladorSuministros implements Controlador {
             case TipoProducto.Comida -> resultado = t.consumirAlimento(e.id, e.especie);
             case TipoProducto.Medicamento -> resultado = t.consumirMedicamento(e.id, e.especie);
             case TipoProducto.Juguete -> resultado = t.consumirJuguete(e.id, e.especie);
+            case TipoProducto.Higiene -> resultado = t.consumirHigiene(e.id);
         }
 
         if (resultado == Tienda.C_Error) {

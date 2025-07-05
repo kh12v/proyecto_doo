@@ -26,6 +26,7 @@ public class Tienda implements Actualizable {
     private final int[] stockMedicamentos;
     private final int[] stockJuguetes;
     private final int[] stockAlimentos;
+    private int stockJabones;
     private int dinero;
     private final int renta;
 
@@ -40,6 +41,7 @@ public class Tienda implements Actualizable {
         stockMedicamentos = new int[4];
         stockJuguetes = new int[4];
         stockAlimentos = new int[4];
+        stockJabones = 0;
         clientes = new ArrayList<>();
     }
 
@@ -49,6 +51,7 @@ public class Tienda implements Actualizable {
         else if (tipoProducto == TipoProducto.Comida) return comprarAlimento(producto);
         else if (tipoProducto == TipoProducto.Juguete) return comprarJuguete(producto);
         else if (tipoProducto == TipoProducto.Medicamento) return comprarMedicamento(producto);
+        else if (tipoProducto == TipoProducto.Higiene) return comprarJabon(producto);
 
         return C_Error;
     }
@@ -99,6 +102,16 @@ public class Tienda implements Actualizable {
 
         Medicamentos medicamento = (Medicamentos) producto.getEnumReal();
         stockMedicamentos[medicamento.ordinal()]++;
+
+        return C_Exito;
+    }
+
+    private int comprarJabon(Producto producto) {
+        if (producto.getPrecio() > dinero) return C_DineroInsuficiente;
+
+        dinero -= producto.getPrecio();
+
+        stockJabones++;
 
         return C_Exito;
     }
@@ -233,6 +246,10 @@ public class Tienda implements Actualizable {
         return stockJuguetes[indiceEspecie];
     }
 
+    public int getStockJabones() {
+        return stockJabones;
+    }
+
     int getIndice(Especies especie) {
         return (especie == Especies.Perro) ? I_Perro
                 : (especie == Especies.Gato) ? I_Gato
@@ -284,6 +301,22 @@ public class Tienda implements Actualizable {
             Mascota mascota = jaula.getMascota();
             if (mascota.getID() == id && mascota.jugar(Juguetes.deEspecie(especie))) {
                 stockJuguetes[indice]--;
+                return C_Exito;
+            }
+        }
+
+        return C_Error;
+    }
+
+    public int consumirHigiene(int id) {
+        if (stockJabones <= 0) return C_StockInsuficiente;
+
+        for (Jaula jaula : jaulas) {
+            if (jaula.estaVacia()) continue;
+            Mascota mascota = jaula.getMascota();
+            if (mascota.getID() == id) {
+                mascota.limpiar();
+                stockJabones--;
                 return C_Exito;
             }
         }

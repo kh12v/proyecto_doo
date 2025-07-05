@@ -21,6 +21,10 @@ public class PanelCompraSuministros extends JPanel implements Publicador {
 
         Box box = Box.createVerticalBox();
 
+        box.add(crearOpcion(Producto.Jabon, "/higiene/jabon.png"));
+
+        box.add(Box.createRigidArea(new Dimension(0, 15)));
+
         box.add(crearOpcion(Producto.ComidaPerro, "/comida/comida_perro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
         box.add(crearOpcion(Producto.ComidaGato, "/comida/comida_gato.png"));
@@ -28,6 +32,8 @@ public class PanelCompraSuministros extends JPanel implements Publicador {
         box.add(crearOpcion(Producto.ComidaLoro, "/comida/comida_loro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
         box.add(crearOpcion(Producto.ComidaHamster, "/comida/comida_hamster.png"));
+
+        box.add(Box.createRigidArea(new Dimension(0, 15)));
 
         box.add(crearOpcion(Producto.JuguetePerro, "/juguetes/juguete_perro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));

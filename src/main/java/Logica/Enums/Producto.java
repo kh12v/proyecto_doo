@@ -1,6 +1,8 @@
 package Logica.Enums;
 
 public enum Producto {
+    Jabon(TipoProducto.Higiene, "Jabon", 500),
+
     Perro(TipoProducto.Mascota, "Perro", 10000),
     Gato(TipoProducto.Mascota, "Gato", 10000),
     Loro(TipoProducto.Mascota, "Loro", 7000),
@@ -49,6 +51,7 @@ public enum Producto {
             case Comida -> Alimentos.values()[ordinal() % 4];
             case Medicamento -> Medicamentos.values()[ordinal() % 4];
             case Juguete -> Juguetes.values()[ordinal() % 4];
+            case Higiene -> null;
         };
     }
 

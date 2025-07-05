@@ -42,7 +42,11 @@ public class OpcionInteraccion extends JPanel implements Publicador {
 
         cantidadDeProducto = new CantidadDeProducto(indice, "");
 
-        String texto = (indice == MenuInteractuar.I_COMIDA) ? "Comida" : (indice == MenuInteractuar.I_MEDICAMENTO) ? "Medicamento" : "Juguete";
+        String texto = "";
+        if (indice == MenuInteractuar.I_COMIDA) texto = "Comida";
+        else if (indice == MenuInteractuar.I_MEDICAMENTO) texto = "Medicamento";
+        else if (indice == MenuInteractuar.I_JUGUETE) texto = "Juguete";
+        else texto = "Jabon";
         JPanel panelTexto = new JPanel();
         panelTexto.add(new JLabel(texto, SwingConstants.CENTER));
         box.add(panelTexto);
@@ -59,24 +63,29 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         String rc = "/comida/";
         String rm = "/medicamentos/";
         String rj = "/juguetes/";
+        String rh = "/higiene/";
 
         switch (especie) {
             case Especies.Perro -> rutasDeImagenes = new String[]{
                     rc + "comida_perro.png",
                     rm + "medicamento_perro.png",
-                    rj + "juguete_perro.png"};
+                    rj + "juguete_perro.png",
+                    rh + "jabon.png"};
             case Especies.Gato -> rutasDeImagenes = new String[]{
                     rc + "comida_gato.png",
                     rm + "medicamento_gato.png",
-                    rj + "juguete_gato.png"};
+                    rj + "juguete_gato.png",
+                    rh + "jabon.png"};
             case Especies.Loro -> rutasDeImagenes = new String[]{
                     rc + "comida_loro.png",
                     rm + "medicamento_loro.png",
-                    rj + "juguete_loro.png"};
+                    rj + "juguete_loro.png",
+                    rh + "jabon.png"};
             case Especies.Hamster -> rutasDeImagenes = new String[]{
                     rc + "comida_hamster.png",
                     rm + "medicamento_hamster.png",
-                    rj + "juguete_hamster.png"};
+                    rj + "juguete_hamster.png",
+                    rh + "jabon.png"};
         }
     }
 
@@ -91,7 +100,6 @@ public class OpcionInteraccion extends JPanel implements Publicador {
 
     private void cargarImagen(int ancho, int alto, String ruta) {
         try {
-
             Image imagenEscalada = ImageLoader.getInstancia().entregarImagen(ruta).getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
 
             labelImagen.setIcon(new ImageIcon(imagenEscalada));
@@ -110,7 +118,7 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         cantidadDeProducto.enviarHandler(handler);
     }
 
-    private class CantidadDeProducto extends JLabel implements Publicador, Suscriptor {
+    private static class CantidadDeProducto extends JLabel implements Publicador, Suscriptor {
         EventHandler handler;
         int indice;
 
@@ -165,7 +173,8 @@ public class OpcionInteraccion extends JPanel implements Publicador {
             TipoProducto tipoProducto;
             if (indice == MenuInteractuar.I_COMIDA) tipoProducto = TipoProducto.Comida;
             else if (indice == MenuInteractuar.I_MEDICAMENTO) tipoProducto = TipoProducto.Medicamento;
-            else tipoProducto = TipoProducto.Juguete;
+            else if (indice == MenuInteractuar.I_JUGUETE) tipoProducto = TipoProducto.Juguete;
+            else tipoProducto = TipoProducto.Higiene;
             PanelMascotas.ocultarMenuInteractuar();
             handler.enviar(new M_ConsumirProducto(id, especie, tipoProducto));
         }

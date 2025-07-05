@@ -10,14 +10,16 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class MenuInteractuar extends JFrame implements Publicador {
-    static private final int ANCHO = 600;
+    static private final int ANCHO = 800;
     static private final int ALTO = 250;
     public static int I_COMIDA = 0;
     public static int I_MEDICAMENTO = 1;
     public static int I_JUGUETE = 2;
+    public static int I_HIGIENE = 3;
     OpcionInteraccion opcionInteraccion1 = new OpcionInteraccion(I_COMIDA);
     OpcionInteraccion opcionInteraccion2 = new OpcionInteraccion(I_MEDICAMENTO);
     OpcionInteraccion opcionInteraccion3 = new OpcionInteraccion(I_JUGUETE);
+    OpcionInteraccion opcionInteraccion4 = new OpcionInteraccion(I_HIGIENE);
     private EventHandler handler;
 
     public MenuInteractuar() {
@@ -43,6 +45,7 @@ public class MenuInteractuar extends JFrame implements Publicador {
         box.add(opcionInteraccion1);
         box.add(opcionInteraccion2);
         box.add(opcionInteraccion3);
+        box.add(opcionInteraccion4);
 
         add(box);
     }
@@ -53,6 +56,7 @@ public class MenuInteractuar extends JFrame implements Publicador {
         opcionInteraccion1.cargar(id, especie, I_COMIDA);
         opcionInteraccion2.cargar(id, especie, I_MEDICAMENTO);
         opcionInteraccion3.cargar(id, especie, I_JUGUETE);
+        opcionInteraccion4.cargar(id, especie, I_HIGIENE);
 
         invalidate();
         repaint();
@@ -71,5 +75,6 @@ public class MenuInteractuar extends JFrame implements Publicador {
         opcionInteraccion1.enviarHandler(handler);
         opcionInteraccion2.enviarHandler(handler);
         opcionInteraccion3.enviarHandler(handler);
+        opcionInteraccion4.enviarHandler(handler);
     }
 }
