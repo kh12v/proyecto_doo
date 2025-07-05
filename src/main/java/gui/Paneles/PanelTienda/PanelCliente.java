@@ -3,7 +3,6 @@ package gui.Paneles.PanelTienda;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.M_PedirCalificacion;
 import Controladores.Eventos.Tipos.V_ActualizarCalificacion;
-import Logica.Tienda;
 import gui.Paneles.IndicadorDinero;
 
 import javax.swing.*;
@@ -22,7 +21,7 @@ public class PanelCliente extends JPanel implements Publicador, Suscriptor {
         setBorder(new EmptyBorder(0, 0, 0, 0));
         calificacion = new JLabel();
         calificacion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        IconoCliente iconoCliente = new IconoCliente("recursos/cliente.png", 300, 300, COLOR_DE_FONDO);
+        IconoCliente iconoCliente = new IconoCliente("/cliente.png", 300, 300);
 
         indicadorDinero = new IndicadorDinero();
 
@@ -47,13 +46,13 @@ public class PanelCliente extends JPanel implements Publicador, Suscriptor {
 
     @Override
     public void recibir(Evento evento) {
-        switch (evento.getTipo()){
+        switch (evento.getTipo()) {
             case ActualizarCalificacion -> actualizarCalificacion((V_ActualizarCalificacion) evento);
         }
     }
 
     private void actualizarCalificacion(V_ActualizarCalificacion evento) {
-        calificacion.setText(String.format("Calificación: %.1f",evento.getNuevaCalificacion()));
+        calificacion.setText(String.format("Calificación: %.1f", evento.getNuevaCalificacion()));
     }
 
     @Override

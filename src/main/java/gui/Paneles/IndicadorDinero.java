@@ -5,7 +5,6 @@ import Controladores.Eventos.Tipos.M_PedirDinero;
 import Controladores.Eventos.Tipos.V_MostrarDinero;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 public class IndicadorDinero extends JLabel implements Suscriptor, Publicador {
     EventHandler handler;
@@ -22,7 +21,7 @@ public class IndicadorDinero extends JLabel implements Suscriptor, Publicador {
 
     @Override
     public void recibir(Evento evento) {
-        switch (evento.getTipo()){
+        switch (evento.getTipo()) {
             case MostrarDinero -> mostrarDinero((V_MostrarDinero) evento);
         }
     }

@@ -1,24 +1,26 @@
 package Controladores.Estado;
 
-import Logica.Enums.Cargo;
 import Logica.Empleado;
+import Logica.Enums.Cargo;
 
 /**
  * DTO (Data Transfer Object) de un empleado
- * @param nombre nombre del empleado
+ *
+ * @param nombre  nombre del empleado
  * @param salario salario del empleado
- * @param cargo cargo del empleado
- * @param id del empleado
+ * @param cargo   cargo del empleado
+ * @param id      del empleado
  */
-public record EmpleadoState (String nombre,
+public record EmpleadoState(String nombre,
                             int salario,
                             Cargo cargo,
-                            int id){
+                            int id) {
     public static EmpleadoState toState(Empleado empleado) {
         return new EmpleadoState(empleado.getNombre(), empleado.getSalario(), empleado.getCargo(), empleado.getID());
     }
-    public static EmpleadoState createDEL(int id){
-        return new EmpleadoState("",0,Cargo.DESPEDIDO,id);
+
+    public static EmpleadoState createDEL(int id) {
+        return new EmpleadoState("", 0, Cargo.DESPEDIDO, id);
     }
 
     @Override

@@ -3,7 +3,6 @@ package gui.Paneles;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.V_CambiarVentana;
 import Controladores.Eventos.Tipos.V_MostrarMensaje;
-import Logica.Tienda;
 import gui.Paneles.PanelCompras.PanelCompras;
 import gui.Paneles.PanelEmpleados.PanelEmpleados;
 import gui.Paneles.PanelMascotas.PanelMascotas;
@@ -15,29 +14,14 @@ import java.awt.*;
 /**
  * Esta es la ventana principal desde la que se mostrarán los paneles
  */
-public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
+public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador {
     static private final int ANCHO = 1000;
     static private final int ALTO = 850;
-
-    private JPanel panelPrincipal = null;
-
     private final PanelTienda PANEL_TIENDA;
     private final PanelMascotas PANEL_MASCOTAS;
     private final PanelEmpleados PANEL_EMPLEADOS;
-     private final PanelCompras PANEL_COMPRAS;
-
-    @Override
-    public void recibir(Evento evento) {
-        switch (evento.getTipo()){
-            case CambiarVentana -> setPanelPrincipal(((V_CambiarVentana) evento).getVentana());
-            case MostrarMensaje -> mostrarMensaje((V_MostrarMensaje) evento);
-        }
-    }
-
-    @Override
-    public DestinoEvento[] getEventosEscuchados() {
-        return new DestinoEvento[]{DestinoEvento.Vista};
-    }
+    private final PanelCompras PANEL_COMPRAS;
+    private JPanel panelPrincipal = null;
 
     public VentanaPrincipal(String titulo) {
         setTitle(titulo);
@@ -56,8 +40,22 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador{
         setLocationRelativeTo(null);
     }
 
+    @Override
+    public void recibir(Evento evento) {
+        switch (evento.getTipo()) {
+            case CambiarVentana -> setPanelPrincipal(((V_CambiarVentana) evento).getVentana());
+            case MostrarMensaje -> mostrarMensaje((V_MostrarMensaje) evento);
+        }
+    }
+
+    @Override
+    public DestinoEvento[] getEventosEscuchados() {
+        return new DestinoEvento[]{DestinoEvento.Vista};
+    }
+
     /**
      * Reemplaza el panelPrincipal por aquel que indica el argumento
+     *
      * @param ventana: Indica cual es el panel que se desea mostrar
      */
     public void setPanelPrincipal(Ventanas ventana) {

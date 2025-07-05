@@ -1,97 +1,25 @@
 package gui.Paneles.PanelMascotas;
 
-import Controladores.Eventos.*;
+import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.Publicador;
 import Controladores.Eventos.Tipos.M_AgregarJaula;
 import Logica.Enums.TipoContenedor;
+import gui.Paneles.ImageLoader;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class MenuSeleccionarJaula extends JFrame implements Publicador {
-    private EventHandler handler;
-
     static private final int ANCHO = 400;
     static private final int ALTO = 250;
-
-    private OpcionJaula opcionJaula1;
-    private OpcionJaula opcionJaula2;
-
-    private class OpcionJaula extends JPanel implements Publicador {
-        private final static Color COLOR_DE_FONDO = Color.GRAY;
-        private final static int ANCHO = 150;
-        private final static int ALTO = 150;
-        private EventHandler handler;
-        private final boolean jaulaGrande;
-
-        private JPanel cargarImagen(int ancho, int alto, String ruta) {
-            JPanel panel = new JPanel();
-
-            try {
-                BufferedImage imagenOriginal = ImageIO.read(new File(ruta));
-
-                if (imagenOriginal != null) {
-                    Image imagenEscalada = imagenOriginal.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
-
-                    JLabel labelImagen = new JLabel(new ImageIcon(imagenEscalada));
-                    labelImagen.setBackground(COLOR_DE_FONDO);
-
-                    labelImagen.setPreferredSize(new Dimension(ancho, alto));
-                    labelImagen.setMinimumSize(new Dimension(ancho, alto));
-                    labelImagen.setMaximumSize(new Dimension(ancho, alto));
-                    labelImagen.setBorder(new EmptyBorder(0, 0, 0, 0));
-
-                    panel.add(labelImagen, BorderLayout.CENTER);
-                    panel.setBackground(COLOR_DE_FONDO);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen: " + ruta, "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "Error al leer la imagen: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
-            }
-
-            return panel;
-        }
-
-        @Override
-        public void enviarHandler(EventHandler handler) {
-            this.handler = handler;
-        }
-
-        private class MyMouseListener extends MouseAdapter {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if (jaulaGrande) handler.enviar(new M_AgregarJaula(TipoContenedor.JaulaGrande));
-                else handler.enviar(new M_AgregarJaula(TipoContenedor.JaulaPequena));
-
-                AgregarJaula.menuAbierto = false;
-                dispose();
-            }
-        }
-
-        public OpcionJaula(boolean jaulaGrande) {
-            this.jaulaGrande = jaulaGrande;
-            setBackground(COLOR_DE_FONDO);
-            setLayout(new OverlayLayout(this));
-            setVisible(true);
-            setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-            addMouseListener(new MyMouseListener());
-
-            if (jaulaGrande) add(cargarImagen(ANCHO, ALTO, "recursos/espacioDisponible.png"));
-            else add(cargarImagen((int)(ANCHO*0.75), (int)(ALTO*0.75), "recursos/espacioDisponible.png"));
-        }
-    }
+    private EventHandler handler;
+    private final OpcionJaula opcionJaula1;
+    private final OpcionJaula opcionJaula2;
 
     public MenuSeleccionarJaula() {
         setTitle("Comprar jaula");
@@ -105,9 +33,9 @@ public class MenuSeleccionarJaula extends JFrame implements Publicador {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-            e.getWindow().dispose();
+                e.getWindow().dispose();
 
-            AgregarJaula.menuAbierto = false;
+                AgregarJaula.menuAbierto = false;
             }
         });
 
@@ -167,5 +95,50 @@ public class MenuSeleccionarJaula extends JFrame implements Publicador {
 
     public void mostrar() {
         setVisible(true);
+    }
+
+    private class OpcionJaula extends JPanel implements Publicador {
+        private final static Color COLOR_DE_FONDO = Color.GRAY;
+        private final static int ANCHO = 150;
+        private final static int ALTO = 150;
+        private final boolean jaulaGrande;
+        private EventHandler handler;
+
+        public OpcionJaula(boolean jaulaGrande) {
+            this.jaulaGrande = jaulaGrande;
+            setBackground(COLOR_DE_FONDO);
+            setLayout(new OverlayLayout(this));
+            setVisible(true);
+            setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            addMouseListener(new MyMouseListener());
+
+            ImageLoader loader = ImageLoader.getInstancia();
+            try {
+                JPanel panel = jaulaGrande
+                        ? loader.cargarImagenEscalada(ANCHO, ALTO, "/espacioDisponible.png")
+                        : loader.cargarImagenEscalada((int) (ANCHO * 0.75), (int) (ALTO * 0.75), "/espacioDisponible.png");
+                add(panel);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void enviarHandler(EventHandler handler) {
+            this.handler = handler;
+        }
+
+        private class MyMouseListener extends MouseAdapter {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (jaulaGrande) handler.enviar(new M_AgregarJaula(TipoContenedor.JaulaGrande));
+                else handler.enviar(new M_AgregarJaula(TipoContenedor.JaulaPequena));
+
+                AgregarJaula.menuAbierto = false;
+                dispose();
+            }
+        }
     }
 }

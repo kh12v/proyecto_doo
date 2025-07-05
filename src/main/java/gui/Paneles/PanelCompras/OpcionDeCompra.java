@@ -12,16 +12,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class OpcionDeCompra extends JPanel implements Publicador {
+    private static final Color COLOR_DE_FONDO = new Color(220, 220, 220);
     private EventHandler handler;
-    private static final Color COLOR_DE_FONDO = new Color(220, 220,220);
-    private Producto producto;
-
-    private class MyMouseListener extends MouseAdapter {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            handler.enviar(new M_ComprarProducto(producto));
-        }
-    }
+    private final Producto producto;
 
     public OpcionDeCompra(Color colorDelFondo, Producto producto, String rutaImagen) {
         this.producto = producto;
@@ -40,7 +33,14 @@ public class OpcionDeCompra extends JPanel implements Publicador {
         add(box);
     }
 
-    public void enviarHandler(EventHandler handler){
+    public void enviarHandler(EventHandler handler) {
         this.handler = handler;
+    }
+
+    private class MyMouseListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            handler.enviar(new M_ComprarProducto(producto));
+        }
     }
 }

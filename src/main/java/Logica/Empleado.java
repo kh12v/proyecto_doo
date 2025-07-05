@@ -8,12 +8,6 @@ import java.util.Random;
 
 public class Empleado {
 
-    private final String nombre;
-    private final int id;
-    private static int idActual = 0;
-    private final Cargo cargo;
-    private boolean trabajando;
-
     private final static Random rand = new Random();
     private final static List<String> nombres = Arrays.asList(
             "Sofía", "Santiago", "Emilia", "Mateo", "Isabella", "Benjamín", "Florencia", "Tomás", "Antonella", "Lucas",
@@ -27,6 +21,11 @@ public class Empleado {
             "Luciano", "Ximena", "Iker", "Mariana", "Matías", "Nayareth", "Franco", "Génesis", "Valentín", "Ignacia",
             "Marcelo", "Amanda", "Mauricio", "Isidora", "Danilo", "Rafaela", "Pedro", "Maite", "Jorge", "Alma"
     );
+    private static int idActual = 0;
+    private final String nombre;
+    private final int id;
+    private final Cargo cargo;
+    private boolean trabajando;
 
     public Empleado(Cargo cargo) {
         this.nombre = getNombreAleatorio();
@@ -51,13 +50,15 @@ public class Empleado {
         return cargo;
     }
 
-    public int getID() { return id; }
-
-    public void setTrabajando(boolean estado){
-        trabajando = estado;
+    public int getID() {
+        return id;
     }
 
     public boolean isTrabajando() {
         return trabajando;
+    }
+
+    public void setTrabajando(boolean estado) {
+        trabajando = estado;
     }
 }

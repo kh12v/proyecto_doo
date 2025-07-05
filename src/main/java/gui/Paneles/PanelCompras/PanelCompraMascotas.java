@@ -10,10 +10,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class PanelCompraMascotas extends JPanel implements Publicador {
-    private EventHandler handler;
-    ArrayList<OpcionDeCompra> opciones = new ArrayList<>();
-
     private static final Color COLOR_DE_FONDO = new Color(200, 200, 200);
+    ArrayList<OpcionDeCompra> opciones = new ArrayList<>();
+    private EventHandler handler;
 
     public PanelCompraMascotas() {
         setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -22,13 +21,13 @@ public class PanelCompraMascotas extends JPanel implements Publicador {
 
         Box box = Box.createVerticalBox();
 
-        box.add(crearOpcion(Producto.Perro, "recursos/animales/perro.png"));
+        box.add(crearOpcion(Producto.Perro, "/animales/perro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.Gato, "recursos/animales/gato.png"));
+        box.add(crearOpcion(Producto.Gato, "/animales/gato.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.Loro, "recursos/animales/loro.png"));
+        box.add(crearOpcion(Producto.Loro, "/animales/loro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.Hamster, "recursos/animales/hamster.png"));
+        box.add(crearOpcion(Producto.Hamster, "/animales/hamster.png"));
 
         add(box);
     }
@@ -39,7 +38,7 @@ public class PanelCompraMascotas extends JPanel implements Publicador {
         return op;
     }
 
-    public void enviarHandler(EventHandler handler){
+    public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         for (OpcionDeCompra op : opciones) {
             op.enviarHandler(handler);

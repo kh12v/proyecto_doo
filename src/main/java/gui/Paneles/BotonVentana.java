@@ -12,12 +12,13 @@ public class BotonVentana extends JButton implements Publicador {
     private static final int ANCHO = 150;
     private static final int ALTO = 100;
     private EventHandler handler;
-    private Ventanas ventana;
+    private final Ventanas ventana;
+
     public BotonVentana(String texto, Ventanas ventana) {
         setPreferredSize(new Dimension(ANCHO, ALTO));
         setMinimumSize(new Dimension(ANCHO, ALTO));
         setMaximumSize(new Dimension(ANCHO, ALTO));
-        switch(ventana){
+        switch (ventana) {
             case TIENDA -> setMnemonic(KeyEvent.VK_ESCAPE);
             default -> setMnemonic(ventana.name().charAt(0));
         }

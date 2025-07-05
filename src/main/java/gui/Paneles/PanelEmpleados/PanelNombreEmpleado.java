@@ -11,7 +11,7 @@ public class PanelNombreEmpleado extends JPanel {
     public PanelNombreEmpleado(int ancho, int alto, Color colorDeFondo, EmpleadoState estado) {
         setBackground(colorDeFondo);
         setPreferredSize(new Dimension(ancho, alto));
-        setMaximumSize(new Dimension(ancho+100, alto));
+        setMaximumSize(new Dimension(ancho + 100, alto));
 
         labelNombre = new JLabel(estado.nombre(), SwingConstants.CENTER);
         labelNombre.setFont(new Font("Arial", Font.PLAIN, 14));

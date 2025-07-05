@@ -12,7 +12,7 @@ public class EventHandler {
 
     public void enviar(Evento evento) {
         for (Suscriptor suscriptor : eventos)
-            if (Arrays.stream(suscriptor.getEventosEscuchados()).anyMatch(m -> m ==evento.getDestino())){
+            if (Arrays.stream(suscriptor.getEventosEscuchados()).anyMatch(m -> m == evento.getDestino())) {
                 suscriptor.recibir(evento);
             }
     }

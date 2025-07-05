@@ -3,15 +3,22 @@ package Logica;
 import Logica.Enums.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-import java.util.Arrays;
 
 public class Tienda implements Actualizable {
+    public static final int I_Perro = 0;
+    public static final int I_Gato = 1;
+    public static final int I_Loro = 2;
+    public static final int I_Hamster = 3;
+    public static final int C_Exito = 1;
+    public static final int C_Error = -1;
+    public static final int C_DineroInsuficiente = -2;
+    public static final int C_NoJaulaDisponible = -3;
+    public static final int C_StockInsuficiente = -4;
     private final String nombre;
-    private int dinero;
-    private int renta;
     private final ArrayList<Double> calificaciones;
     private final ArrayList<Jaula> jaulas;
     private final ArrayList<Empleado> empleados;
@@ -19,17 +26,8 @@ public class Tienda implements Actualizable {
     private final int[] stockMedicamentos;
     private final int[] stockJuguetes;
     private final int[] stockAlimentos;
-
-    public static final int I_Perro = 0;
-    public static final int I_Gato = 1;
-    public static final int I_Loro = 2;
-    public static final int I_Hamster = 3;
-
-    public static final int C_Exito = 1;
-    public static final int C_Error = -1;
-    public static final int C_DineroInsuficiente = -2;
-    public static final int C_NoJaulaDisponible = -3;
-    public static final int C_StockInsuficiente = -4;
+    private int dinero;
+    private final int renta;
 
     public Tienda(String nombre, int dineroInicial) {
         this.nombre = nombre;
@@ -111,7 +109,7 @@ public class Tienda implements Actualizable {
         }
 
         dinero -= contenedor.getPrecio();
-        Jaula jaulaComprada = switch (contenedor){
+        Jaula jaulaComprada = switch (contenedor) {
             case JaulaGrande -> new JaulaGrande();
             case JaulaPequena -> new JaulaPequena();
         };
@@ -141,7 +139,7 @@ public class Tienda implements Actualizable {
 
     public void pagarSalario(Empleado e) {
         int salario = e.getSalario();
-        if(salario > dinero){
+        if (salario > dinero) {
             e.setTrabajando(false);
         } else {
             dinero -= salario;
@@ -150,7 +148,7 @@ public class Tienda implements Actualizable {
     }
 
     @Override
-    public void actualizar(){
+    public void actualizar() {
         dinero -= renta;
         jaulas.forEach(Jaula::actualizar);
         empleados.forEach(this::pagarSalario);
@@ -158,13 +156,15 @@ public class Tienda implements Actualizable {
     }
 
     private void cuidarMascotasEmpleados() {
-        if(empleados.isEmpty()){return;}
+        if (empleados.isEmpty()) {
+            return;
+        }
         Stream<Mascota> mascotasOrdenadas = jaulas.stream()
                 .filter(Predicate.not(Jaula::estaVacia))
                 .map(Jaula::getMascota)
                 .sorted(Comparator.comparingInt(k -> Arrays.stream(k.getIndicadores()).reduce(0, Integer::sum)));
 
-        for(Empleado e: empleados) {
+        for (Empleado e : empleados) {
             if (e.isTrabajando() && e.getCargo() == Cargo.Cuidador) {
                 Mascota m = mascotasOrdenadas.findFirst().orElse(null);
                 if (m == null) {
@@ -187,13 +187,13 @@ public class Tienda implements Actualizable {
                 }
             }
         }
-}
+    }
 
     public ArrayList<Jaula> getJaulas() {
         return jaulas;
     }
 
-    public int[] getEmpleadosInactivos(){
+    public int[] getEmpleadosInactivos() {
         return empleados.stream().filter(Predicate.not(Empleado::isTrabajando)).mapToInt(Empleado::getID).toArray();
     }
 
@@ -201,15 +201,15 @@ public class Tienda implements Actualizable {
         return empleados;
     }
 
-    public boolean encontrarIDMascotas(int id){
+    public boolean encontrarIDMascotas(int id) {
         return jaulas.stream().anyMatch(i -> i.getMascota().getID() == id);
     }
 
-    public boolean encontrarIDEmpleados(int id){
+    public boolean encontrarIDEmpleados(int id) {
         return empleados.stream().anyMatch(i -> i.getID() == id);
     }
 
-    public boolean encontrarIDJaulas(int id){
+    public boolean encontrarIDJaulas(int id) {
         return jaulas.stream().anyMatch(i -> i.getID() == id);
     }
 
@@ -217,8 +217,8 @@ public class Tienda implements Actualizable {
         return this.dinero;
     }
 
-    public double getCalificacion(){
-        return calificaciones.stream().reduce(0.0,Double::sum)/calificaciones.size();
+    public double getCalificacion() {
+        return calificaciones.stream().reduce(0.0, Double::sum) / calificaciones.size();
     }
 
     public int getStockAlimentos(int indiceEspecie) {

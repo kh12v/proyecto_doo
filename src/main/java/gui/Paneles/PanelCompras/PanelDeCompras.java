@@ -7,9 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelDeCompras extends JPanel implements Publicador {
-    private EventHandler handler;
     private final PanelCompraMascotas panelCompraMascotas;
     private final PanelCompraSuministros panelCompraSuministros;
+    private EventHandler handler;
 
     public PanelDeCompras(Color colorDeFondo) {
         setBackground(colorDeFondo);
@@ -27,7 +27,7 @@ public class PanelDeCompras extends JPanel implements Publicador {
         add(pane2);
     }
 
-    public void enviarHandler(EventHandler handler){
+    public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         panelCompraMascotas.enviarHandler(handler);
         panelCompraSuministros.enviarHandler(handler);

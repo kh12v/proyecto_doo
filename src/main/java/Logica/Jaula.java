@@ -5,13 +5,14 @@ import Logica.Enums.TipoContenedor;
 
 import java.util.Arrays;
 
-public abstract class Jaula implements Actualizable{
-    private Mascota mascota;
-    private boolean vacia;
-    private final Especies[] especiesPermitidas;
+public abstract class Jaula implements Actualizable {
     private static int idCounter = 0;
+    private final Especies[] especiesPermitidas;
     private final int id;
     private final TipoContenedor tipoContenedor;
+    private Mascota mascota;
+    private boolean vacia;
+
     public Jaula(Especies[] especiesPermitidas, TipoContenedor tipo) {
         id = idCounter++;
         this.especiesPermitidas = especiesPermitidas;
@@ -31,28 +32,33 @@ public abstract class Jaula implements Actualizable{
     }
 
     public int[] getIndicadores() {
-        if(vacia){
+        if (vacia) {
             return new int[]{};
         }
         return mascota.getIndicadores();
     }
 
     public void ingresarMascota(Mascota mascota) {
-        if (!estaVacia() || !admiteEspecie(mascota.getEspecie())) {return;}
+        if (!estaVacia() || !admiteEspecie(mascota.getEspecie())) {
+            return;
+        }
         this.mascota = mascota;
         vacia = false;
     }
 
     public boolean admiteEspecie(Especies especie) {
-        return Arrays.stream(especiesPermitidas).anyMatch(i->i==especie);
+        return Arrays.stream(especiesPermitidas).anyMatch(i -> i == especie);
     }
+
     public boolean estaVacia() {
         return vacia;
     }
 
     @Override
     public void actualizar() {
-        if(vacia){return;}
+        if (vacia) {
+            return;
+        }
         mascota.actualizar();
     }
 

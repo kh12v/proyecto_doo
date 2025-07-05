@@ -2,10 +2,10 @@ package Logica.Enums;
 
 
 public enum Alimentos {
-    ComidaPerro  (30, Especies.Perro  ,"Comida de Perro"  ),
-    ComidaGato   (30, Especies.Gato   ,"Comida de Gato"   ),
-    ComidaLoro   (20, Especies.Loro   ,"Comida de Loro"   ),
-    ComidaHamster(20, Especies.Hamster,"Comida de Hamster");
+    ComidaPerro(30, Especies.Perro, "Comida de Perro"),
+    ComidaGato(30, Especies.Gato, "Comida de Gato"),
+    ComidaLoro(20, Especies.Loro, "Comida de Loro"),
+    ComidaHamster(20, Especies.Hamster, "Comida de Hamster");
 
     private final int valorNutritivo;
     private final Especies especies;
@@ -27,18 +27,18 @@ public enum Alimentos {
         };
     }
 
+    static public Alimentos deEspecie(Especies especie) {
+        if (especie == Especies.Perro) return Alimentos.ComidaPerro;
+        if (especie == Especies.Gato) return Alimentos.ComidaGato;
+        if (especie == Especies.Loro) return Alimentos.ComidaLoro;
+        else return Alimentos.ComidaHamster;
+    }
+
     public boolean esComiblePor(Especies especie) {
         return especie == this.especies;
     }
 
     public int getValorNutritivo() {
         return valorNutritivo;
-    }
-
-    static public Alimentos deEspecie(Especies especie) {
-        if (especie == Especies.Perro) return Alimentos.ComidaPerro;
-        if (especie == Especies.Gato) return Alimentos.ComidaGato;
-        if (especie == Especies.Loro) return Alimentos.ComidaLoro;
-        else return Alimentos.ComidaHamster;
     }
 }

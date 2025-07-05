@@ -11,11 +11,10 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador {
-    private EventHandler handler;
-    private final HashMap<Integer,PanelEmpleado> empleados;
-    private final AgregarEmpleado botonAgregar;
-
     private final static Color COLOR_DE_FONDO = Color.GRAY;
+    private final HashMap<Integer, PanelEmpleado> empleados;
+    private final AgregarEmpleado botonAgregar;
+    private EventHandler handler;
 
     public PlanillaEmpleados() {
         empleados = new HashMap<>();
@@ -27,14 +26,14 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         handler.suscribir(this);
-        empleados.forEach((k,v) -> v.enviarHandler(handler));
+        empleados.forEach((k, v) -> v.enviarHandler(handler));
         botonAgregar.enviarHandler(handler);
         handler.enviar(new M_PedirEmpleados(M_PedirEmpleados.WILD));
     }
 
     @Override
     public void recibir(Evento evento) {
-        switch (evento.getTipo()){
+        switch (evento.getTipo()) {
             case ActualizarEmpleados -> actualizarEmpleados((V_ActualizarEmpleados) evento);
         }
     }
@@ -48,33 +47,33 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
         remove(botonAgregar);
 
         EmpleadoState[] estados = evento.getEstados();
-        for(EmpleadoState estado: estados){
-            if(empleados.containsKey(estado.id())){
-                if(estado.cargo() == Cargo.DESPEDIDO){
+        for (EmpleadoState estado : estados) {
+            if (empleados.containsKey(estado.id())) {
+                if (estado.cargo() == Cargo.DESPEDIDO) {
                     quitarEmpleado(estado.id());
                 } else {
                     empleados.get(estado.id()).modificarPanel(estado);
                 }
-            } else if (estado.cargo() != Cargo.DESPEDIDO){
+            } else if (estado.cargo() != Cargo.DESPEDIDO) {
                 agregarEmpleado(estado);
             }
         }
 
-        setPreferredSize(new Dimension(PanelEmpleado.ANCHO*3, PanelEmpleado.ALTO * (empleados.size()/2 + 1)));
+        setPreferredSize(new Dimension(PanelEmpleado.ANCHO * 3, PanelEmpleado.ALTO * (empleados.size() / 2 + 1)));
         add(botonAgregar);
 
         revalidate();
         repaint();
     }
 
-    private void agregarEmpleado(EmpleadoState estado){
+    private void agregarEmpleado(EmpleadoState estado) {
         PanelEmpleado empleado = new PanelEmpleado(COLOR_DE_FONDO, estado);
         empleado.enviarHandler(handler);
-        empleados.put(estado.id(),empleado);
+        empleados.put(estado.id(), empleado);
         add(empleado);
     }
 
-    private void quitarEmpleado(int id){
+    private void quitarEmpleado(int id) {
         PanelEmpleado panelEmpleado = empleados.remove(id);
 
         remove(panelEmpleado);

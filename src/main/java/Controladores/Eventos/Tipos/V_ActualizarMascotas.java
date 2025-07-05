@@ -10,10 +10,12 @@ import Controladores.Eventos.TipoEvento;
  */
 public class V_ActualizarMascotas extends Evento {
     JaulaState[] mascotas;
+
     public V_ActualizarMascotas(JaulaState[] mascotas) {
         super(TipoEvento.ActualizarMascotas, DestinoEvento.Vista);
         this.mascotas = mascotas;
     }
+
     public JaulaState[] getEstados() {
         return mascotas;
     }

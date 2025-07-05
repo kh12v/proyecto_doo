@@ -10,39 +10,15 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class MenuInteractuar extends JFrame implements Publicador {
-    private EventHandler handler;
-
     static private final int ANCHO = 600;
     static private final int ALTO = 250;
-
-    OpcionInteraccion opcionInteraccion1 = new OpcionInteraccion(I_COMIDA);
-    OpcionInteraccion opcionInteraccion2 = new OpcionInteraccion(I_MEDICAMENTO);
-    OpcionInteraccion opcionInteraccion3 = new OpcionInteraccion(I_JUGUETE);
-
     public static int I_COMIDA = 0;
     public static int I_MEDICAMENTO = 1;
     public static int I_JUGUETE = 2;
-
-    private enum Opcion {
-        HAMBRE, SALUD, FELICIDAD, HIGIENE;
-    }
-
-    public void mostrar(int id, String nombre, Especies especie) {
-        setTitle("Interactuar con [" + nombre + "]");
-
-        opcionInteraccion1.cargar(id, especie, I_COMIDA);
-        opcionInteraccion2.cargar(id, especie, I_MEDICAMENTO);
-        opcionInteraccion3.cargar(id, especie, I_JUGUETE);
-
-        invalidate();
-        repaint();
-
-        setVisible(true);
-    }
-
-    public void ocultar() {
-        setVisible(false);
-    }
+    OpcionInteraccion opcionInteraccion1 = new OpcionInteraccion(I_COMIDA);
+    OpcionInteraccion opcionInteraccion2 = new OpcionInteraccion(I_MEDICAMENTO);
+    OpcionInteraccion opcionInteraccion3 = new OpcionInteraccion(I_JUGUETE);
+    private EventHandler handler;
 
     public MenuInteractuar() {
         setTitle("Interactuar con []");
@@ -69,6 +45,23 @@ public class MenuInteractuar extends JFrame implements Publicador {
         box.add(opcionInteraccion3);
 
         add(box);
+    }
+
+    public void mostrar(int id, String nombre, Especies especie) {
+        setTitle("Interactuar con [" + nombre + "]");
+
+        opcionInteraccion1.cargar(id, especie, I_COMIDA);
+        opcionInteraccion2.cargar(id, especie, I_MEDICAMENTO);
+        opcionInteraccion3.cargar(id, especie, I_JUGUETE);
+
+        invalidate();
+        repaint();
+
+        setVisible(true);
+    }
+
+    public void ocultar() {
+        setVisible(false);
     }
 
     @Override

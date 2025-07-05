@@ -1,6 +1,8 @@
 package Controladores;
 
-import Controladores.Eventos.*;
+import Controladores.Eventos.DestinoEvento;
+import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.Evento;
 import Controladores.Eventos.Tipos.M_PedirIndicadoresMascotas;
 import Controladores.Eventos.Tipos.V_ActualizarCalificacion;
 import Controladores.Eventos.Tipos.V_MostrarDinero;
@@ -11,8 +13,8 @@ public class ControladorPrincipal implements Controlador, Actualizable {
     private final ControladorMascotas mascotas;
     private final ControladorEmpleados empleados;
     private final ControladorSuministros suministros;
-    private EventHandler handler;
     private final Tienda tienda;
+    private EventHandler handler;
 
     public ControladorPrincipal(Tienda tienda) {
         mascotas = new ControladorMascotas(tienda);

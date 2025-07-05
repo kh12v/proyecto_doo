@@ -4,15 +4,15 @@ import Controladores.Eventos.DestinoEvento;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Evento;
 import Controladores.Eventos.Tipos.*;
-import Logica.Enums.Especies;
-import Logica.Tienda;
 import Logica.Enums.TipoProducto;
+import Logica.Tienda;
 
 import java.util.HashMap;
 
 public class ControladorSuministros implements Controlador {
     private final Tienda t;
     private EventHandler handler;
+
     public ControladorSuministros(Tienda t) {
         this.t = t;
     }

@@ -16,12 +16,12 @@ public class Cliente {
     }
 
     public boolean entregarMascota(Mascota mascota) {
-        if(mascota.getEspecie() != this.mascota){
+        if (mascota.getEspecie() != this.mascota) {
             calificacion *= 0.5;
             return false;
         }
         int[] indicadores = mascota.getIndicadores();
-        Arrays.stream(indicadores).forEach(indicador -> calificacion *= ((double) indicador /100 + 0.5));
+        Arrays.stream(indicadores).forEach(indicador -> calificacion *= ((double) indicador / 100 + 0.5));
         calificacion = Math.max(calificacion, 5.0);
         return true;
     }

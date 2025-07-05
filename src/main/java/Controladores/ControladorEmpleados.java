@@ -8,7 +8,9 @@ import Controladores.Eventos.Tipos.*;
 import Logica.Empleado;
 import Logica.Tienda;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class ControladorEmpleados implements Controlador {
@@ -19,7 +21,7 @@ public class ControladorEmpleados implements Controlador {
         this.t = t;
     }
 
-    public void enviarHandler(EventHandler handler){
+    public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         handler.suscribir(this);
     }

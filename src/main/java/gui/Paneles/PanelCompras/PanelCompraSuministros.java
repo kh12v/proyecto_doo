@@ -10,10 +10,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class PanelCompraSuministros extends JPanel implements Publicador {
-    private EventHandler handler;
-    private ArrayList<OpcionDeCompra> opciones = new ArrayList<>();
-
     private static final Color COLOR_DE_FONDO = new Color(200, 200, 200);
+    private EventHandler handler;
+    private final ArrayList<OpcionDeCompra> opciones = new ArrayList<>();
 
     public PanelCompraSuministros() {
         setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -22,31 +21,31 @@ public class PanelCompraSuministros extends JPanel implements Publicador {
 
         Box box = Box.createVerticalBox();
 
-        box.add(crearOpcion(Producto.ComidaPerro, "recursos/comida/comida_perro.png"));
+        box.add(crearOpcion(Producto.ComidaPerro, "/comida/comida_perro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.ComidaGato, "recursos/comida/comida_gato.png"));
+        box.add(crearOpcion(Producto.ComidaGato, "/comida/comida_gato.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.ComidaLoro, "recursos/comida/comida_loro.png"));
+        box.add(crearOpcion(Producto.ComidaLoro, "/comida/comida_loro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.ComidaHamster, "recursos/comida/comida_hamster.png"));
+        box.add(crearOpcion(Producto.ComidaHamster, "/comida/comida_hamster.png"));
 
-        box.add(crearOpcion(Producto.JuguetePerro, "recursos/juguetes/juguete_perro.png"));
+        box.add(crearOpcion(Producto.JuguetePerro, "/juguetes/juguete_perro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.JugueteGato, "recursos/juguetes/juguete_gato.png"));
+        box.add(crearOpcion(Producto.JugueteGato, "/juguetes/juguete_gato.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.JugueteLoro, "recursos/juguetes/juguete_loro.png"));
+        box.add(crearOpcion(Producto.JugueteLoro, "/juguetes/juguete_loro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.JugueteHamster, "recursos/juguetes/juguete_hamster.png"));
+        box.add(crearOpcion(Producto.JugueteHamster, "/juguetes/juguete_hamster.png"));
 
         box.add(Box.createRigidArea(new Dimension(0, 15)));
 
-        box.add(crearOpcion(Producto.MedicamentoPerro, "recursos/medicamentos/medicamento_perro.png"));
+        box.add(crearOpcion(Producto.MedicamentoPerro, "/medicamentos/medicamento_perro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.MedicamentoGato, "recursos/medicamentos/medicamento_gato.png"));
+        box.add(crearOpcion(Producto.MedicamentoGato, "/medicamentos/medicamento_gato.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.MedicamentoLoro, "recursos/medicamentos/medicamento_loro.png"));
+        box.add(crearOpcion(Producto.MedicamentoLoro, "/medicamentos/medicamento_loro.png"));
         box.add(Box.createRigidArea(new Dimension(0, 15)));
-        box.add(crearOpcion(Producto.MedicamentoHamster, "recursos/medicamentos/medicamento_hamster.png"));
+        box.add(crearOpcion(Producto.MedicamentoHamster, "/medicamentos/medicamento_hamster.png"));
 
         add(box);
     }
@@ -57,7 +56,7 @@ public class PanelCompraSuministros extends JPanel implements Publicador {
         return op;
     }
 
-    public void enviarHandler(EventHandler handler){
+    public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         for (OpcionDeCompra op : opciones) {
             op.enviarHandler(handler);

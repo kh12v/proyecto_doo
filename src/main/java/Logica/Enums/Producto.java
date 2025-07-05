@@ -21,9 +21,9 @@ public enum Producto {
     MedicamentoLoro(TipoProducto.Medicamento, "Medicamento de loro", 1000),
     MedicamentoHamster(TipoProducto.Medicamento, "Medicamento de hamster", 1000);
 
-    private TipoProducto tipoProducto;
-    private String nombre;
-    private int precio;
+    private final TipoProducto tipoProducto;
+    private final String nombre;
+    private final int precio;
 
     Producto(TipoProducto tipoProducto, String nombre, int precio) {
         this.tipoProducto = tipoProducto;
@@ -43,12 +43,12 @@ public enum Producto {
         return tipoProducto == TipoProducto.Mascota;
     }
 
-    public Enum getEnumReal(){
-        return switch (tipoProducto){
-            case Mascota     -> Especies.values()[ordinal()%4];
-            case Comida      -> Alimentos.values()[ordinal()%4];
-            case Medicamento -> Medicamentos.values()[ordinal()%4];
-            case Juguete     -> Juguetes.values()[ordinal()%4];
+    public Enum getEnumReal() {
+        return switch (tipoProducto) {
+            case Mascota -> Especies.values()[ordinal() % 4];
+            case Comida -> Alimentos.values()[ordinal() % 4];
+            case Medicamento -> Medicamentos.values()[ordinal() % 4];
+            case Juguete -> Juguetes.values()[ordinal() % 4];
         };
     }
 

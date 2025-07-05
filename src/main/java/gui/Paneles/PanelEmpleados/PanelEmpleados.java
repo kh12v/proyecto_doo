@@ -2,7 +2,6 @@ package gui.Paneles.PanelEmpleados;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
-import Logica.Tienda;
 import gui.Paneles.BotonVentana;
 import gui.Paneles.IndicadorDinero;
 import gui.Paneles.Ventanas;
@@ -10,14 +9,12 @@ import gui.Paneles.Ventanas;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class PanelEmpleados extends JPanel implements Publicador {
-    private EventHandler handler;
     private final PlanillaEmpleados planillaEmpleados;
     private final IndicadorDinero indicadorDinero;
     private final BotonVentana back;
+    private EventHandler handler;
 
     public PanelEmpleados() {
         setLayout(new BorderLayout());

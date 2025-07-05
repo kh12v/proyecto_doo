@@ -1,6 +1,7 @@
 package gui.Paneles.PanelMascotas;
 
-import Controladores.Eventos.*;
+import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.Publicador;
 import Logica.Enums.Especies;
 import gui.Paneles.BotonVentana;
 import gui.Paneles.IndicadorDinero;
@@ -11,11 +12,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class PanelMascotas extends JPanel implements Publicador {
-    private EventHandler handler;
+    static private final MenuInteractuar menuInteractuar = new MenuInteractuar();
     private final AlmacenMascotas almacen;
     private final IndicadorDinero indicadorDinero;
-    private BotonVentana back;
-    static private MenuInteractuar menuInteractuar = new MenuInteractuar();
+    private EventHandler handler;
+    private final BotonVentana back;
 
     public PanelMascotas() {
         setLayout(new BorderLayout());

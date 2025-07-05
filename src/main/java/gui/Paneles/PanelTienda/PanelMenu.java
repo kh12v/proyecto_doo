@@ -15,11 +15,7 @@ import java.util.Arrays;
 public class PanelMenu extends JPanel implements Publicador {
     private static final Color COLOR_DE_FONDO = Color.GRAY;
     public EventHandler handler;
-    private BotonVentana[] ventana;
-    public void enviarHandler(EventHandler handler) {
-        this.handler = handler;
-        Arrays.stream(ventana).forEach(v -> v.enviarHandler(handler));
-    }
+    private final BotonVentana[] ventana;
 
     public PanelMenu() {
         setLayout(new BorderLayout());
@@ -33,7 +29,7 @@ public class PanelMenu extends JPanel implements Publicador {
         box.add(botonMascota);
         ventana[0] = botonMascota;
         box.add(Box.createHorizontalGlue());
-        BotonVentana botonEmpleados = new BotonVentana("Empleados", Ventanas.EMPLEADOS  );
+        BotonVentana botonEmpleados = new BotonVentana("Empleados", Ventanas.EMPLEADOS);
         box.add(botonEmpleados);
         ventana[1] = botonEmpleados;
         box.add(Box.createHorizontalGlue());
@@ -42,5 +38,10 @@ public class PanelMenu extends JPanel implements Publicador {
         ventana[2] = botonComprar;
         box.add(Box.createHorizontalGlue());
         add(box, BorderLayout.CENTER);
+    }
+
+    public void enviarHandler(EventHandler handler) {
+        this.handler = handler;
+        Arrays.stream(ventana).forEach(v -> v.enviarHandler(handler));
     }
 }

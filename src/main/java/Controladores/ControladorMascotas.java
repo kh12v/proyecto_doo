@@ -1,7 +1,9 @@
 package Controladores;
 
 import Controladores.Estado.JaulaState;
-import Controladores.Eventos.*;
+import Controladores.Eventos.DestinoEvento;
+import Controladores.Eventos.EventHandler;
+import Controladores.Eventos.Evento;
 import Controladores.Eventos.Tipos.*;
 import Logica.Jaula;
 import Logica.Tienda;
@@ -18,10 +20,11 @@ public class ControladorMascotas implements Controlador {
         this.t = t;
     }
 
-    public void enviarHandler(EventHandler handler){
+    public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         handler.suscribir(this);
     }
+
     @Override
     public DestinoEvento[] getEventosEscuchados() {
         return new DestinoEvento[]{DestinoEvento.Controlador};
@@ -39,14 +42,14 @@ public class ControladorMascotas implements Controlador {
     private void contestarPeticionIndicadores(M_PedirIndicadoresMascotas e) {
         List<Jaula> mascotas = t.getJaulas();
         // lo siento mucho, si quieres hacer un for loop esta bien
-        Map<Integer,int[]> indicadores = (e.getIds() == M_PedirIndicadoresMascotas.WILD)
+        Map<Integer, int[]> indicadores = (e.getIds() == M_PedirIndicadoresMascotas.WILD)
                 ? mascotas.stream()
                 .filter(Predicate.not(Jaula::estaVacia))
-                .collect(Collectors.toMap(Jaula::getID,Jaula::getIndicadores))
+                .collect(Collectors.toMap(Jaula::getID, Jaula::getIndicadores))
                 : mascotas.stream()
                 .filter(Predicate.not(Jaula::estaVacia))
                 .filter(jaula -> Arrays.stream(e.getIds()).anyMatch(i -> i == jaula.getID()))
-                .collect(Collectors.toMap(Jaula::getID,Jaula::getIndicadores));
+                .collect(Collectors.toMap(Jaula::getID, Jaula::getIndicadores));
 
         handler.enviar(new V_ActualizarIndicadoresMascotas(new HashMap<>(indicadores)));
     }

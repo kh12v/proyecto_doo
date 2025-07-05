@@ -4,95 +4,23 @@ import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
 import Controladores.Eventos.Tipos.M_AgregarEmpleado;
 import Logica.Enums.Cargo;
+import gui.Paneles.ImageLoader;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class MenuSeleccionarEmpleado extends JFrame implements Publicador {
-    private EventHandler handler;
-
     static private final int ANCHO = 600;
     static private final int ALTO = 250;
-
-    private OpcionEmpleado opcionEmpleado1;
-    private OpcionEmpleado opcionEmpleado2;
-    private OpcionEmpleado opcionEmpleado3;
-
-    private class OpcionEmpleado extends JPanel implements Publicador {
-        private final static Color COLOR_DE_FONDO = Color.GRAY;
-        private final static int ANCHO = 150;
-        private final static int ALTO = 150;
-        private EventHandler handler;
-        private Cargo cargo;
-
-        private JPanel cargarImagen(int ancho, int alto, String ruta) {
-            JPanel panel = new JPanel();
-
-            try {
-                BufferedImage imagenOriginal = ImageIO.read(new File(ruta));
-
-                if (imagenOriginal != null) {
-                    Image imagenEscalada = imagenOriginal.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
-
-                    JLabel labelImagen = new JLabel(new ImageIcon(imagenEscalada));
-                    labelImagen.setBackground(COLOR_DE_FONDO);
-
-                    labelImagen.setPreferredSize(new Dimension(ancho, alto));
-                    labelImagen.setMinimumSize(new Dimension(ancho, alto));
-                    labelImagen.setMaximumSize(new Dimension(ancho, alto));
-                    labelImagen.setBorder(new EmptyBorder(0, 0, 0, 0));
-
-                    panel.add(labelImagen, BorderLayout.CENTER);
-                    panel.setBackground(COLOR_DE_FONDO);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen: " + ruta, "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "Error al leer la imagen: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
-            }
-
-            return panel;
-        }
-
-        @Override
-        public void enviarHandler(EventHandler handler) {
-            this.handler = handler;
-        }
-
-        private class MyMouseListener extends MouseAdapter {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-
-                handler.enviar(new M_AgregarEmpleado(cargo));
-
-                AgregarEmpleado.menuAbierto = false;
-                dispose();
-            }
-        }
-
-        public OpcionEmpleado(Cargo cargo) {
-            this.cargo = cargo;
-            setBackground(COLOR_DE_FONDO);
-            setLayout(new OverlayLayout(this));
-            setVisible(true);
-            setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-            addMouseListener(new MyMouseListener());
-
-            add(cargarImagen(ANCHO, ALTO, "recursos/empleado.png"));
-        }
-    }
+    private EventHandler handler;
+    private final OpcionEmpleado opcionEmpleado1;
+    private final OpcionEmpleado opcionEmpleado2;
+    private final OpcionEmpleado opcionEmpleado3;
 
     public MenuSeleccionarEmpleado() {
         setTitle("Contratar empleado");
@@ -106,9 +34,9 @@ public class MenuSeleccionarEmpleado extends JFrame implements Publicador {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-            e.getWindow().dispose();
+                e.getWindow().dispose();
 
-            AgregarEmpleado.menuAbierto = false;
+                AgregarEmpleado.menuAbierto = false;
             }
         });
 
@@ -190,5 +118,46 @@ public class MenuSeleccionarEmpleado extends JFrame implements Publicador {
 
     public void mostrar() {
         setVisible(true);
+    }
+
+    private class OpcionEmpleado extends JPanel implements Publicador {
+        private final static Color COLOR_DE_FONDO = Color.GRAY;
+        private final static int ANCHO = 150;
+        private final static int ALTO = 150;
+        private EventHandler handler;
+        private final Cargo cargo;
+
+        public OpcionEmpleado(Cargo cargo) {
+            this.cargo = cargo;
+            setBackground(COLOR_DE_FONDO);
+            setLayout(new OverlayLayout(this));
+            setVisible(true);
+            setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            addMouseListener(new MyMouseListener());
+
+            try {
+                add(ImageLoader.getInstancia().cargarImagenEscalada(ANCHO, ALTO, "/empleado.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void enviarHandler(EventHandler handler) {
+            this.handler = handler;
+        }
+
+        private class MyMouseListener extends MouseAdapter {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                handler.enviar(new M_AgregarEmpleado(cargo));
+
+                AgregarEmpleado.menuAbierto = false;
+                dispose();
+            }
+        }
     }
 }

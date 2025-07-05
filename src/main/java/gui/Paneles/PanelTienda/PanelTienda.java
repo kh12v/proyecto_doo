@@ -2,7 +2,6 @@ package gui.Paneles.PanelTienda;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
-import Logica.Tienda;
 import gui.Paneles.VentanaPrincipal;
 
 import javax.swing.*;
@@ -11,8 +10,9 @@ import java.awt.*;
 public class PanelTienda extends JPanel implements Publicador {
     private VentanaPrincipal ventanaPrincipal;
     private EventHandler handler;
-    private PanelCliente panelCliente;
-    private PanelMenu panelMenu;
+    private final PanelCliente panelCliente;
+    private final PanelMenu panelMenu;
+
     public PanelTienda() {
         setLayout(new GridLayout(2, 1, 0, 0));
 
@@ -22,6 +22,7 @@ public class PanelTienda extends JPanel implements Publicador {
         add(panelCliente);
         add(panelMenu);
     }
+
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         panelCliente.enviarHandler(handler);
