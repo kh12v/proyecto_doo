@@ -4,6 +4,7 @@ import Controladores.Estado.JaulaState;
 import Controladores.Eventos.DestinoEvento;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Evento;
+import Controladores.Eventos.Tipos.M_PedirCliente;
 import Controladores.Eventos.Tipos.*;
 import Logica.Jaula;
 import Logica.Tienda;
@@ -36,6 +37,19 @@ public class ControladorMascotas implements Controlador {
             case PedirMascotas -> contestarPeticionMascotas((M_PedirMascotas) e);
             case PedirIndicadores -> contestarPeticionIndicadores((M_PedirIndicadoresMascotas) e);
             case AgregarJaula -> contestarAgregarJaula((M_AgregarJaula) e);
+            case EntregarMascota -> contestarEntregaMascotas((M_EntregarMascota) e);
+        }
+    }
+
+    private void contestarEntregaMascotas(M_EntregarMascota e) {
+        if(t.servirCliente(e.getId())){
+            handler.enviar(new V_MostrarMensaje("¡Cliente servido exitosamente!"));
+            handler.enviar(new M_PedirMascotas(new int[]{e.getId()}));
+            handler.enviar(new M_PedirCliente());
+            handler.enviar(new M_PedirDinero());
+            handler.enviar(new M_PedirCalificacion());
+        } else {
+            handler.enviar(new V_MostrarMensaje("¡El cliente no aceptó la mascota!"));
         }
     }
 

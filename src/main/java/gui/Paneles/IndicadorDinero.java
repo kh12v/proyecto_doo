@@ -20,9 +20,9 @@ public class IndicadorDinero extends JLabel implements Suscriptor, Publicador {
     }
 
     @Override
-    public void recibir(Evento evento) {
-        switch (evento.getTipo()) {
-            case MostrarDinero -> mostrarDinero((V_MostrarDinero) evento);
+    public void recibir(Evento e) {
+        switch (e.getTipo()) {
+            case MostrarDinero -> mostrarDinero((V_MostrarDinero) e);
         }
     }
 

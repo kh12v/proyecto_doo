@@ -14,18 +14,16 @@ import java.util.Arrays;
  */
 public record MascotaState(String nombre,
                            Especies especie,
-                           int id,
                            int[] estadoIndicadores) {
     /**
      * DEL representa la mascota nula, si se recibe esta mascota en un índice, significa que hay que borrarla
      */
-    public static final MascotaState DEL = new MascotaState("BORRAR", Especies.Null, 0, null);
-    public static final MascotaState NULL = new MascotaState("", Especies.Null, 0, null);
+    public static final MascotaState NULL = new MascotaState("", Especies.Null, null);
 
     public static MascotaState toState(Mascota mascota) {
         if (mascota == null) return null;
         int[] indicadorEstado = mascota.getIndicadores();
-        return new MascotaState(mascota.getNombre(), mascota.getEspecie(), mascota.getID(), indicadorEstado);
+        return new MascotaState(mascota.getNombre(), mascota.getEspecie(), indicadorEstado);
     }
 
     @Override

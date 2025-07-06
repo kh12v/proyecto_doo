@@ -3,6 +3,7 @@ package gui.Paneles.PanelTienda;
 import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.M_PedirCalificacion;
 import Controladores.Eventos.Tipos.V_ActualizarCalificacion;
+import Controladores.Eventos.Tipos.V_ActualizarCliente;
 import gui.Paneles.IndicadorDinero;
 
 import javax.swing.*;
@@ -14,14 +15,14 @@ public class PanelCliente extends JPanel implements Publicador, Suscriptor {
     JLabel calificacion;
     IndicadorDinero indicadorDinero;
     EventHandler handler;
-
+    IconoCliente iconoCliente;
     public PanelCliente(String nombre) {
         setLayout(new BorderLayout());
         setBackground(COLOR_DE_FONDO);
         setBorder(new EmptyBorder(0, 0, 0, 0));
         calificacion = new JLabel();
         calificacion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        IconoCliente iconoCliente = new IconoCliente("/cliente.png", 300, 300);
+        iconoCliente = new IconoCliente("/clientes/cliente.png", 300, 300);
 
         indicadorDinero = new IndicadorDinero();
 
@@ -52,9 +53,10 @@ public class PanelCliente extends JPanel implements Publicador, Suscriptor {
     }
 
     @Override
-    public void recibir(Evento evento) {
-        switch (evento.getTipo()) {
-            case ActualizarCalificacion -> actualizarCalificacion((V_ActualizarCalificacion) evento);
+    public void recibir(Evento e) {
+        switch (e.getTipo()) {
+            case ActualizarCalificacion -> actualizarCalificacion((V_ActualizarCalificacion) e);
+            case ActualizarCliente -> iconoCliente.cambiarIcono(((V_ActualizarCliente) e).getEspeciePedida());
         }
     }
 

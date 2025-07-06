@@ -65,28 +65,12 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         String rj = "/juguetes/";
         String rh = "/higiene/";
 
-        switch (especie) {
-            case Especies.Perro -> rutasDeImagenes = new String[]{
-                    rc + "comida_perro.png",
-                    rm + "medicamento_perro.png",
-                    rj + "juguete_perro.png",
-                    rh + "jabon.png"};
-            case Especies.Gato -> rutasDeImagenes = new String[]{
-                    rc + "comida_gato.png",
-                    rm + "medicamento_gato.png",
-                    rj + "juguete_gato.png",
-                    rh + "jabon.png"};
-            case Especies.Loro -> rutasDeImagenes = new String[]{
-                    rc + "comida_loro.png",
-                    rm + "medicamento_loro.png",
-                    rj + "juguete_loro.png",
-                    rh + "jabon.png"};
-            case Especies.Hamster -> rutasDeImagenes = new String[]{
-                    rc + "comida_hamster.png",
-                    rm + "medicamento_hamster.png",
-                    rj + "juguete_hamster.png",
-                    rh + "jabon.png"};
-        }
+        rutasDeImagenes = new String[]{
+                rc + "comida_" + especie.toString().toLowerCase() + ".png",
+                rm + "medicamento_" + especie.toString().toLowerCase() + ".png",
+                rj + "juguete_" + especie.toString().toLowerCase() + ".png",
+                rh + "jabon.png",
+        };
     }
 
     public void cargar(int id, Especies especie, int indiceImagen) {
@@ -138,9 +122,9 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         }
 
         @Override
-        public void recibir(Evento evento) {
-            switch (evento.getTipo()) {
-                case MostrarProductos -> mostrarProductos((V_MostrarProductos) evento);
+        public void recibir(Evento e) {
+            switch (e.getTipo()) {
+                case MostrarProductos -> mostrarProductos((V_MostrarProductos) e);
             }
         }
 

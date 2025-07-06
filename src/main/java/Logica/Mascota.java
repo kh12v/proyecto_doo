@@ -12,10 +12,8 @@ public class Mascota implements Actualizable {
     public static int I_SALUD = 1;
     public static int I_FELICIDAD = 2;
     public static int I_HIGIENE = 3;
-    private static int idActual = 0;
     private final String nombre;
     private final Especies especie;
-    private final int id;
     private final double[][] matrizTransicion = {
             {0.9, 0.05, -0.03, 0},  // Hambre: Se reduce con el tiempo, mejora salud
             {0.03, 0.85, 0.05, 0.03},  // Salud: Mejora si hay hambre (alimentación)
@@ -27,7 +25,6 @@ public class Mascota implements Actualizable {
     public Mascota(String nombre, Especies especie) {
         this.nombre = nombre;
         this.especie = especie;
-        this.id = idActual++;
         indicadores = new double[]{100, 100, 100, 100};
     }
 
@@ -73,10 +70,6 @@ public class Mascota implements Actualizable {
 
     public Especies getEspecie() {
         return especie;
-    }
-
-    public int getID() {
-        return id;
     }
 
     public int[] getIndicadores() {

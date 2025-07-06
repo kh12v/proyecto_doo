@@ -13,7 +13,7 @@ public class M_ConsumirProducto extends Evento {
 
     public M_ConsumirProducto(int id, Especies especie, TipoProducto tipoProducto) {
         super(TipoEvento.ConsumirProducto, DestinoEvento.Controlador);
-
+        System.out.println(id);
         this.id = id;
         this.especie = especie;
         this.tipoProducto = tipoProducto;

@@ -34,10 +34,10 @@ public class AlmacenMascotas extends JPanel implements Suscriptor, Publicador {
 
 
     @Override
-    public void recibir(Evento evento) {
-        switch (evento.getTipo()) {
-            case ActualizarMascotas -> actualizarMascotas((V_ActualizarMascotas) evento);
-            case ActualizarIndicadores -> actualizarIndicadores((V_ActualizarIndicadoresMascotas) evento);
+    public void recibir(Evento e) {
+        switch (e.getTipo()) {
+            case ActualizarMascotas -> actualizarMascotas((V_ActualizarMascotas) e);
+            case ActualizarIndicadores -> actualizarIndicadores((V_ActualizarIndicadoresMascotas) e);
         }
     }
 

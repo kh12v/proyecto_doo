@@ -1,7 +1,7 @@
 package Controladores.Eventos;
 
 public interface Suscriptor {
-    void recibir(Evento evento);
+    void recibir(Evento e);
 
     DestinoEvento[] getEventosEscuchados();
 }

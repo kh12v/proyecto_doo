@@ -6,7 +6,7 @@ import Logica.Enums.TipoContenedor;
 import java.util.Arrays;
 
 public abstract class Jaula implements Actualizable {
-    private static int idCounter = 0;
+    private static int idCounter = 294187;
     private final Especies[] especiesPermitidas;
     private final int id;
     private final TipoContenedor tipoContenedor;
@@ -42,6 +42,7 @@ public abstract class Jaula implements Actualizable {
         }
         this.mascota = mascota;
         vacia = false;
+        System.out.println("Mascota: " + mascota);
     }
 
     public boolean admiteEspecie(Especies especie) {

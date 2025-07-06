@@ -46,6 +46,10 @@ public class Tienda implements Actualizable {
         clientes = new ArrayList<>();
     }
 
+    public void agregarCliente(Cliente cliente) {
+        clientes.add(cliente);
+    }
+
     public int comprarProducto(Producto producto) {
         TipoProducto tipoProducto = producto.getTipoProducto();
         if (tipoProducto == TipoProducto.Mascota) return comprarMascota(producto);
@@ -173,10 +177,10 @@ public class Tienda implements Actualizable {
         if (empleados.isEmpty()) {
             return;
         }
-        ArrayList<Jaula> mascotasOrdenadas = (ArrayList<Jaula>) jaulas.stream()
+        ArrayList<Jaula> mascotasOrdenadas = new ArrayList<>(jaulas.stream()
                 .filter(Predicate.not(Jaula::estaVacia))
                 .sorted(Comparator.comparingInt(k -> Arrays.stream(k.getIndicadores()).reduce(0, Integer::sum)))
-                .toList();
+                .toList());
 
         for (Empleado e : empleados) {
             if(!e.isTrabajando()){continue;}
@@ -214,7 +218,7 @@ public class Tienda implements Actualizable {
         }
     }
 
-    private boolean servirCliente(int id){
+    public boolean servirCliente(int id){
         return servirCliente(encontrarMascota(id));
     }
 
@@ -236,16 +240,16 @@ public class Tienda implements Actualizable {
         return jaulas;
     }
 
+    public Especies getEspeciePedida(){
+        if(clientes.isEmpty()){return Especies.Null;}
+        return clientes.getFirst().getEspeciePedida();
+    }
     public int[] getEmpleadosInactivos() {
         return empleados.stream().filter(Predicate.not(Empleado::isTrabajando)).mapToInt(Empleado::getID).toArray();
     }
 
     public ArrayList<Empleado> getEmpleados() {
         return empleados;
-    }
-
-    public boolean encontrarIDMascotas(int id) {
-        return jaulas.stream().anyMatch(i -> i.getMascota().getID() == id);
     }
 
     public boolean encontrarIDEmpleados(int id) {
@@ -257,8 +261,7 @@ public class Tienda implements Actualizable {
     }
 
     private Mascota encontrarMascota(int id) {
-        if(!encontrarIDMascotas(id)){return null;}
-        return jaulas.stream().filter(j -> !j.estaVacia() && j.getMascota().getID()==id).findFirst().get().getMascota();
+        return jaulas.stream().filter(j -> !j.estaVacia() && j.getID()==id).findFirst().map(Jaula::getMascota).orElse(null);
     }
 
     private void removerMascota(Mascota m) {
@@ -307,8 +310,7 @@ public class Tienda implements Actualizable {
 
         for (Jaula jaula : jaulas) {
             if (jaula.estaVacia()) continue;
-            Mascota mascota = jaula.getMascota();
-            if (mascota.getID() == id && mascota.alimentar(Alimentos.deEspecie(especie))) {
+            if (jaula.getID() == id && jaula.getMascota().alimentar(Alimentos.deEspecie(especie))) {
                 stockAlimentos[indice]--;
                 return C_Exito;
             }
@@ -324,8 +326,7 @@ public class Tienda implements Actualizable {
 
         for (Jaula jaula : jaulas) {
             if (jaula.estaVacia()) continue;
-            Mascota mascota = jaula.getMascota();
-            if (mascota.getID() == id && mascota.darMedicamento(Medicamentos.deEspecie(especie))) {
+            if (jaula.getID() == id && jaula.getMascota().darMedicamento(Medicamentos.deEspecie(especie))) {
                 stockMedicamentos[indice]--;
                 return C_Exito;
             }
@@ -341,8 +342,7 @@ public class Tienda implements Actualizable {
 
         for (Jaula jaula : jaulas) {
             if (jaula.estaVacia()) continue;
-            Mascota mascota = jaula.getMascota();
-            if (mascota.getID() == id && mascota.jugar(Juguetes.deEspecie(especie))) {
+            if (jaula.getID() == id && jaula.getMascota().jugar(Juguetes.deEspecie(especie))) {
                 stockJuguetes[indice]--;
                 return C_Exito;
             }
@@ -356,9 +356,8 @@ public class Tienda implements Actualizable {
 
         for (Jaula jaula : jaulas) {
             if (jaula.estaVacia()) continue;
-            Mascota mascota = jaula.getMascota();
-            if (mascota.getID() == id) {
-                mascota.limpiar();
+            if (jaula.getID() == id) {
+                jaula.getMascota().limpiar();
                 stockJabones--;
                 return C_Exito;
             }
@@ -370,8 +369,7 @@ public class Tienda implements Actualizable {
     public int[] getIndicadores(int id) {
         for (Jaula jaula : jaulas) {
             if (jaula.estaVacia()) continue;
-            Mascota mascota = jaula.getMascota();
-            if (mascota.getID() == id) return mascota.getIndicadores();
+            if (jaula.getID() == id) return jaula.getMascota().getIndicadores();
         }
 
         return new int[]{};

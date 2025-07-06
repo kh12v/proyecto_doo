@@ -20,7 +20,7 @@ class JaulaTest {
     void agregarMascotaExito() {
         Mascota mascota = new Mascota("", Especies.Perro);
         jaulaGrande.ingresarMascota(mascota);
-        assert jaulaGrande.getMascota().getID() == mascota.getID();
+        assert jaulaGrande.getMascota() == mascota;
     }
 
     @Test

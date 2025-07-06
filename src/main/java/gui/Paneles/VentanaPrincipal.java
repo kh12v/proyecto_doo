@@ -41,10 +41,10 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador {
     }
 
     @Override
-    public void recibir(Evento evento) {
-        switch (evento.getTipo()) {
-            case CambiarVentana -> setPanelPrincipal(((V_CambiarVentana) evento).getVentana());
-            case MostrarMensaje -> mostrarMensaje((V_MostrarMensaje) evento);
+    public void recibir(Evento e) {
+        switch (e.getTipo()) {
+            case CambiarVentana -> setPanelPrincipal(((V_CambiarVentana) e).getVentana());
+            case MostrarMensaje -> mostrarMensaje((V_MostrarMensaje) e);
         }
     }
 

@@ -32,9 +32,9 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
     }
 
     @Override
-    public void recibir(Evento evento) {
-        switch (evento.getTipo()) {
-            case ActualizarEmpleados -> actualizarEmpleados((V_ActualizarEmpleados) evento);
+    public void recibir(Evento e) {
+        switch (e.getTipo()) {
+            case ActualizarEmpleados -> actualizarEmpleados((V_ActualizarEmpleados) e);
         }
     }
 
