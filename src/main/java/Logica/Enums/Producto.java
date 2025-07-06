@@ -46,11 +46,12 @@ public enum Producto {
     }
 
     public Enum getEnumReal() {
+        int n = (ordinal()-1) % 4;
         return switch (tipoProducto) {
-            case Mascota -> Especies.values()[ordinal() % 4];
-            case Comida -> Alimentos.values()[ordinal() % 4];
-            case Medicamento -> Medicamentos.values()[ordinal() % 4];
-            case Juguete -> Juguetes.values()[ordinal() % 4];
+            case Mascota -> Especies.values()[n];
+            case Comida -> Alimentos.values()[n];
+            case Medicamento -> Medicamentos.values()[n];
+            case Juguete -> Juguetes.values()[n];
             case Higiene -> null;
         };
     }

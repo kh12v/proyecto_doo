@@ -190,7 +190,10 @@ public class Tienda implements Actualizable {
                     stockAlimentos[alimento.ordinal()]--;
                 }
 
-                m.limpiar();
+                if (stockJabones > 0 && m.getIndicadores()[Mascota.I_HIGIENE] < 50) {
+                    m.limpiar();
+                    stockJabones--;
+                }
 
                 Medicamentos medicamento = Medicamentos.getMedicamento(m.getEspecie());
 

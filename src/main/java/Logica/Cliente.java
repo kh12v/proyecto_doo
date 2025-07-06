@@ -29,5 +29,4 @@ public class Cliente {
     public double getCalificacion() {
         return calificacion;
     }
-
 }

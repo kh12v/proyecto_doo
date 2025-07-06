@@ -102,6 +102,16 @@ public class Mascota implements Actualizable {
     private void incrementarIndicador(int indicador, double cantidad) {
         indicadores[indicador] = Math.min(indicadores[indicador] + cantidad, 100);
     }
+
+    // Se utiliza en los unitTest para facilitar el testeo
+    public void setIndicador(int indicador, double cantidad) {
+        indicadores[indicador] = cantidad;
+    }
+
+    // Se utiliza en los unitTest para facilitar el testeo
+    public int getIndicador(int indicador) {
+        return getIndicadores()[indicador];
+    }
 }
 
 
