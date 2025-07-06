@@ -5,8 +5,8 @@ import Logica.Enums.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 public class Tienda implements Actualizable {
     public static final int I_Perro = 0;
@@ -18,6 +18,7 @@ public class Tienda implements Actualizable {
     public static final int C_DineroInsuficiente = -2;
     public static final int C_NoJaulaDisponible = -3;
     public static final int C_StockInsuficiente = -4;
+
     private final String nombre;
     private final ArrayList<Double> calificaciones;
     private final ArrayList<Jaula> jaulas;
@@ -165,24 +166,22 @@ public class Tienda implements Actualizable {
         dinero -= renta;
         jaulas.forEach(Jaula::actualizar);
         empleados.forEach(this::pagarSalario);
-        cuidarMascotasEmpleados();
+        trabajar();
     }
 
-    private void cuidarMascotasEmpleados() {
+    private void trabajar() {
         if (empleados.isEmpty()) {
             return;
         }
-        Stream<Mascota> mascotasOrdenadas = jaulas.stream()
+        ArrayList<Jaula> mascotasOrdenadas = (ArrayList<Jaula>) jaulas.stream()
                 .filter(Predicate.not(Jaula::estaVacia))
-                .map(Jaula::getMascota)
-                .sorted(Comparator.comparingInt(k -> Arrays.stream(k.getIndicadores()).reduce(0, Integer::sum)));
+                .sorted(Comparator.comparingInt(k -> Arrays.stream(k.getIndicadores()).reduce(0, Integer::sum)))
+                .toList();
 
         for (Empleado e : empleados) {
-            if (e.isTrabajando() && e.getCargo() == Cargo.Cuidador) {
-                Mascota m = mascotasOrdenadas.findFirst().orElse(null);
-                if (m == null) {
-                    break;
-                }
+            if(!e.isTrabajando()){continue;}
+            if (e.getCargo() == Cargo.Cuidador && !mascotasOrdenadas.isEmpty()) {
+                Mascota m = mascotasOrdenadas.removeFirst().getMascota();
 
                 Alimentos alimento = Alimentos.getAlimento(m.getEspecie());
                 if (stockAlimentos[alimento.ordinal()] > 0 && m.getIndicadores()[Mascota.I_HAMBRE] < 100 - alimento.getValorNutritivo()) {
@@ -202,8 +201,36 @@ public class Tienda implements Actualizable {
                     stockMedicamentos[medicamento.ordinal()]--;
                 }
             }
+            if (e.getCargo() == Cargo.Recepcionista && !clientes.isEmpty() && !mascotasOrdenadas.isEmpty()) {
+                Especies especieRequerida = clientes.getFirst().getEspeciePedida();
+                List<Jaula> mascotasQueCumplen = mascotasOrdenadas.stream().filter(j -> j.getMascota().getEspecie() == especieRequerida).toList();
+                if(mascotasQueCumplen.isEmpty()){
+                    continue;
+                }
+                mascotasOrdenadas.remove(mascotasQueCumplen.getLast());
+                Mascota m = mascotasQueCumplen.removeLast().getMascota();
+                servirCliente(m);
+            }
         }
     }
+
+    private boolean servirCliente(int id){
+        return servirCliente(encontrarMascota(id));
+    }
+
+    private boolean servirCliente(Mascota m) {
+        if(clientes.isEmpty()){return false;}
+        Cliente c = clientes.getFirst();
+        if(c.entregarMascota(m)){
+            clientes.removeFirst();
+            removerMascota(m);
+            calificaciones.add(c.getCalificacion());
+            return true;
+        }
+        return false;
+    }
+
+
 
     public ArrayList<Jaula> getJaulas() {
         return jaulas;
@@ -227,6 +254,19 @@ public class Tienda implements Actualizable {
 
     public boolean encontrarIDJaulas(int id) {
         return jaulas.stream().anyMatch(i -> i.getID() == id);
+    }
+
+    private Mascota encontrarMascota(int id) {
+        if(!encontrarIDMascotas(id)){return null;}
+        return jaulas.stream().filter(j -> !j.estaVacia() && j.getMascota().getID()==id).findFirst().get().getMascota();
+    }
+
+    private void removerMascota(Mascota m) {
+        encontrarJaulaMascota(m).removerMascota();
+    }
+
+    private Jaula encontrarJaulaMascota(Mascota m) {
+        return jaulas.stream().filter(j -> !j.estaVacia() && j.getMascota() == m).findFirst().orElse(null);
     }
 
     public int getDinero() {

@@ -24,16 +24,14 @@ public abstract class Jaula implements Actualizable {
         return mascota;
     }
 
-    public Mascota removerMascota() {
-        Mascota m = mascota;
+    public void removerMascota() {
         mascota = null;
         vacia = true;
-        return m;
     }
 
     public int[] getIndicadores() {
         if (vacia) {
-            return new int[]{};
+            return new int[]{0,0,0,0};
         }
         return mascota.getIndicadores();
     }

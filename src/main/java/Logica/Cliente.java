@@ -29,4 +29,8 @@ public class Cliente {
     public double getCalificacion() {
         return calificacion;
     }
+
+    public Especies getEspeciePedida() {
+        return mascota;
+    }
 }
