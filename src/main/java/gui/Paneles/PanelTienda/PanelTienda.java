@@ -13,10 +13,10 @@ public class PanelTienda extends JPanel implements Publicador {
     private final PanelCliente panelCliente;
     private final PanelMenu panelMenu;
 
-    public PanelTienda() {
+    public PanelTienda(String nombre) {
         setLayout(new GridLayout(2, 1, 0, 0));
 
-        panelCliente = new PanelCliente();
+        panelCliente = new PanelCliente(nombre);
         panelMenu = new PanelMenu();
 
         add(panelCliente);

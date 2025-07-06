@@ -24,11 +24,11 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador {
     private JPanel panelPrincipal = null;
 
     public VentanaPrincipal(String titulo) {
-        setTitle(titulo);
+        setTitle("Tienda");
         setSize(new Dimension(ANCHO, ALTO));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        PANEL_TIENDA = new PanelTienda();
+        PANEL_TIENDA = new PanelTienda(titulo);
         PANEL_MASCOTAS = new PanelMascotas();
         PANEL_EMPLEADOS = new PanelEmpleados();
         PANEL_COMPRAS = new PanelCompras();
