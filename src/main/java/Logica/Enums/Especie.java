@@ -1,6 +1,6 @@
 package Logica.Enums;
 
-public enum Especies {
+public enum Especie {
     Perro(true, 10000),
     Gato(true, 10000),
     Loro(false, 7000),
@@ -10,7 +10,7 @@ public enum Especies {
     public final int precio;
     private final boolean esAnimalGrande;
 
-    Especies(boolean esAnimalGrande, int precio) {
+    Especie(boolean esAnimalGrande, int precio) {
         this.esAnimalGrande = esAnimalGrande;
         this.precio = precio;
     }

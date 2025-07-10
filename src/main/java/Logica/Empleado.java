@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+
+/**
+ * 
+ */
 public class Empleado {
     private final static Random rand = new Random();
     private final static List<String> nombres = Arrays.asList(

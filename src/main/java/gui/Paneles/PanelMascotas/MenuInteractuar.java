@@ -3,7 +3,7 @@ package gui.Paneles.PanelMascotas;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
 import Controladores.Eventos.Tipos.M_EntregarMascota;
-import Logica.Enums.Especies;
+import Logica.Enums.Especie;
 import gui.Paneles.ImageLoader;
 
 import javax.swing.*;
@@ -56,7 +56,7 @@ public class MenuInteractuar extends JFrame implements Publicador {
         add(box);
     }
 
-    public void mostrar(int id, String nombre, Especies especie) {
+    public void mostrar(int id, String nombre, Especie especie) {
         setTitle("Interactuar con [" + nombre + "]");
 
         opcionInteraccion1.cargar(id, especie, I_COMIDA);
@@ -126,7 +126,7 @@ class OpcionEntrega extends JPanel implements Publicador{
         add(box);
     }
 
-    public void cargar(int id, Especies especie){
+    public void cargar(int id, Especie especie){
         String ruta = "/clientes/cliente_" + especie + ".png";
         this.id.set(id);
         cargarImagen(140,140,ruta);

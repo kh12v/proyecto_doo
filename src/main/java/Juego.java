@@ -1,7 +1,7 @@
-package Logica;
-
 import Controladores.ControladorPrincipal;
 import Controladores.Eventos.EventHandler;
+import Logica.Actualizable;
+import Logica.Tienda;
 import gui.Paneles.VentanaPrincipal;
 
 import javax.swing.*;
@@ -11,6 +11,9 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Clase que guarda todas las clases usadas por el programa.
+ */
 public class Juego implements Actualizable {
     ControladorPrincipal controlador;
     VentanaPrincipal ventanaPrincipal;
@@ -18,9 +21,7 @@ public class Juego implements Actualizable {
 
     public Juego(int dineroInicial) {
         VentanaNombre ventanaNombre = new VentanaNombre();
-        while(ventanaNombre.getTexto() == null){
-            Thread.onSpinWait();
-        }
+        while(ventanaNombre.getTexto() == null) Thread.onSpinWait();
         String nombreTienda = ventanaNombre.getTexto();
         ventanaNombre.dispose();
         eventHandler = new EventHandler();

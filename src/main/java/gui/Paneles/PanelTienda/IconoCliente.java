@@ -1,6 +1,6 @@
 package gui.Paneles.PanelTienda;
 
-import Logica.Enums.Especies;
+import Logica.Enums.Especie;
 import gui.Paneles.ImageLoader;
 
 import javax.swing.*;
@@ -26,7 +26,7 @@ public class IconoCliente extends JPanel {
         setVisible(true);
     }
 
-    public void cambiarIcono(Especies especie){
+    public void cambiarIcono(Especie especie){
         System.out.println(especie+"cambiada");
         ImageLoader loader = ImageLoader.getInstancia();
         String ruta = switch (especie){

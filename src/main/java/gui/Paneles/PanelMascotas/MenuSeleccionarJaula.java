@@ -3,7 +3,7 @@ package gui.Paneles.PanelMascotas;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
 import Controladores.Eventos.Tipos.M_AgregarJaula;
-import Logica.Enums.TipoContenedor;
+import Logica.Enums.TipoJaula;
 import gui.Paneles.ImageLoader;
 
 import javax.swing.*;
@@ -45,14 +45,14 @@ public class MenuSeleccionarJaula extends JFrame implements Publicador {
         JPanel panel1 = new JPanel();
         panel1.setBackground(Color.GRAY);
         panel1.setMaximumSize(new Dimension(300, 75));
-        JLabel label1 = new JLabel("Comprar jaula grande: $" + TipoContenedor.JaulaGrande.getPrecio(), SwingConstants.CENTER);
+        JLabel label1 = new JLabel("Comprar jaula grande: $" + TipoJaula.JaulaGrande.getPrecio(), SwingConstants.CENTER);
         label1.setForeground(Color.WHITE);
         panel1.add(label1);
 
         JPanel panel2 = new JPanel();
         panel2.setBackground(Color.GRAY);
         panel2.setMaximumSize(new Dimension(300, 35));
-        JLabel label2 = new JLabel("Comprar jaula pequeña: $" + TipoContenedor.JaulaPequena.getPrecio(), SwingConstants.CENTER);
+        JLabel label2 = new JLabel("Comprar jaula pequeña: $" + TipoJaula.JaulaPequena.getPrecio(), SwingConstants.CENTER);
         label2.setForeground(Color.WHITE);
         panel2.add(label2);
 
@@ -133,8 +133,8 @@ public class MenuSeleccionarJaula extends JFrame implements Publicador {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                if (jaulaGrande) handler.enviar(new M_AgregarJaula(TipoContenedor.JaulaGrande));
-                else handler.enviar(new M_AgregarJaula(TipoContenedor.JaulaPequena));
+                if (jaulaGrande) handler.enviar(new M_AgregarJaula(TipoJaula.JaulaGrande));
+                else handler.enviar(new M_AgregarJaula(TipoJaula.JaulaPequena));
 
                 AgregarJaula.menuAbierto = false;
                 dispose();

@@ -1,13 +1,11 @@
 package Logica;
 
 import Logica.Enums.Alimentos;
-import Logica.Enums.Especies;
+import Logica.Enums.Especie;
 import Logica.Enums.Juguetes;
 import Logica.Enums.Medicamentos;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MascotaTest {
     Mascota perro;
@@ -17,10 +15,10 @@ class MascotaTest {
 
     @BeforeEach
     void setUp() {
-        perro = new Mascota("Doki", Especies.Perro);
-        gato = new Mascota("Gato con botas", Especies.Gato);
-        loro = new Mascota("Pajaro loco", Especies.Loro);
-        hamster = new Mascota("Hamtaro", Especies.Hamster);
+        perro = new Mascota("Doki", Especie.Perro);
+        gato = new Mascota("Gato con botas", Especie.Gato);
+        loro = new Mascota("Pajaro loco", Especie.Loro);
+        hamster = new Mascota("Hamtaro", Especie.Hamster);
     }
 
     @Test

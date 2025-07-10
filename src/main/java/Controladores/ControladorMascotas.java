@@ -84,7 +84,7 @@ public class ControladorMascotas implements Controlador {
     }
 
     public void contestarAgregarJaula(M_AgregarJaula e) {
-        int id = t.comprarJaula(e.tipoContenedor);
+        int id = t.comprarJaula(e.tipoJaula);
         if (id < 0) {
             handler.enviar(new V_MostrarMensaje("No hay dinero suficiente"));
         } else {

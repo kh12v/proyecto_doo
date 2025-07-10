@@ -1,43 +1,51 @@
 package Logica.Enums;
 
 
+/**
+ * Representa tipos de alimentos, los cuales puede consumir solo una especie, y poseen un valor nutritivo
+ */
 public enum Alimentos {
-    ComidaPerro(30, Especies.Perro, "Comida de Perro"),
-    ComidaGato(30, Especies.Gato, "Comida de Gato"),
-    ComidaLoro(20, Especies.Loro, "Comida de Loro"),
-    ComidaHamster(20, Especies.Hamster, "Comida de Hamster");
+    ComidaPerro(30, Especie.Perro, "Comida de Perro"),
+    ComidaGato(30, Especie.Gato, "Comida de Gato"),
+    ComidaLoro(20, Especie.Loro, "Comida de Loro"),
+    ComidaHamster(20, Especie.Hamster, "Comida de Hamster");
 
     private final int valorNutritivo;
-    private final Especies especies;
+    private final Especie especie;
     private final String nombre;
 
-    Alimentos(int precio, Especies especies, String nombre) {
+    Alimentos(int precio, Especie especie, String nombre) {
         this.valorNutritivo = precio;
-        this.especies = especies;
+        this.especie = especie;
         this.nombre = nombre;
     }
 
-    public static Alimentos getAlimento(Especies especie) {
-        return switch (especie) {
-            case Perro -> ComidaPerro;
-            case Gato -> ComidaGato;
-            case Loro -> ComidaLoro;
-            case Hamster -> ComidaHamster;
-            default -> throw new IllegalArgumentException("especie no es valida");
-        };
-    }
 
-    static public Alimentos deEspecie(Especies especie) {
-        if (especie == Especies.Perro) return Alimentos.ComidaPerro;
-        if (especie == Especies.Gato) return Alimentos.ComidaGato;
-        if (especie == Especies.Loro) return Alimentos.ComidaLoro;
+    /**
+     * Obtiene el {@code Alimento} que le corresponde a una {@code Especie}.
+     * @param especie la {@code Especie}
+     * @return el {@code Alimento}
+     */
+    public static Alimentos deEspecie(Especie especie) {
+        if (especie == Especie.Perro) return Alimentos.ComidaPerro;
+        if (especie == Especie.Gato) return Alimentos.ComidaGato;
+        if (especie == Especie.Loro) return Alimentos.ComidaLoro;
         else return Alimentos.ComidaHamster;
     }
 
-    public boolean esComiblePor(Especies especie) {
-        return especie == this.especies;
+    /**
+     * Verifica si una {@code Especie} puede comer él {@code Alimento}.
+     * @param especie la {@code Especie}
+     * @return {@code true} si al especie puede comerlo, {@code false} si no
+     */
+    public boolean esComiblePor(Especie especie) {
+        return especie == this.especie;
     }
 
+    /**
+     * Obtiene el valor nutritivo del {@code Alimento}
+     * @return el valor nutritivo
+     */
     public int getValorNutritivo() {
         return valorNutritivo;
     }

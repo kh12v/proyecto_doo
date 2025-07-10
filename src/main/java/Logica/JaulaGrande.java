@@ -1,10 +1,13 @@
 package Logica;
 
-import Logica.Enums.Especies;
-import Logica.Enums.TipoContenedor;
+import Logica.Enums.Especie;
+import Logica.Enums.TipoJaula;
 
+/**
+ * Una jaula grande que puede contener un perro o un gato.
+ */
 public class JaulaGrande extends Jaula {
     public JaulaGrande() {
-        super(new Especies[]{Especies.Gato, Especies.Perro}, TipoContenedor.JaulaGrande);
+        super(new Especie[]{Especie.Gato, Especie.Perro}, TipoJaula.JaulaGrande);
     }
 }

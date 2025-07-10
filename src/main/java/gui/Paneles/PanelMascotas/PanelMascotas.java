@@ -2,7 +2,7 @@ package gui.Paneles.PanelMascotas;
 
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
-import Logica.Enums.Especies;
+import Logica.Enums.Especie;
 import gui.Paneles.BotonVentana;
 import gui.Paneles.IndicadorDinero;
 import gui.Paneles.Ventanas;
@@ -37,7 +37,7 @@ public class PanelMascotas extends JPanel implements Publicador {
         add(pane);
     }
 
-    public static void mostrarMenuInteractuar(int id, String nombre, Especies especie) {
+    public static void mostrarMenuInteractuar(int id, String nombre, Especie especie) {
         menuInteractuar.mostrar(id, nombre, especie);
     }
 

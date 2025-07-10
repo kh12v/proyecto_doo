@@ -13,20 +13,20 @@ public enum Medicamentos {
         this.valorMedicinal = valorMedicinal;
     }
 
-    public static Medicamentos getMedicamento(Especies especie) {
+    public static Medicamentos getMedicamento(Especie especie) {
         return switch (especie) {
-            case Especies.Perro -> MedicinaPerro;
-            case Especies.Gato -> MedicinaGato;
-            case Especies.Loro -> MedicinaLoro;
-            case Especies.Hamster -> MedicinaHamster;
+            case Especie.Perro -> MedicinaPerro;
+            case Especie.Gato -> MedicinaGato;
+            case Especie.Loro -> MedicinaLoro;
+            case Especie.Hamster -> MedicinaHamster;
             default -> throw new IllegalStateException("Unexpected value: " + especie);
         };
     }
 
-    static public Medicamentos deEspecie(Especies especie) {
-        if (especie == Especies.Perro) return Medicamentos.MedicinaPerro;
-        if (especie == Especies.Gato) return Medicamentos.MedicinaGato;
-        if (especie == Especies.Loro) return Medicamentos.MedicinaLoro;
+    static public Medicamentos deEspecie(Especie especie) {
+        if (especie == Especie.Perro) return Medicamentos.MedicinaPerro;
+        if (especie == Especie.Gato) return Medicamentos.MedicinaGato;
+        if (especie == Especie.Loro) return Medicamentos.MedicinaLoro;
         else return Medicamentos.MedicinaHamster;
     }
 

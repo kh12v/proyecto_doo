@@ -2,7 +2,7 @@ package Logica;
 
 import Logica.Enums.Cargo;
 import Logica.Enums.Producto;
-import Logica.Enums.TipoContenedor;
+import Logica.Enums.TipoJaula;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ class TiendaTest {
 
     @Test
     void comprarProdutoAnimalConJaula() {
-        tienda10000.comprarJaula(TipoContenedor.JaulaGrande);
+        tienda10000.comprarJaula(TipoJaula.JaulaGrande);
         assert(tienda10000.comprarProducto(Producto.Perro) == Tienda.C_Exito
                 && tienda10000.getJaulas().size() == 1);
     }
@@ -31,7 +31,7 @@ class TiendaTest {
 
     @Test
     void comprarProdutoAnimalConJaulaEquivocada() {
-        tienda10000.comprarJaula(TipoContenedor.JaulaPequena);
+        tienda10000.comprarJaula(TipoJaula.JaulaPequena);
         assert(tienda10000.comprarProducto(Producto.Perro) == Tienda.C_NoJaulaDisponible);
     }
 
@@ -67,7 +67,7 @@ class TiendaTest {
 
     @Test
     void comprarJaula() {
-        tienda10000.comprarJaula(TipoContenedor.JaulaGrande);
+        tienda10000.comprarJaula(TipoJaula.JaulaGrande);
         assert(tienda10000.getJaulas().size() == 1);
     }
 

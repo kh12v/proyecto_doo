@@ -4,7 +4,7 @@ import Controladores.Eventos.*;
 import Controladores.Eventos.Tipos.M_ConsumirProducto;
 import Controladores.Eventos.Tipos.M_SolicitarProductos;
 import Controladores.Eventos.Tipos.V_MostrarProductos;
-import Logica.Enums.Especies;
+import Logica.Enums.Especie;
 import Logica.Enums.TipoProducto;
 import gui.Paneles.ImageLoader;
 
@@ -59,7 +59,7 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         add(box);
     }
 
-    private void cargarRutas(Especies especie) {
+    private void cargarRutas(Especie especie) {
         String rc = "/comida/";
         String rm = "/medicamentos/";
         String rj = "/juguetes/";
@@ -73,7 +73,7 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         };
     }
 
-    public void cargar(int id, Especies especie, int indiceImagen) {
+    public void cargar(int id, Especie especie, int indiceImagen) {
         cargarRutas(especie);
 
         myMouseListener.setId(id);
@@ -137,7 +137,7 @@ public class OpcionInteraccion extends JPanel implements Publicador {
     private class MyMouseListener extends MouseAdapter {
         private final int indice;
         private int id = -1;
-        private Especies especie;
+        private Especie especie;
 
         public MyMouseListener(int indice) {
             this.indice = indice;
@@ -147,7 +147,7 @@ public class OpcionInteraccion extends JPanel implements Publicador {
             this.id = id;
         }
 
-        public void setEspecie(Especies especie) {
+        public void setEspecie(Especie especie) {
             this.especie = especie;
         }
 

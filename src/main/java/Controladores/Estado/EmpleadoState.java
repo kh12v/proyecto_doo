@@ -15,10 +15,22 @@ public record EmpleadoState(String nombre,
                             int salario,
                             Cargo cargo,
                             int id) {
+
+    /**
+     * Método para extraer el estado de un {@code Empleado}
+     * @param empleado Un {@code Empleado}
+     * @return Un {@code EmpleadoState} que lo representa
+     */
     public static EmpleadoState toState(Empleado empleado) {
         return new EmpleadoState(empleado.getNombre(), empleado.getSalario(), empleado.getCargo(), empleado.getID());
     }
 
+
+    /**
+     * Crea un estado que representa un empleado despedido, se usa por motivos internos
+     * @param id id del empleado
+     * @return el {@code EmpleadoState}
+     */
     public static EmpleadoState createDEL(int id) {
         return new EmpleadoState("", 0, Cargo.DESPEDIDO, id);
     }

@@ -1,6 +1,6 @@
 package Controladores.Estado;
 
-import Logica.Enums.Especies;
+import Logica.Enums.Especie;
 import Logica.Mascota;
 
 import java.util.Arrays;
@@ -13,15 +13,20 @@ import java.util.Arrays;
  * @param estadoIndicadores valor de cada indicador
  */
 public record MascotaState(String nombre,
-                           Especies especie,
+                           Especie especie,
                            int[] estadoIndicadores) {
     /**
-     * DEL representa la mascota nula, si se recibe esta mascota en un índice, significa que hay que borrarla
+     * NULL representa la mascota nula, se usa para no usar null en JaulaState
      */
-    public static final MascotaState NULL = new MascotaState("", Especies.Null, null);
+    public static final MascotaState NULL = new MascotaState("", Especie.Null, new int[]{0,0,0,0});
 
+    /**
+     * Metodo de conveniencia para extraer el estado de una mascota
+     * @param mascota una mascota
+     * @return el estado de la mascota
+     */
     public static MascotaState toState(Mascota mascota) {
-        if (mascota == null) return null;
+        if (mascota == null) return NULL;
         int[] indicadorEstado = mascota.getIndicadores();
         return new MascotaState(mascota.getNombre(), mascota.getEspecie(), indicadorEstado);
     }

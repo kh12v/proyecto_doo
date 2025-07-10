@@ -1,6 +1,6 @@
 package Logica;
 
-import Logica.Enums.Especies;
+import Logica.Enums.Especie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,20 +18,20 @@ class JaulaTest {
 
     @Test
     void agregarMascotaExito() {
-        Mascota mascota = new Mascota("", Especies.Perro);
+        Mascota mascota = new Mascota("", Especie.Perro);
         jaulaGrande.ingresarMascota(mascota);
         assert jaulaGrande.getMascota() == mascota;
     }
 
     @Test
     void agregarMascotaFallo() {
-        jaulaPequena.ingresarMascota(new Mascota("", Especies.Gato));
+        jaulaPequena.ingresarMascota(new Mascota("", Especie.Gato));
         assertTrue(jaulaPequena.estaVacia());
     }
 
     @Test
     void quitarMascota() {
-        jaulaGrande.ingresarMascota(new Mascota("", Especies.Perro));
+        jaulaGrande.ingresarMascota(new Mascota("", Especie.Perro));
         if (jaulaGrande.estaVacia()) fail();
         jaulaGrande.removerMascota();
         assertTrue(jaulaGrande.estaVacia());

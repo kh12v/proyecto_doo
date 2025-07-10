@@ -1,8 +1,8 @@
 package gui.Paneles.PanelMascotas;
 
 import Controladores.Estado.JaulaState;
-import Logica.Enums.Especies;
-import Logica.Enums.TipoContenedor;
+import Logica.Enums.Especie;
+import Logica.Enums.TipoJaula;
 import gui.Paneles.ImageLoader;
 
 import javax.swing.*;
@@ -15,20 +15,20 @@ public class JaulaPanel extends JPanel {
     private final static int ANCHO = 150;
     private final static int ALTO = 150;
     public static boolean menuAbierto = false;
-    private Especies especie = Especies.Null;
+    private Especie especie = Especie.Null;
     private int id = -1;
     private String nombre = "";
 
-    public JaulaPanel(Especies especie, TipoContenedor tipoContenedor) {
+    public JaulaPanel(Especie especie, TipoJaula tipoJaula) {
         setBackground(new Color(255, 0, 0, 0));
         setLayout(new OverlayLayout(this));
         setVisible(true);
         this.especie = especie;
         ImageLoader loader = ImageLoader.getInstancia();
-        if (especie == Especies.Null && tipoContenedor == TipoContenedor.JaulaGrande) {
+        if (especie == Especie.Null && tipoJaula == TipoJaula.JaulaGrande) {
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             add(cargarImagen(ANCHO, ALTO, "/espacioDisponible.png"));
-        } else if (especie == Especies.Null && tipoContenedor == TipoContenedor.JaulaPequena) {
+        } else if (especie == Especie.Null && tipoJaula == TipoJaula.JaulaPequena) {
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             add(cargarImagen((int) (ANCHO * 0.75), (int) (ALTO * 0.75), "/espacioDisponible.png"));
         } else {
@@ -57,10 +57,10 @@ public class JaulaPanel extends JPanel {
         especie = estado.mascotaState().especie();
         id = estado.id();
         nombre = estado.mascotaState().nombre();
-        if (especie == Especies.Null && estado.tipo() == TipoContenedor.JaulaGrande) {
+        if (especie == Especie.Null && estado.tipo() == TipoJaula.JaulaGrande) {
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             add(cargarImagen(ANCHO, ALTO, "/espacioDisponible.png"));
-        } else if (especie == Especies.Null && estado.tipo() == TipoContenedor.JaulaPequena) {
+        } else if (especie == Especie.Null && estado.tipo() == TipoJaula.JaulaPequena) {
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             add(cargarImagen((int) (ANCHO * 0.75), (int) (ALTO * 0.75), "/espacioDisponible.png"));
         } else {
@@ -75,7 +75,7 @@ public class JaulaPanel extends JPanel {
     private class MyMouseListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (especie == Especies.Null || id == -1) return;
+            if (especie == Especie.Null || id == -1) return;
             if (JaulaPanel.menuAbierto) return;
             JaulaPanel.menuAbierto = true;
 

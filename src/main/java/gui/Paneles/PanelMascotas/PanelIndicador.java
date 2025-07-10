@@ -34,9 +34,9 @@ public class PanelIndicador extends JPanel {
 
     public void modificarPanel(int[] estadoIndicadores) {
         if (estadoIndicadores.length == 0) {
-            return;
-        }
-        for (int i = 0; i < 4; i++) {
+            modificarPanel(new int[]{0,0,0,0});
+
+        } else for (int i = 0; i < 4; i++) {
             indicadores.get(i).setValue(estadoIndicadores[i]);
         }
     }
