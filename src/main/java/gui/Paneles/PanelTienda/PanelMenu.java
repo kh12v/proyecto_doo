@@ -10,12 +10,13 @@ import java.awt.*;
 import java.util.Arrays;
 
 /**
- * En este panel el usuario puede acceder a los otros menus de la simulación
+ * En este panel el usuario puede acceder a los otros menus del juego
  */
 public class PanelMenu extends JPanel implements Publicador {
     private static final Color COLOR_DE_FONDO = Color.GRAY;
     public EventHandler handler;
     private final BotonVentana[] ventana;
+
 
     public PanelMenu() {
         setLayout(new BorderLayout());
@@ -40,6 +41,12 @@ public class PanelMenu extends JPanel implements Publicador {
         add(box, BorderLayout.CENTER);
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         Arrays.stream(ventana).forEach(v -> v.enviarHandler(handler));

@@ -6,6 +6,10 @@ import Controladores.Eventos.Publicador;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel principal de compras, aquí el usuario puede ver los productos que puede
+ * comprar para la tienda al igual que información sobre ellos
+ */
 public class PanelDeCompras extends JPanel implements Publicador {
     private final PanelCompraMascotas panelCompraMascotas;
     private final PanelCompraSuministros panelCompraSuministros;
@@ -27,6 +31,12 @@ public class PanelDeCompras extends JPanel implements Publicador {
         add(pane2);
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         panelCompraMascotas.enviarHandler(handler);

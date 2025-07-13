@@ -11,6 +11,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * En este panel se muestran los objetos que se pueden comprar y emite el evento
+ * de compra si el usuario lo pide
+ * @see Publicador
+ * @see M_ComprarProducto
+ */
 public class OpcionDeCompra extends JPanel implements Publicador {
     private static final Color COLOR_DE_FONDO = new Color(220, 220, 220);
     private EventHandler handler;
@@ -33,6 +39,12 @@ public class OpcionDeCompra extends JPanel implements Publicador {
         add(box);
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
     }

@@ -11,6 +11,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Panel intermediario que muestra el boton de regreso, indicador de dinero y las mascotas
+ * @see AlmacenMascotas
+ * @see IndicadorDinero
+ * @see BotonVentana
+ */
 public class PanelMascotas extends JPanel implements Publicador {
     static private final MenuInteractuar menuInteractuar = new MenuInteractuar();
     private final AlmacenMascotas almacen;
@@ -37,15 +43,30 @@ public class PanelMascotas extends JPanel implements Publicador {
         add(pane);
     }
 
+    /**
+     * Muestra el menu para interactuar
+     * @param id: Id de la mascota a interactuar
+     * @param nombre: Nombre de la mascota
+     * @param especie: Especie de la mascota
+     */
     public static void mostrarMenuInteractuar(int id, String nombre, Especie especie) {
         menuInteractuar.mostrar(id, nombre, especie);
     }
 
+    /**
+     * Oculta el menu de interacción pero no es eliminado
+     */
     public static void ocultarMenuInteractuar() {
         JaulaPanel.menuAbierto = false;
         menuInteractuar.ocultar();
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         almacen.enviarHandler(handler);

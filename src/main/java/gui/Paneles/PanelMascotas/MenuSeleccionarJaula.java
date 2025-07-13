@@ -14,6 +14,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
+/**
+ * Menu desplegable para seleccionar la jaula que el usuario desea comprar
+ */
 public class MenuSeleccionarJaula extends JFrame implements Publicador {
     static private final int ANCHO = 400;
     static private final int ALTO = 250;
@@ -85,6 +88,12 @@ public class MenuSeleccionarJaula extends JFrame implements Publicador {
         add(box2);
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     @Override
     public void enviarHandler(EventHandler handler) {
         opcionJaula1.enviarHandler(handler);
@@ -93,10 +102,16 @@ public class MenuSeleccionarJaula extends JFrame implements Publicador {
         this.handler = handler;
     }
 
+    /**
+     * Muestra el menu ya que viene escondido por defecto
+     */
     public void mostrar() {
         setVisible(true);
     }
 
+    /**
+     * Tipo de jaula que el usuario puede escoger
+     */
     private class OpcionJaula extends JPanel implements Publicador {
         private final static Color COLOR_DE_FONDO = Color.GRAY;
         private final static int ANCHO = 150;

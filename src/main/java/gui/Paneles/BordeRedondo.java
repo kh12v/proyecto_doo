@@ -3,6 +3,9 @@ package gui.Paneles;
 import javax.swing.border.AbstractBorder;
 import java.awt.*;
 
+/**
+ * Permite dar un borde redondo a un componente y que se muestre el fondo
+ */
 public class BordeRedondo extends AbstractBorder {
     private final int radio;
     private final Color colorDeFondo;

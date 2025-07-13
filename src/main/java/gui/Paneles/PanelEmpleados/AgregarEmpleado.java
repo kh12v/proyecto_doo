@@ -10,6 +10,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+/**
+ * Panel que el usuario interactua para añadir un nuevo empleado
+ */
 public class AgregarEmpleado extends JPanel implements Publicador {
     private final static Color COLOR_DE_FONDO = Color.GRAY;
     private final static int ANCHO = 150;
@@ -33,11 +36,20 @@ public class AgregarEmpleado extends JPanel implements Publicador {
         }
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     @Override
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
     }
 
+    /**
+     * MouseListener para abrir el menu para seleccionar el tipo de empleado a contratar
+     */
     private class MyMouseListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {

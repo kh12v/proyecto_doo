@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * Boton que se utiliza para ir al menu anterior
+ */
 public class BotonVentana extends JButton implements Publicador {
     private static final int ANCHO = 150;
     private static final int ALTO = 100;
@@ -26,6 +29,12 @@ public class BotonVentana extends JButton implements Publicador {
         this.ventana = ventana;
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     @Override
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;

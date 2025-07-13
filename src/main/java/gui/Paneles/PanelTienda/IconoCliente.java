@@ -8,6 +8,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * Imagen que muestra que hay un cliente y cual es la mascota que desea adquirir
+ */
 public class IconoCliente extends JPanel {
     JPanel icono = new JPanel();
     private final int ancho,alto;
@@ -26,6 +29,10 @@ public class IconoCliente extends JPanel {
         setVisible(true);
     }
 
+    /**
+     * Cambia la especie que el cliente solicita
+     * @param especie: Especie de la mascota
+     */
     public void cambiarIcono(Especie especie){
         System.out.println(especie+"cambiada");
         ImageLoader loader = ImageLoader.getInstancia();

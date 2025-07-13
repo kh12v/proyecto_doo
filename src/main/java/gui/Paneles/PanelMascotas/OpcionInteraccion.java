@@ -15,6 +15,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+/**
+ * Opción de la interacción que el usuario puede realizar sobre una mascota
+ */
 public class OpcionInteraccion extends JPanel implements Publicador {
     EventHandler handler;
     String[] rutasDeImagenes;
@@ -59,6 +62,10 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         add(box);
     }
 
+    /**
+     * Carga las rutas de las imagenes según la especie de la mascota
+     * @param especie: Especie de la mascota
+     */
     private void cargarRutas(Especie especie) {
         String rc = "/comida/";
         String rm = "/medicamentos/";
@@ -73,6 +80,13 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         };
     }
 
+    /**
+     * Carga la información de la mascota con la que se desea interactuar
+     * @param id: Id de la mascota
+     * @param especie: Especie de la mascota
+     * @param indiceImagen: Indice de la opción
+     * @see MenuInteractuar
+     */
     public void cargar(int id, Especie especie, int indiceImagen) {
         cargarRutas(especie);
 
@@ -82,6 +96,12 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         handler.enviar(new M_SolicitarProductos(id, especie));
     }
 
+    /**
+     * Carga la imagen del producto con el que se va a interactuar
+     * @param ancho: Ancho de la imagen
+     * @param alto: Alto de la imagen
+     * @param ruta: Ruta de la imagen
+     */
     private void cargarImagen(int ancho, int alto, String ruta) {
         try {
             Image imagenEscalada = ImageLoader.getInstancia().entregarImagen(ruta).getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
@@ -97,11 +117,20 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         }
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         cantidadDeProducto.enviarHandler(handler);
     }
 
+    /**
+     * Muestra la cantidad disponible del producto especificado
+     */
     private static class CantidadDeProducto extends JLabel implements Publicador, Suscriptor {
         EventHandler handler;
         int indice;
@@ -134,6 +163,9 @@ public class OpcionInteraccion extends JPanel implements Publicador {
         }
     }
 
+    /**
+     * Manda el evento de interacción cuando el usuario clickea
+     */
     private class MyMouseListener extends MouseAdapter {
         private final int indice;
         private int id = -1;

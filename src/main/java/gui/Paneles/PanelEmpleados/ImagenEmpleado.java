@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * Muestra una imágen de un empleado
+ */
 public class ImagenEmpleado extends JPanel {
     private final static Color COLOR_DE_FONDO = Color.GRAY;
     private final static int ANCHO = 150;

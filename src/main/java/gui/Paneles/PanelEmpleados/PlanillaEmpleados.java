@@ -10,6 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * Muestra la información de todos los empleados de la tienda
+ */
 public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador {
     private final static Color COLOR_DE_FONDO = Color.GRAY;
     private final HashMap<Integer, PanelEmpleado> empleados;
@@ -23,6 +26,12 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
         setLayout(new GridLayout(0, 3));
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         handler.suscribir(this);
@@ -31,6 +40,10 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
         handler.enviar(new M_PedirEmpleados(M_PedirEmpleados.WILD));
     }
 
+    /**
+     * Maneja los eventos recibidos
+     * @param e: Evento enviado
+     */
     @Override
     public void recibir(Evento e) {
         switch (e.getTipo()) {
@@ -38,11 +51,19 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
         }
     }
 
+    /**
+     * Indica el tipo de evento que recibe esta clase
+     * @return Un array con los tipos de evento que recibe esta clase
+     */
     @Override
     public DestinoEvento[] getEventosEscuchados() {
         return new DestinoEvento[]{DestinoEvento.Vista};
     }
 
+    /**
+     * Actualiza la información de los empleados si se emitió un evento tipo V_ActualizarEmpleados
+     * @param evento: Evento para actualizar empleados
+     */
     private void actualizarEmpleados(V_ActualizarEmpleados evento) {
         remove(botonAgregar);
 
@@ -66,6 +87,10 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
         repaint();
     }
 
+    /**
+     * Agregar un nuevo empleado al panel
+     * @param estado: Información del nuevo empleado
+     */
     private void agregarEmpleado(EmpleadoState estado) {
         PanelEmpleado empleado = new PanelEmpleado(COLOR_DE_FONDO, estado);
         empleado.enviarHandler(handler);
@@ -73,6 +98,10 @@ public class PlanillaEmpleados extends JPanel implements Suscriptor, Publicador 
         add(empleado);
     }
 
+    /**
+     * Elimina el panel del empleado a eliminar
+     * @param id: id del empleado que se desea eliminar
+     */
     private void quitarEmpleado(int id) {
         PanelEmpleado panelEmpleado = empleados.remove(id);
 

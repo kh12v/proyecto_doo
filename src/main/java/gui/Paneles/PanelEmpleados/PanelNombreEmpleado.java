@@ -5,6 +5,9 @@ import Controladores.Estado.EmpleadoState;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Muestra el nombre de un empleado, se actualiza en caso de ser necesario
+ */
 public class PanelNombreEmpleado extends JPanel {
     private final JLabel labelNombre;
 
@@ -20,6 +23,10 @@ public class PanelNombreEmpleado extends JPanel {
         add(labelNombre);
     }
 
+    /**
+     * Modifica el nombre del empleado si es que esta cambia
+     * @param estado: Contiene la nueva información del empleado
+     */
     public void modificarEstado(EmpleadoState estado) {
         labelNombre.setText(estado.nombre());
     }

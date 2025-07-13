@@ -7,6 +7,9 @@ import gui.Paneles.VentanaPrincipal;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel principal de la tienda
+ */
 public class PanelTienda extends JPanel implements Publicador {
     private VentanaPrincipal ventanaPrincipal;
     private EventHandler handler;
@@ -23,6 +26,12 @@ public class PanelTienda extends JPanel implements Publicador {
         add(panelMenu);
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         panelCliente.enviarHandler(handler);

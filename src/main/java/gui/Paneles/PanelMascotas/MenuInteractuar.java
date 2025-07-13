@@ -14,6 +14,9 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Menu que permite interactuar con mascotas
+ */
 public class MenuInteractuar extends JFrame implements Publicador {
     static private final int ANCHO = 1000;
     static private final int ALTO = 250;
@@ -56,6 +59,12 @@ public class MenuInteractuar extends JFrame implements Publicador {
         add(box);
     }
 
+    /**
+     * Carga la información de la mascota con la que se desea interactuar
+     * @param id: Id de la mascota
+     * @param nombre: Nombre de la mascota
+     * @param especie: Especie de la mascota
+     */
     public void mostrar(int id, String nombre, Especie especie) {
         setTitle("Interactuar con [" + nombre + "]");
 
@@ -71,10 +80,20 @@ public class MenuInteractuar extends JFrame implements Publicador {
         setVisible(true);
     }
 
+    /**
+     * Oculta el menu pero no es eliminado para evitar tener que volver a crear el
+     * menu lo cual implicaría volver a registrarlo al eventHandler
+     */
     public void ocultar() {
         setVisible(false);
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     @Override
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
@@ -87,6 +106,9 @@ public class MenuInteractuar extends JFrame implements Publicador {
     }
 }
 
+/**
+ * Opción utilizada para entregar una mascota a un cliente
+ */
 class OpcionEntrega extends JPanel implements Publicador{
     private EventHandler handler;
     private final AtomicReference<Integer> id;
@@ -126,12 +148,23 @@ class OpcionEntrega extends JPanel implements Publicador{
         add(box);
     }
 
+    /**
+     * Carla la imagen de la mascota
+     * @param id: Id de la mascota
+     * @param especie: Especie de la mascota
+     */
     public void cargar(int id, Especie especie){
         String ruta = "/clientes/cliente_" + especie + ".png";
         this.id.set(id);
         cargarImagen(140,140,ruta);
     }
 
+    /**
+     * Carga la imagen de la mascota a entregar
+     * @param ancho: Ancho de la imagen
+     * @param alto: Alto de la imagen
+     * @param ruta: Ruta de la imagen
+     */
     private void cargarImagen(int ancho, int alto, String ruta) {
         try {
             Image imagenEscalada = ImageLoader.getInstancia().entregarImagen(ruta).getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
@@ -147,6 +180,12 @@ class OpcionEntrega extends JPanel implements Publicador{
         }
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     @Override
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;

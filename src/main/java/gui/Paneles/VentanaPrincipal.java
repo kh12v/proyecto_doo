@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Esta es la ventana principal desde la que se mostrarán los paneles
+ * Esta es la ventana principal desde la que se muestran los paneles
  */
 public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador {
     static private final int ANCHO = 1000;
@@ -40,6 +40,10 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Se encarga de manejar los eventos recibidos
+     * @param e
+     */
     @Override
     public void recibir(Evento e) {
         switch (e.getTipo()) {
@@ -48,6 +52,10 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador {
         }
     }
 
+    /**
+     * Indica los tipos de datos que escucha la clase
+     * @return un arreglo que india el tipo de evento que escucha la clase
+     */
     @Override
     public DestinoEvento[] getEventosEscuchados() {
         return new DestinoEvento[]{DestinoEvento.Vista};
@@ -55,7 +63,6 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador {
 
     /**
      * Reemplaza el panelPrincipal por aquel que indica el argumento
-     *
      * @param ventana: Indica cual es el panel que se desea mostrar
      */
     public void setPanelPrincipal(Ventanas ventana) {
@@ -76,6 +83,12 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador {
         repaint();
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         PANEL_TIENDA.enviarHandler(handler);
         PANEL_EMPLEADOS.enviarHandler(handler);
@@ -84,10 +97,17 @@ public class VentanaPrincipal extends JFrame implements Suscriptor, Publicador {
         handler.suscribir(this);
     }
 
+    /**
+     * Muestra la ventana
+     */
     public void mostrar() {
         setVisible(true);
     }
 
+    /**
+     * Muestra un mensaje cuando se envia el evento V_MostrarMensaje
+     * @param evento
+     */
     public void mostrarMensaje(V_MostrarMensaje evento) {
         JOptionPane.showMessageDialog(null, evento.mensaje);
     }

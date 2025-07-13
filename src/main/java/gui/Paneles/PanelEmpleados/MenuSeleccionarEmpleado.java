@@ -14,6 +14,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
+/**
+ * Menu desplegable donde el usuario selecciona el cargo del empleado que desea contratar
+ */
 public class MenuSeleccionarEmpleado extends JFrame implements Publicador {
     static private final int ANCHO = 600;
     static private final int ALTO = 250;
@@ -107,6 +110,12 @@ public class MenuSeleccionarEmpleado extends JFrame implements Publicador {
         add(box3);
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     @Override
     public void enviarHandler(EventHandler handler) {
         opcionEmpleado1.enviarHandler(handler);
@@ -116,10 +125,18 @@ public class MenuSeleccionarEmpleado extends JFrame implements Publicador {
         this.handler = handler;
     }
 
+    /**
+     * Mostrar menu dado que aparece invisible por defecto
+     */
     public void mostrar() {
         setVisible(true);
     }
 
+    /**
+     * Panel que muestra información sobre algún cargo. Si el usuario
+     * selecciona esta opción se emitirá un evento para que el empleado
+     * sea añadido a la tienda
+     */
     private class OpcionEmpleado extends JPanel implements Publicador {
         private final static Color COLOR_DE_FONDO = Color.GRAY;
         private final static int ANCHO = 150;

@@ -11,6 +11,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+/**
+ * Panel que muestra una jaula y al animal que contiene si es que no está vacia
+ */
 public class JaulaPanel extends JPanel {
     private final static int ANCHO = 150;
     private final static int ALTO = 150;
@@ -40,6 +43,13 @@ public class JaulaPanel extends JPanel {
         }
     }
 
+    /**
+     * Carga la imagen de la jaula
+     * @param ancho: Ancho de la imagen
+     * @param alto: Alto de la imagen
+     * @param ruta: Ruta de la imagen
+     * @return: JPanel que incluye un JLabel con la imagen
+     */
     private JPanel cargarImagen(int ancho, int alto, String ruta) {
         ImageLoader loader = ImageLoader.getInstancia();
         JPanel panel = new JPanel();
@@ -52,6 +62,10 @@ public class JaulaPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * Modifica una jaula
+     * @param estado: La nueva información de la jaula a actualizar
+     */
     public void modificarJaula(JaulaState estado) {
         removeAll();
         especie = estado.mascotaState().especie();
@@ -72,6 +86,9 @@ public class JaulaPanel extends JPanel {
         }
     }
 
+    /**
+     * Muestra un menu que permite interactuar con la mascota
+     */
     private class MyMouseListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {

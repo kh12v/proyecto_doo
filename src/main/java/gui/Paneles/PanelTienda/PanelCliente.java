@@ -10,6 +10,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Panel que muestra un cliente
+ */
 public class PanelCliente extends JPanel implements Publicador, Suscriptor {
     private static final Color COLOR_DE_FONDO = new Color(87, 177, 230);
     JLabel calificacion;
@@ -45,6 +48,12 @@ public class PanelCliente extends JPanel implements Publicador, Suscriptor {
         add(iconoCliente, BorderLayout.SOUTH);
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         handler.suscribir(this);
@@ -52,6 +61,10 @@ public class PanelCliente extends JPanel implements Publicador, Suscriptor {
         indicadorDinero.enviarHandler(handler);
     }
 
+    /**
+     * Maneja los eventos recibidos
+     * @param e: Evento enviado
+     */
     @Override
     public void recibir(Evento e) {
         switch (e.getTipo()) {
@@ -60,10 +73,18 @@ public class PanelCliente extends JPanel implements Publicador, Suscriptor {
         }
     }
 
+    /**
+     * Actualiza la calificación de la tienda
+     * @param evento
+     */
     private void actualizarCalificacion(V_ActualizarCalificacion evento) {
         calificacion.setText(String.format("Calificación: %.1f", evento.getNuevaCalificacion()));
     }
 
+    /**
+     * Indica el tipo de eventos que maneja esta clase
+     * @return
+     */
     @Override
     public DestinoEvento[] getEventosEscuchados() {
         return new DestinoEvento[]{DestinoEvento.Vista};

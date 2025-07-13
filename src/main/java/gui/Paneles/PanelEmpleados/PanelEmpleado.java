@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Muestra información sobre un empleado de la tienda
+ */
 public class PanelEmpleado extends JPanel implements Publicador {
     public final static int ANCHO = 300;
     public final static int ALTO = 350;
@@ -46,6 +49,10 @@ public class PanelEmpleado extends JPanel implements Publicador {
         add(box);
     }
 
+    /**
+     * Actualiza la información en pantalla del empleado cuando esta es modificada
+     * @param estado: Contiene la nueva información del empleado
+     */
     public void modificarPanel(EmpleadoState estado) {
         this.estado = estado;
 
@@ -53,10 +60,19 @@ public class PanelEmpleado extends JPanel implements Publicador {
         informacionEmpleado.modificarEstado(estado);
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
     }
 
+    /**
+     * El usuario puede seleccionar si desea despedir al empleado
+     */
     private class MyMouseListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {

@@ -6,6 +6,9 @@ import Controladores.Eventos.Tipos.V_MostrarDinero;
 
 import javax.swing.*;
 
+/**
+ * Muestra la cantidad de dinero que posee la tienda
+ */
 public class IndicadorDinero extends JLabel implements Suscriptor, Publicador {
     EventHandler handler;
 
@@ -19,6 +22,10 @@ public class IndicadorDinero extends JLabel implements Suscriptor, Publicador {
         setText("Dinero: $" + evento.dinero);
     }
 
+    /**
+     * Maneja los eventos recibidos
+     * @param e: Evento enviado
+     */
     @Override
     public void recibir(Evento e) {
         switch (e.getTipo()) {
@@ -26,11 +33,21 @@ public class IndicadorDinero extends JLabel implements Suscriptor, Publicador {
         }
     }
 
+    /**
+     * Indica los tipos de datos que escucha la clase
+     * @return un arreglo que india el tipo de evento que escucha la clase
+     */
     @Override
     public DestinoEvento[] getEventosEscuchados() {
         return new DestinoEvento[]{DestinoEvento.Vista};
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     @Override
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;

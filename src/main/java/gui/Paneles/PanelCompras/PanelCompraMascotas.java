@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Panel que muestra las mascotas que se pueden adquirir
+ */
 public class PanelCompraMascotas extends JPanel implements Publicador {
     private static final Color COLOR_DE_FONDO = new Color(200, 200, 200);
     ArrayList<OpcionDeCompra> opciones = new ArrayList<>();
@@ -32,12 +35,24 @@ public class PanelCompraMascotas extends JPanel implements Publicador {
         add(box);
     }
 
+    /**
+     * Crea la opción de compra y la almacena en opciones para poder pasarles el eventHandler
+     * @param producto: El producto que permite comprar
+     * @param rutaImagen: Ruta a la imagen del producto
+     * @return El objeto de tipo OpcionDeCompra
+     */
     public OpcionDeCompra crearOpcion(Producto producto, String rutaImagen) {
         OpcionDeCompra op = new OpcionDeCompra(COLOR_DE_FONDO, producto, rutaImagen);
         opciones.add(op);
         return op;
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         for (OpcionDeCompra op : opciones) {

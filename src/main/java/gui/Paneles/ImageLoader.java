@@ -9,7 +9,9 @@ import java.io.InputStream;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-
+/**
+ * Clase singleton que se utiliza para cargar imágenes
+ */
 public class ImageLoader {
     private static final ConcurrentMap<String, BufferedImage> imagenes = new ConcurrentHashMap<>();
     private static ImageLoader instancia;

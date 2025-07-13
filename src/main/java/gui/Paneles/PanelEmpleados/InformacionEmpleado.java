@@ -6,6 +6,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Muestra la información de un empleado como su cargo y salario
+ */
 public class InformacionEmpleado extends JPanel {
     JLabel labelCargo;
     JLabel labelSalario;
@@ -32,6 +35,11 @@ public class InformacionEmpleado extends JPanel {
         add(box);
     }
 
+    /**
+     * Cada vez que se modifica la información de un empleado se modifica
+     * su información en pantalla
+     * @param estado: Incluye la nueva información del empleado
+     */
     public void modificarEstado(EmpleadoState estado) {
         labelCargo.setText("Cargo: " + estado.cargo().toString());
         labelSalario.setText("Salario: $" + estado.salario());

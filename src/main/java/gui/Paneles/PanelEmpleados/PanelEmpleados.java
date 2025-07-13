@@ -10,6 +10,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Panel intermedio que muestra el botón para devolverse, indicador de dinero y a los empleados
+ * @see IndicadorDinero
+ * @see BotonVentana
+ * @see PlanillaEmpleados
+ */
 public class PanelEmpleados extends JPanel implements Publicador {
     private final PlanillaEmpleados planillaEmpleados;
     private final IndicadorDinero indicadorDinero;
@@ -32,6 +38,12 @@ public class PanelEmpleados extends JPanel implements Publicador {
         add(planillaEmpleados);
     }
 
+    /**
+     * Permite enviar eventos
+     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
+     * @see Publicador
+     * @see Controladores.Eventos.Suscriptor
+     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         planillaEmpleados.enviarHandler(handler);
