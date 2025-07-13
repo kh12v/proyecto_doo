@@ -18,16 +18,17 @@ public class JaulaPanel extends JPanel {
     private final static int ANCHO = 150;
     private final static int ALTO = 150;
     public static boolean menuAbierto = false;
-    private Especie especie = Especie.Null;
+    private JaulaState estado;
     private int id = -1;
     private String nombre = "";
 
-    public JaulaPanel(Especie especie, TipoJaula tipoJaula) {
+    public JaulaPanel(JaulaState estado) {
         setBackground(new Color(255, 0, 0, 0));
         setLayout(new OverlayLayout(this));
         setVisible(true);
-        this.especie = especie;
-        ImageLoader loader = ImageLoader.getInstancia();
+
+        Especie especie = estado.mascotaState().especie();
+        TipoJaula tipoJaula = estado.tipo();
         if (especie == Especie.Null && tipoJaula == TipoJaula.JaulaGrande) {
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             add(cargarImagen(ANCHO, ALTO, "/espacioDisponible.png"));
@@ -67,8 +68,10 @@ public class JaulaPanel extends JPanel {
      * @param estado: La nueva información de la jaula a actualizar
      */
     public void modificarJaula(JaulaState estado) {
+        if (this.estado == estado) {return;}
+        this.estado = estado;
         removeAll();
-        especie = estado.mascotaState().especie();
+        Especie especie = estado.mascotaState().especie();
         id = estado.id();
         nombre = estado.mascotaState().nombre();
         if (especie == Especie.Null && estado.tipo() == TipoJaula.JaulaGrande) {
@@ -92,6 +95,7 @@ public class JaulaPanel extends JPanel {
     private class MyMouseListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
+            Especie especie = estado.mascotaState().especie();
             if (especie == Especie.Null || id == -1) return;
             if (JaulaPanel.menuAbierto) return;
             JaulaPanel.menuAbierto = true;

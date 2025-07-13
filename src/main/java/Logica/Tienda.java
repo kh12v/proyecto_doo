@@ -59,14 +59,20 @@ public class Tienda implements Actualizable {
     }
 
     /**
+     * Overloading con nombre = null
+     * @see Tienda#comprarProducto(Producto, String)
+     */
+    public int comprarProducto(Producto producto){return comprarProducto(producto,null);}
+    /**
      * Compra un {@code Producto}.
      * @param producto el tipo de {@code Producto}
+     * @param nombre nombre de la mascota, se ignora si no se compra una
      * @return un código sobre el éxito o fracaso de la operación,
      * o la ID de la {@code Jaula} de la {@code Mascota} si se compró una exitosamente
      */
-    public int comprarProducto(Producto producto) {
+    public int comprarProducto(Producto producto, String nombre) {
         TipoProducto tipoProducto = producto.getTipoProducto();
-        if (tipoProducto == TipoProducto.Mascota) return comprarMascota(producto);
+        if (tipoProducto == TipoProducto.Mascota) return comprarMascota(producto,nombre);
         else if (tipoProducto == TipoProducto.Comida) return comprarAlimento(producto);
         else if (tipoProducto == TipoProducto.Juguete) return comprarJuguete(producto);
         else if (tipoProducto == TipoProducto.Medicamento) return comprarMedicamento(producto);
@@ -80,14 +86,14 @@ public class Tienda implements Actualizable {
      * @param producto el tipo de {@code Producto} que representa una {@code Mascota}
      * @return la ID de la {@code Jaula} en caso de éxito, un código de error en caso contrario
      */
-    private int comprarMascota(Producto producto) {
+    private int comprarMascota(Producto producto, String nombre) {
         if (producto.getPrecio() > dinero) return C_DineroInsuficiente;
 
         Especie especie = (Especie) producto.getEnumReal();
-
+        if(nombre == null || nombre.isEmpty()){nombre = especie.toString();}
         for (Jaula jaula : jaulas) {
             if (jaula.estaVacia() && jaula.admiteEspecie(especie)) {
-                jaula.ingresarMascota(new Mascota("wuah", especie));
+                jaula.ingresarMascota(new Mascota(nombre, especie));
                 dinero -= producto.getPrecio();
                 return jaula.getID();
             }
@@ -275,7 +281,7 @@ public class Tienda implements Actualizable {
                     continue;
                 }
                 mascotasOrdenadas.remove(mascotasQueCumplen.getLast());
-                Mascota m = mascotasQueCumplen.removeLast().getMascota();
+                Mascota m = mascotasQueCumplen.getLast().getMascota();
                 servirCliente(m);
             }
         }
@@ -300,6 +306,12 @@ public class Tienda implements Actualizable {
         Cliente c = clientes.getFirst();
         if(c.entregarMascota(m)){
             clientes.removeFirst();
+            double coef = ((double) Arrays.stream(m.getIndicadores()).sum() / 400) * 2;
+            double multGerentes = Math.pow(1.3,empleados
+                    .stream()
+                    .filter(e->e.getCargo() == Cargo.Gerente && e.isTrabajando())
+                    .count());
+            dinero += (int) (m.getEspecie().precio*coef*multGerentes);
             removerMascota(m);
             calificaciones.add(c.getCalificacion());
             return true;

@@ -1,5 +1,8 @@
 package Controladores.Eventos;
 
+/**
+ * Tipos de eventos que pueden ocurrir
+ */
 public enum TipoEvento {
     ActualizarMascotas,
     ActualizarEmpleados,

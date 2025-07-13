@@ -13,6 +13,9 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Instancia de {@code Controlador} encargada de manejar los eventos relacionados con una {@code Mascota} de la {@code Tienda}
+ */
 public class ControladorMascotas implements Controlador {
     EventHandler handler;
     Tienda t;

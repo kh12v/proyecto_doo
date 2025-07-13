@@ -22,17 +22,11 @@ public class Juego implements Actualizable {
     EventHandler eventHandler;
 
     public Juego(int dineroInicial) {
-        VentanaNombre ventanaNombre = new VentanaNombre();
-        while(ventanaNombre.getTexto() == null) Thread.onSpinWait();
-        if (ventanaNombre.textoActual.equals("DEFAULT")) {
-            return;
-        }
-
-        String nombreTienda = ventanaNombre.getTexto();
-        if (nombreTienda.isEmpty()) {
-            nombreTienda = "Tienda";
-        }
-        ventanaNombre.dispose();
+        String nombreTienda = JOptionPane.showInputDialog(
+                null,
+                "Ingrese el nombre de su tienda",
+                "Nombre de la tienda",
+                JOptionPane.PLAIN_MESSAGE);
         eventHandler = new EventHandler();
         Tienda tienda = new Tienda(nombreTienda,dineroInicial);
         controlador = new ControladorPrincipal(tienda);
@@ -41,6 +35,9 @@ public class Juego implements Actualizable {
         ventanaPrincipal.enviarHandler(eventHandler);
     }
 
+    /**
+     * Inicializa el juego, echando a correr el {@code Timer}
+     */
     public void iniciar() {
         ventanaPrincipal.mostrar();
         Timer timer = new Timer();
@@ -57,56 +54,5 @@ public class Juego implements Actualizable {
     public void actualizar() {
         controlador.actualizar();
         System.out.println(Instant.now());
-    }
-}
-
-class VentanaNombre extends JFrame {
-    JTextArea textArea;
-    JButton boton;
-    String textoActual = null;
-    public VentanaNombre(){
-        setSize(400,100);
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        add(panel);
-        textArea = new JTextArea();
-        // TODO quitar comic sans y elegir una fuente decente :)
-        textArea.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
-        boton = new JButton("Confirmar");
-        boton.addActionListener(e->textoActual = textArea.getText());
-        JLabel titulo = new JLabel("Ingrese el nombre de su tienda");
-        titulo.setHorizontalAlignment(SwingConstants.CENTER);
-        titulo.setHorizontalTextPosition(SwingConstants.CENTER);
-        panel.add(boton,BorderLayout.SOUTH);
-        panel.add(titulo,BorderLayout.NORTH);
-        panel.add(textArea,BorderLayout.CENTER);
-        setVisible(true);
-
-        textArea.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {}
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    textoActual = textArea.getText();
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
-    }
-
-    public String getTexto() {
-        return textoActual;
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        if(textoActual == null && !visible){
-            textoActual = "DEFAULT";
-        }
-        super.setVisible(visible);
     }
 }

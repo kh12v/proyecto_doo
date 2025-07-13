@@ -8,13 +8,15 @@ import Logica.Actualizable;
 import Logica.Cliente;
 import Logica.Tienda;
 
+/**
+ * Instancia de {@code Controlador} encargada de manejar eventos misceláneos de la {@code Tienda}, y delegar sus funciones a controladores más específicos
+ */
 public class ControladorPrincipal implements Controlador, Actualizable {
     private final ControladorMascotas mascotas;
     private final ControladorEmpleados empleados;
     private final ControladorSuministros suministros;
     private final Tienda tienda;
     private EventHandler handler;
-    private int numeroClientes;
 
     public ControladorPrincipal(Tienda tienda) {
         mascotas = new ControladorMascotas(tienda);
@@ -49,16 +51,14 @@ public class ControladorPrincipal implements Controlador, Actualizable {
     @Override
     public void actualizar() {
         if(debeCrearCliente()){
-            System.out.println("Cliente CREADO");
             tienda.agregarCliente(Cliente.clienteAleatorio());
-            numeroClientes++;
             handler.enviar(new M_PedirCliente());
         }
 
         tienda.actualizar();
 
         handler.enviar(new V_MostrarDinero(tienda.getDinero()));
-        handler.enviar(new M_PedirIndicadoresMascotas(M_PedirIndicadoresMascotas.WILD));
+        handler.enviar(new M_PedirMascotas(M_PedirMascotas.WILD));
 
         handler.enviar(new V_ActualizarVentanaClientes());
     }

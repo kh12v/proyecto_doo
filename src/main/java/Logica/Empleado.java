@@ -8,7 +8,7 @@ import java.util.Random;
 
 
 /**
- * 
+ * Representa un empleado que cumple una funcion en la {@code Tienda} y recibe un salario dependiendo de su cargo.
  */
 public class Empleado {
     private final static Random rand = new Random();

@@ -7,6 +7,8 @@ import Logica.Enums.Producto;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /**
@@ -47,12 +49,6 @@ public class PanelCompraMascotas extends JPanel implements Publicador {
         return op;
     }
 
-    /**
-     * Permite enviar eventos
-     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
-     * @see Publicador
-     * @see Controladores.Eventos.Suscriptor
-     */
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
         for (OpcionDeCompra op : opciones) {

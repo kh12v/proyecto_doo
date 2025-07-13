@@ -9,6 +9,9 @@ import Logica.Tienda;
 
 import java.util.HashMap;
 
+/**
+ * Instancia de {@code Controlador} encargada de manejar los eventos relacionados con los suministros de la {@code Tienda}
+ */
 public class ControladorSuministros implements Controlador {
     private final Tienda t;
     private EventHandler handler;
@@ -37,7 +40,7 @@ public class ControladorSuministros implements Controlador {
     }
 
     public void contestarComprarProducto(M_ComprarProducto e) {
-        int codigoCompra = t.comprarProducto(e.producto);
+        int codigoCompra = t.comprarProducto(e.producto,e.nombre);
         if (codigoCompra < 0) {
             if (codigoCompra == Tienda.C_DineroInsuficiente) {
                 handler.enviar(new V_MostrarMensaje("No cuenta con dinero suficiente"));
@@ -49,7 +52,6 @@ public class ControladorSuministros implements Controlador {
         } else {
             handler.enviar(new V_MostrarMensaje("Compra exitosa"));
             if (e.producto.getTipoProducto() == TipoProducto.Mascota) {
-                //dejemos al controlador encargarse de esto
                 handler.enviar(new M_PedirMascotas(new int[]{codigoCompra}));
             }
             handler.enviar(new V_MostrarDinero(t.getDinero()));

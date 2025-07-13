@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * Instancia de {@code Controlador} encargada de manejar los eventos relacionados con un {@code Empleado} de la {@code Tienda}
+ */
 public class ControladorEmpleados implements Controlador {
     EventHandler handler;
     Tienda t;

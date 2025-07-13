@@ -8,7 +8,7 @@ import Logica.Jaula;
  * @param mascotaState estado de la mascota en la jaula
  * @param tipo específica si es una jaula grande o pequeña
  * @param id id de la jaula
- * @param vacia indica si la jaula esta vaciá
+ * @param vacia indica si la jaula esta vacía
  */
 public record JaulaState(
         MascotaState mascotaState,

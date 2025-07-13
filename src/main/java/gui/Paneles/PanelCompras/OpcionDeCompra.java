@@ -8,6 +8,8 @@ import gui.Paneles.BordeRedondo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -39,12 +41,7 @@ public class OpcionDeCompra extends JPanel implements Publicador {
         add(box);
     }
 
-    /**
-     * Permite enviar eventos
-     * @param handler: Objeto encargado de enviar eventos a los objetos suscriptores
-     * @see Publicador
-     * @see Controladores.Eventos.Suscriptor
-     */
+    @Override
     public void enviarHandler(EventHandler handler) {
         this.handler = handler;
     }
@@ -52,7 +49,17 @@ public class OpcionDeCompra extends JPanel implements Publicador {
     private class MyMouseListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-            handler.enviar(new M_ComprarProducto(producto));
+            if(producto.esMascota()){
+                String nombre = JOptionPane.showInputDialog(
+                        OpcionDeCompra.this,
+                        "Ingrese el nombre de su mascota",
+                        "Nombre de mascota",
+                        JOptionPane.PLAIN_MESSAGE
+                );
+                handler.enviar(new M_ComprarProducto(producto, nombre));
+            } else {
+                handler.enviar(new M_ComprarProducto(producto));
+            }
         }
     }
 }
