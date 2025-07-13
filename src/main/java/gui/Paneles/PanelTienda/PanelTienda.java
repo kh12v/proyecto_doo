@@ -65,6 +65,4 @@ public class PanelTienda extends JPanel implements Publicador, Suscriptor {
     public DestinoEvento[] getEventosEscuchados() {
         return new DestinoEvento[]{DestinoEvento.Vista};
     }
-
-
 }

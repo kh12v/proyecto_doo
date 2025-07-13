@@ -121,9 +121,9 @@ class OpcionEntrega extends JPanel implements Publicador{
         botonImagen = new JButton();
 
         botonImagen.addActionListener(e -> {
+            PanelMascotas.ocultarMenuInteractuar();
             handler.enviar(new M_EntregarMascota(id.get()));
             id.set(null);
-            System.out.println("AAAA");
         });
         botonImagen.setOpaque(false);
         botonImagen.setBorderPainted(false);
