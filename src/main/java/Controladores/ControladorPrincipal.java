@@ -59,6 +59,8 @@ public class ControladorPrincipal implements Controlador, Actualizable {
 
         handler.enviar(new V_MostrarDinero(tienda.getDinero()));
         handler.enviar(new M_PedirIndicadoresMascotas(M_PedirIndicadoresMascotas.WILD));
+
+        handler.enviar(new V_ActualizarVentanaClientes());
     }
 
     private boolean debeCrearCliente() {

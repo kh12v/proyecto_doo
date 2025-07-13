@@ -17,5 +17,6 @@ public enum TipoEvento {
     AgregarEmpleado,
     DespedirEmpleado, PedirDinero,
     SolicitarProductos, MostrarProductos,
-    EntregarMascota, PedirCliente, ActualizarCliente, ConsumirProducto
+    EntregarMascota, PedirCliente, ActualizarCliente, ConsumirProducto,
+    ActualizarVentanaClientes
 }

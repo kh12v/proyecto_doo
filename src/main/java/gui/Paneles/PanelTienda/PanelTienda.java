@@ -1,7 +1,9 @@
 package gui.Paneles.PanelTienda;
 
-import Controladores.Eventos.EventHandler;
-import Controladores.Eventos.Publicador;
+import Controladores.Eventos.*;
+import Controladores.Eventos.Tipos.V_ActualizarCalificacion;
+import Controladores.Eventos.Tipos.V_ActualizarCliente;
+import Controladores.Eventos.Tipos.V_ActualizarVentanaClientes;
 import gui.Paneles.VentanaPrincipal;
 
 import javax.swing.*;
@@ -10,7 +12,7 @@ import java.awt.*;
 /**
  * Panel principal de la tienda
  */
-public class PanelTienda extends JPanel implements Publicador {
+public class PanelTienda extends JPanel implements Publicador, Suscriptor {
     private VentanaPrincipal ventanaPrincipal;
     private EventHandler handler;
     private final PanelCliente panelCliente;
@@ -36,5 +38,33 @@ public class PanelTienda extends JPanel implements Publicador {
         this.handler = handler;
         panelCliente.enviarHandler(handler);
         panelMenu.enviarHandler(handler);
+
+        handler.suscribir(this);
     }
+
+    /**
+     * Maneja los eventos recibidos
+     * @param e: Evento enviado
+     */
+    @Override
+    public void recibir(Evento e) {
+        switch (e.getTipo()) {
+            case ActualizarVentanaClientes -> actualizarVentanaClientes((V_ActualizarVentanaClientes) e);
+        }
+    }
+
+    void actualizarVentanaClientes(V_ActualizarVentanaClientes e) {
+        panelCliente.actualizar();
+    }
+
+    /**
+     * Indica el tipo de eventos que maneja esta clase
+     * @return
+     */
+    @Override
+    public DestinoEvento[] getEventosEscuchados() {
+        return new DestinoEvento[]{DestinoEvento.Vista};
+    }
+
+
 }

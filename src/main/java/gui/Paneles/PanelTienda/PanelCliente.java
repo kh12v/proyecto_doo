@@ -81,6 +81,11 @@ public class PanelCliente extends JPanel implements Publicador, Suscriptor {
         calificacion.setText(String.format("Calificación: %.1f", evento.getNuevaCalificacion()));
     }
 
+    public void actualizar() {
+        invalidate();
+        repaint();
+    }
+
     /**
      * Indica el tipo de eventos que maneja esta clase
      * @return

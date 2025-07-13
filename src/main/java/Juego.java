@@ -6,6 +6,8 @@ import gui.Paneles.VentanaPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Timer;
@@ -22,7 +24,14 @@ public class Juego implements Actualizable {
     public Juego(int dineroInicial) {
         VentanaNombre ventanaNombre = new VentanaNombre();
         while(ventanaNombre.getTexto() == null) Thread.onSpinWait();
+        if (ventanaNombre.textoActual.equals("DEFAULT")) {
+            return;
+        }
+
         String nombreTienda = ventanaNombre.getTexto();
+        if (nombreTienda.isEmpty()) {
+            nombreTienda = "Tienda";
+        }
         ventanaNombre.dispose();
         eventHandler = new EventHandler();
         Tienda tienda = new Tienda(nombreTienda,dineroInicial);
@@ -72,6 +81,21 @@ class VentanaNombre extends JFrame {
         panel.add(titulo,BorderLayout.NORTH);
         panel.add(textArea,BorderLayout.CENTER);
         setVisible(true);
+
+        textArea.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    textoActual = textArea.getText();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
     }
 
     public String getTexto() {
