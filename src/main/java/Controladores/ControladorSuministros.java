@@ -40,7 +40,7 @@ public class ControladorSuministros implements Controlador {
     }
 
     public void contestarComprarProducto(M_ComprarProducto e) {
-        int codigoCompra = t.comprarProducto(e.producto,e.nombre);
+        int codigoCompra = t.comprarProducto(e.producto,e.nombre,e.cantidad);
         if (codigoCompra < 0) {
             if (codigoCompra == Tienda.C_DineroInsuficiente) {
                 handler.enviar(new V_MostrarMensaje("No cuenta con dinero suficiente"));
@@ -50,7 +50,7 @@ public class ControladorSuministros implements Controlador {
                 handler.enviar(new V_MostrarMensaje("Error en la compra"));
             }
         } else {
-            handler.enviar(new V_MostrarMensaje("Compra exitosa"));
+            handler.enviar(new V_MostrarMensaje("Compra exitosa (x" + e.cantidad + " "+ e.producto.getNombre()+")" ));
             if (e.producto.getTipoProducto() == TipoProducto.Mascota) {
                 handler.enviar(new M_PedirMascotas(new int[]{codigoCompra}));
             }

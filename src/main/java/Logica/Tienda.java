@@ -60,9 +60,9 @@ public class Tienda implements Actualizable {
 
     /**
      * Overloading con nombre = null
-     * @see Tienda#comprarProducto(Producto, String)
+     * @see Tienda#comprarProducto(Producto, String, int)
      */
-    public int comprarProducto(Producto producto){return comprarProducto(producto,null);}
+    public int comprarProducto(Producto producto){return comprarProducto(producto,null, 1);}
     /**
      * Compra un {@code Producto}.
      * @param producto el tipo de {@code Producto}
@@ -70,13 +70,13 @@ public class Tienda implements Actualizable {
      * @return un código sobre el éxito o fracaso de la operación,
      * o la ID de la {@code Jaula} de la {@code Mascota} si se compró una exitosamente
      */
-    public int comprarProducto(Producto producto, String nombre) {
+    public int comprarProducto(Producto producto, String nombre, int cantidad) {
         TipoProducto tipoProducto = producto.getTipoProducto();
         if (tipoProducto == TipoProducto.Mascota) return comprarMascota(producto,nombre);
-        else if (tipoProducto == TipoProducto.Comida) return comprarAlimento(producto);
-        else if (tipoProducto == TipoProducto.Juguete) return comprarJuguete(producto);
-        else if (tipoProducto == TipoProducto.Medicamento) return comprarMedicamento(producto);
-        else if (tipoProducto == TipoProducto.Higiene) return comprarJabon();
+        else if (tipoProducto == TipoProducto.Comida) return comprarAlimento(producto, cantidad);
+        else if (tipoProducto == TipoProducto.Juguete) return comprarJuguete(producto, cantidad);
+        else if (tipoProducto == TipoProducto.Medicamento) return comprarMedicamento(producto,cantidad);
+        else if (tipoProducto == TipoProducto.Higiene) return comprarJabon(cantidad);
 
         return C_Error;
     }
@@ -107,13 +107,13 @@ public class Tienda implements Actualizable {
      * @param producto el código de {@code Producto} que representa un {@code Alimento}
      * @return un código de éxito o fracaso
      */
-    private int comprarAlimento(Producto producto) {
-        if (producto.getPrecio() > dinero) return C_DineroInsuficiente;
+    private int comprarAlimento(Producto producto, int cantidad) {
+        if (producto.getPrecio()*cantidad > dinero) return C_DineroInsuficiente;
 
-        dinero -= producto.getPrecio();
+        dinero -= producto.getPrecio()*cantidad;
 
         Alimentos alimento = (Alimentos) producto.getEnumReal();
-        stockAlimentos[alimento.ordinal()]++;
+        stockAlimentos[alimento.ordinal()]+= cantidad;
 
         return C_Exito;
     }
@@ -123,13 +123,13 @@ public class Tienda implements Actualizable {
      * @param producto el código de {@code Producto} que representa un {@code Juguete}
      * @return un código de éxito o fracaso
      */
-    private int comprarJuguete(Producto producto) {
-        if (producto.getPrecio() > dinero) return C_DineroInsuficiente;
+    private int comprarJuguete(Producto producto, int cantidad) {
+        if (producto.getPrecio()*cantidad > dinero) return C_DineroInsuficiente;
 
         dinero -= producto.getPrecio();
 
         Juguetes juguete = (Juguetes) producto.getEnumReal();
-        stockJuguetes[juguete.ordinal()]++;
+        stockJuguetes[juguete.ordinal()]+= cantidad;
 
         return C_Exito;
     }
@@ -139,13 +139,13 @@ public class Tienda implements Actualizable {
      * @param producto el código de {@code Producto} que representa un {@code Medicamento}
      * @return un código de éxito o fracaso
      */
-    private int comprarMedicamento(Producto producto) {
-        if (producto.getPrecio() > dinero) return C_DineroInsuficiente;
+    private int comprarMedicamento(Producto producto, int cantidad) {
+        if (producto.getPrecio()*cantidad > dinero) return C_DineroInsuficiente;
 
-        dinero -= producto.getPrecio();
+        dinero -= producto.getPrecio()*cantidad;
 
         Medicamentos medicamento = (Medicamentos) producto.getEnumReal();
-        stockMedicamentos[medicamento.ordinal()]++;
+        stockMedicamentos[medicamento.ordinal()]+= cantidad;
 
         return C_Exito;
     }
@@ -154,12 +154,12 @@ public class Tienda implements Actualizable {
      * Compra jabón para limpiar a las mascotas.
      * @return un código de éxito o fracaso
      */
-    private int comprarJabon() {
-        if (Producto.Jabon.getPrecio() > dinero) return C_DineroInsuficiente;
+    private int comprarJabon(int cantidad) {
+        if (Producto.Jabon.getPrecio()*cantidad > dinero) return C_DineroInsuficiente;
 
-        dinero -= Producto.Jabon.getPrecio();
+        dinero -= Producto.Jabon.getPrecio()*cantidad;
 
-        stockJabones++;
+        stockJabones += cantidad;
 
         return C_Exito;
     }

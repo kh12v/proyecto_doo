@@ -3,6 +3,7 @@ package gui.Paneles.PanelCompras;
 import Controladores.Eventos.EventHandler;
 import Controladores.Eventos.Publicador;
 import Controladores.Eventos.Tipos.M_ComprarProducto;
+import Controladores.Eventos.Tipos.V_MostrarMensaje;
 import Logica.Enums.Producto;
 import gui.Paneles.BordeRedondo;
 
@@ -56,9 +57,17 @@ public class OpcionDeCompra extends JPanel implements Publicador {
                         "Nombre de mascota",
                         JOptionPane.PLAIN_MESSAGE
                 );
-                handler.enviar(new M_ComprarProducto(producto, nombre));
+                handler.enviar(new M_ComprarProducto(producto, nombre,1));
             } else {
-                handler.enviar(new M_ComprarProducto(producto));
+                String ingreso = JOptionPane.showInputDialog("Seleccione el numero a comprar");
+                if(ingreso == null){return;}
+                try{
+                    int cantidad = Integer.parseInt(ingreso);
+                    if(cantidad <= 0){throw new NumberFormatException();}
+                    handler.enviar(new M_ComprarProducto(producto,cantidad));
+                } catch (NumberFormatException ex){
+                    handler.enviar(new V_MostrarMensaje("¡Numero invalido!"));
+                }
             }
         }
     }
