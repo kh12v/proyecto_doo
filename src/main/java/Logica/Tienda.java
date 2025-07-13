@@ -38,7 +38,7 @@ public class Tienda implements Actualizable {
     public Tienda(String nombre, int dineroInicial) {
         this.nombre = nombre;
         dinero = dineroInicial;
-        renta = 5;
+        renta = 1000;
         jaulas = new ArrayList<>();
         empleados = new ArrayList<>();
         calificaciones = new ArrayList<>();
@@ -311,7 +311,7 @@ public class Tienda implements Actualizable {
                     .stream()
                     .filter(e->e.getCargo() == Cargo.Gerente && e.isTrabajando())
                     .count());
-            dinero += (int) (m.getEspecie().precio*coef*multGerentes);
+            dinero += (int) (Producto.getAnimal(m.getEspecie()).getPrecio()*coef*multGerentes);
             removerMascota(m);
             calificaciones.add(c.getCalificacion());
             return true;

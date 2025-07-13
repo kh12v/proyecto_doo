@@ -59,4 +59,13 @@ public enum Producto {
     public TipoProducto getTipoProducto() {
         return tipoProducto;
     }
+
+    public static Producto getAnimal(Especie especie) {
+        return switch (especie) {
+            case Perro, Null -> Perro;
+            case Gato -> Gato;
+            case Loro -> Loro;
+            case Hamster -> Hamster;
+        };
+    }
 }

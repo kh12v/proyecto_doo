@@ -18,10 +18,10 @@ public class Mascota implements Actualizable {
     private final String nombre;
     private final Especie especie;
     private final double[][] matrizTransicion = {
-            {0.9, 0.05, -0.03, 0},     // Hambre: Se reduce con el tiempo, mejora salud
-            {0.03, 0.85, 0.05, 0.03},  // Salud: Mejora si hay hambre (alimentación)
+            {0.92, 0.05, -0.03, 0},     // Hambre: Se reduce con el tiempo, mejora salud
+            {0.03, 0.87, 0.05, 0.03},  // Salud: Mejora si hay hambre (alimentación)
             {0.05, 0.05, 0.8, 0.05},   // Felicidad: Disminuye si no hay comida
-            {0, 0.05, -0.05, 0.9}      // Higiene: Se reduce con el tiempo
+            {0, 0.05, -0.05, 0.92}      // Higiene: Se reduce con el tiempo
     };
     double[] indicadores;
 
